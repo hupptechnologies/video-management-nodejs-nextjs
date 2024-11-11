@@ -1,0 +1,19 @@
+{
+  "name": "video-management-nodejs-nextjs",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
+    "dev-backend": "nodemon backend/index.ts",
+    "dev-frontend": "next dev frontend",
+    "build": "npm run build-backend && npm run build-frontend",
+    "build-backend": "cd backend && npm install && npm run build",
+    "build-frontend": "cd backend/frontend && npm install && next build",
+    "postinstall": "(cd backend && npm install) && (cd frontend && npm install)"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0",
+    "next": "14.2.12",
+    "nodemon": "^3.0.0"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "semi": "off",
+    "@typescript-eslint/semi": ["error"],
+    "@typescript-eslint/type-annotation-spacing": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "object-curly-newline": ["error", {
+      "ObjectExpression": "always",
+      "ObjectPattern": { "multiline": true, "minProperties": 2 }
+    }],
+    "object-curly-spacing": ["error", "always"],
+    "object-property-newline": "error",
+    "object-shorthand": "error",
+    "indent": ["error", "tab"],
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 1 }],
+    "max-len": ["error", { "code": 120 }],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "space-before-blocks": "error",
+    "space-before-function-paren": "error",
+    "space-in-parens": [
+        "error",
+        "never"
+    ],
+    "space-infix-ops": "error",
+    "space-unary-ops": "error",
+    "spaced-comment": [
+        "error",
+        "always"
+    ],
+    "no-trailing-spaces": "error",
+    "no-whitespace-before-property": "error",
+    "eol-last": ["error", "always"]
+  }
+}
