@@ -82,7 +82,9 @@ export const userByIdSchema: FastifySchema = {
 	params: {
 		type: 'object',
 		properties: {
-			userId: { type: 'string' },
+			userId: {
+				type: 'string'
+			},
 		},
 		required: ['userId']
 	}
@@ -94,15 +96,21 @@ export const updateUserSchema: FastifySchema = {
 	params: {
 		type: 'object',
 		properties: {
-			userId: { type: 'string' },
+			userId: {
+				type: 'string'
+			},
 		},
 		required: ['userId']
 	},
 	body: {
 		type: 'object',
 		properties: {
-			name: { type: 'string' },
-			password: { type: 'string' },
+			name: {
+				type: 'string'
+			},
+			password: {
+				type: 'string'
+			},
 		},
 		required: ['name', 'password']
 	},
