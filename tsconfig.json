@@ -101,11 +101,11 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "src"
+    "backend"
   ],
   "exclude": [
     "node_modules",
-    "src/migrations/*.js"
+    "backend/migrations/*.js"
   ],
   "typeAcquisition": {
     "enable": true

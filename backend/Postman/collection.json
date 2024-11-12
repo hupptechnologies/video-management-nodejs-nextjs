@@ -1,0 +1,1009 @@
+{
+	"info": {
+		"_postman_id": "b29d0ea7-2601-4837-b8af-10e2d63fc453",
+		"name": "Video-Mangement-NodeJS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33453629"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "USER LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.status === 'OK') {",
+									"    // Get the token from the response header",
+									"    var token = pm.response.headers.get('token');",
+									"    ",
+									"    // Store the token in collection variables with the key 'USERTOKEN'",
+									"    pm.collectionVariables.set(\"USERTOKEN\", token);",
+									"} else {",
+									"    // Unset the 'USERTOKEN' collection variable if the status is not 'OK'",
+									"    pm.collectionVariables.unset(\"USERTOKEN\");",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user3@hupp.in\",\n  \"password\": \"Test@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/auth/login",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADMIN LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.status === 'OK') {",
+									"    // Get the token from the response header",
+									"    var token = pm.response.headers.get('token');",
+									"    ",
+									"    // Store the token in collection variables with the key 'USERTOKEN'",
+									"    pm.collectionVariables.set(\"ADMIN-TOKEN\", token);",
+									"} else {",
+									"    // Unset the 'USERTOKEN' collection variable if the status is not 'OK'",
+									"    pm.collectionVariables.unset(\"ADMIN-TOKEN\");",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@hupp.in\",\n  \"password\": \"Test@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/auth/admin/login",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"auth",
+								"admin",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"User1\",\n  \"email\": \"user5@hupp.in\",\n  \"password\": \"Test@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/auth/register",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADMIN REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Demo\",\n  \"email\": \"admin@hupp.in\",\n  \"password\": \"Test@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/auth/admin/register",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"auth",
+								"admin",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REFRESH TOKEN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "refresh-token",
+								"value": "{{USERREFRESHTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/auth/refresh-token",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ADMIN",
+			"item": [
+				{
+					"name": "USER LIST",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{ADMIN-TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/auth/user/list",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "USER BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USERTOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/auth/user/{{userId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[UPDATE] USER BY ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Demo user\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/auth/user/{{userId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Channel",
+			"item": [
+				{
+					"name": "Create channel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Second channel\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/channels/create",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"channels",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List channels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/channels/list",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"channels",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get channel by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/channels/{{channelId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"channels",
+								"{{channelId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update channel by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/channels/{{channelId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"channels",
+								"{{channelId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete channel by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/channels/{{channelId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"channels",
+								"{{channelId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Video List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/channels/{{channelId}}/videos",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"channels",
+								"{{channelId}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Channels by user id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/channels/user/{{userId}}?limit=4&offset=0",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"channels",
+								"user",
+								"{{userId}}"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "4"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "VIDEOS",
+			"item": [
+				{
+					"name": "Create Video",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Recorded Video",
+									"type": "text"
+								},
+								{
+									"key": "video",
+									"type": "file",
+									"src": "/home/huppdev10/Videos/Screencast 2024-09-03 17:40:20.mp4"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/users/videos/{{channelId}}/create",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"users",
+								"videos",
+								"{{channelId}}",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List for Admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{ADMIN-TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/admin/videos?approval=",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"admin",
+								"videos"
+							],
+							"query": [
+								{
+									"key": "approval",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get videos associated with user pending for approval",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{ADMIN-TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/admin/videos/{{userId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"admin",
+								"videos",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approval for Videos by Admin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{ADMIN-TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/admin/videos/{{videoId}}?approval=approved",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"admin",
+								"videos",
+								"{{videoId}}"
+							],
+							"query": [
+								{
+									"key": "approval",
+									"value": "approved"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get list for User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/users/videos",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"users",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Video by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/users/videos/{{videoId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"users",
+								"videos",
+								"{{videoId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Video by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"My 2nd Video\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/users/videos/{{videoId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"users",
+								"videos",
+								"{{videoId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Video by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/users/videos/{{videoId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"users",
+								"videos",
+								"{{videoId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Videos globally",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/videos",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"videos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Video Feedbacks",
+			"item": [
+				{
+					"name": "Like Video",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"isLike\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/videos/like/{{videoId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"videos",
+								"like",
+								"{{videoId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add video comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": \"Nice\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/videos/comment/{{videoId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"videos",
+								"comment",
+								"{{videoId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get video comments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/videos/comment/{{videoId}}?limit=10&offset=0",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"videos",
+								"comment",
+								"{{videoId}}"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update video comment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": \"Very Nice\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEPATH}}/videos/comment/{{commentId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"videos",
+								"comment",
+								"{{commentId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete video comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/videos/comment/{{commentId}}",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"videos",
+								"comment",
+								"{{commentId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASEPATH",
+			"value": "http://localhost:4000/api"
+		},
+		{
+			"key": "ADMIN-TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhZG1pbkBodXBwLmluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzI1MzUyMTIzLCJleHAiOjE3MjU0Mzg1MjN9.aPd3Zbrx-rtQ4V185-DHMCmAXT8sqekPMnP4FgQOm9M"
+		},
+		{
+			"key": "userId",
+			"value": "1"
+		},
+		{
+			"key": "USERTOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGh1cHAuaW4iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzUyNzE3NywiZXhwIjoxNzI3NTI3MTg3fQ.UMHyc3fc1sr-f-x0rnvrZKXYS1MiTsUdeOfEI3TlvN4"
+		},
+		{
+			"key": "channelId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "videoId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "USERREFRESHTOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQGh1cHAuaW4iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzUyNzAxNywiZXhwIjoxNzI4MTMxODE3fQ.I6DMDSWJ2SJbzGECreR6qUBdeyUgnte9igS4gXgwmNI",
+			"type": "string"
+		},
+		{
+			"key": "commentId",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}

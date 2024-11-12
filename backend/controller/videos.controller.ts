@@ -22,7 +22,7 @@ class VideoController {
 				}
 			});
 			const videoUrl = await cloudinary.uploadVideo(req, res);
-			if(!videoUrl) {
+			if (!videoUrl) {
 				return Response.send(res, {
 					status: statusCodes.BAD_REQUEST,
 					success: false,
@@ -283,9 +283,7 @@ class VideoController {
 				isDeleted: false
 			};
 
-			if(userId) {
-				where.userId = userId;
-			} else {
+			if (!userId) {
 				where.approval = 'approved';
 			}
 
@@ -293,7 +291,7 @@ class VideoController {
 				where,
 				attributes: {
 					exclude: [
-						'isDeleted', 'approval'
+						'isDeleted'
 					],
 					include: [
 						[
@@ -336,12 +334,21 @@ class VideoController {
 				});
 			}
 
-			return Response.send(res, {
-				data: result,
-				status: statusCodes.SUCCESS,
-				success: true,
-				message: message.VIDEO_DETAIL_FETCHED
-			});
+			if (result?.dataValues.userId === userId || result?.dataValues.approval === 'approved') {
+				return Response.send(res, {
+					data: result,
+					status: statusCodes.SUCCESS,
+					success: true,
+					message: message.VIDEO_DETAIL_FETCHED
+				});
+			} else {
+				return Response.send(res, {
+					status: statusCodes.BAD_REQUEST,
+					success: false,
+					message: message.DETAIL_NOT_FOUND
+				});
+			}
+
 		} catch (error: any) {
 			return Response.send(res, {
 				status: statusCodes.BAD_REQUEST,
@@ -440,7 +447,7 @@ class VideoController {
 			const {
 				limit = 10, offset = 0
 			} = req.query as TQuery;
-			const userId = req?.user?.id || '' ;
+			const userId = req?.user?.id || '';
 
 			const {
 				count,
@@ -450,7 +457,7 @@ class VideoController {
 					approval: 'approved',
 					isDeleted: false
 				},
-				attributes : {
+				attributes: {
 					exclude: ['isDeleted', 'approval', 'channelId'],
 					include: [
 						[
