@@ -24,7 +24,7 @@
     "object-shorthand": "error",
     "indent": ["error", "tab"],
     "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 1 }],
-    "max-len": ["error", { "code": 120 }],
+    "max-len": ["error", { "code": 150 }],
     "comma-spacing": ["error", { "before": false, "after": true }],
     "space-before-blocks": "error",
     "space-before-function-paren": "error",
