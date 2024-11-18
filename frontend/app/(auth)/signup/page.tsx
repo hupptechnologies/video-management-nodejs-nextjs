@@ -1,9 +1,12 @@
 "use client";
 import { Button, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, Container, CircularProgress } from '@mui/material';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useAppSelector } from '@/store/hooks';
-import { LinkStyle } from '@/styles';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { register } from '@/store/feature/auth/action';
+import { validateEmail, validatePassword } from '@/utils/helper';
+import { LinkStyle } from '@/styles/common';
 
 export default function SignUp () {
 
@@ -16,9 +19,31 @@ export default function SignUp () {
 	const [emailError, setEmailError] = useState('');
 	const [passwordError, setPasswordError] = useState('');
 	const { authLoading } = useAppSelector(state => state.auth);
+	const router = useRouter();
+	const dispatch = useAppDispatch();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		setPasswordError(
+			validatePassword(formData.password) ? '' : 'Password length must be between 8 and 16 characters'
+		);
+		setEmailError(
+			validateEmail(formData.email)
+				? ''
+				: 'Invalid email address'
+		);
+		if (validatePassword(formData.password) && validateEmail(formData.email)) {
+			const registerData = {
+				email: formData.email,
+				password: formData.password,
+				name: formData.firstName + ' ' + formData.lastName
+			};
+			dispatch(register(registerData))
+				.unwrap()
+				.then(() => {
+					router.push('/login');
+				});
+		}
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

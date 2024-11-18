@@ -3,8 +3,10 @@ import  React, { useEffect, useState } from 'react';
 import { TextField, Button, FormControlLabel, Checkbox, Grid, Box, Typography, Container, CircularProgress } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useAppSelector } from '@/store/hooks';
-import { LinkStyle } from '@/styles';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { login } from '@/store/feature/auth/action';
+import { validateEmail } from '@/utils/helper';
+import { LinkStyle } from '@/styles/common';
 
 export default function Login () {
 
@@ -16,6 +18,7 @@ export default function Login () {
 	const {
 		authLoading, isLoggedIn
 	} = useAppSelector(state => state.auth);
+	const dispatch = useAppDispatch();
 	const router = useRouter();
 
 	useEffect(()=> {
@@ -26,6 +29,21 @@ export default function Login () {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (validateEmail(formData.email) || formData.email === '') {
+			setEmailError('');
+		} else {
+			setEmailError('Invalid email address');
+			return;
+		}
+		const registerData = {
+			email: formData.email,
+			password: formData.password
+		};
+		dispatch(login(registerData))
+			.unwrap()
+			.then(() => {
+				router.push('/');
+			});
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
