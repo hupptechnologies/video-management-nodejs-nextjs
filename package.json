@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently --names \"backend,frontend\" --prefix-colors \"bgBlue.bold,bgGreen.bold\" \"npm run dev-backend\" \"npm run dev-frontend\"",
+    "dev": "concurrently -p \"{time} | {name} | \" --timestamp-format 'HH:mm:ss' -n \"backend,frontend\" -c \"blue.bold,green.bold\" \"npm run dev-backend\" \"npm run dev-frontend\"",
     "dev-backend": "nodemon --watch backend backend/index.ts",
     "dev-frontend": "next dev frontend",
     "build": "npm run build-backend && npm run build-frontend",
