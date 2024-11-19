@@ -1,10 +1,11 @@
 'use client';
 import { AppBar, Toolbar, Typography, IconButton, InputBase, Box, Button, Menu, MenuItem, Tooltip, Avatar } from '@mui/material';
-import { Search as SearchIcon, Home as HomeIcon } from '@mui/icons-material';
-import Link from 'next/link';
+import { Search as SearchIcon } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { logout } from '@/store/feature/auth/slice';
+import { NavbarAppBar } from '@/styles/components/Navbar';
 
 const settings = ['Profile', 'My Videos', 'Logout'];
 
@@ -13,6 +14,7 @@ const Navbar = () => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const { isLoggedIn } = useAppSelector(state => state.auth);
 	const router = useRouter();
+	const dispatch = useAppDispatch();
 
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(event.target.value);
@@ -24,7 +26,7 @@ const Navbar = () => {
 
 	const handleCloseUserMenu = (setting: string) => {
 		if (setting === 'Logout') {
-			console.log('logout');
+			dispatch(logout());
 		} else if (setting === 'My Videos') {
 			router.push('/videos');
 		}
@@ -39,34 +41,25 @@ const Navbar = () => {
 	};
 
 	return (
-		<AppBar position="sticky">
+		<AppBar sx={NavbarAppBar} position="sticky">
 			<Toolbar>
-				<Link href="/" passHref>
-					<IconButton color="inherit">
-						<HomeIcon />
-					</IconButton>
-				</Link>
-				<Typography onClick={() => router.push('/')} variant="h5" component="div" sx={{
-					flexGrow: 1,
-					cursor: 'pointer'
-				}}>
-					Video Management
-				</Typography>
 				<Box component="form" onSubmit={handleSearchSubmit} sx={{
 					display: 'flex',
 					alignItems: 'center',
 					mr: 2,
 					flexGrow: 1
 				}}>
-					<SearchIcon />
+					<SearchIcon sx={{
+						color: 'primary.main'
+					}} />
 					<InputBase
 						placeholder="Search…"
 						value={searchTerm}
 						onChange={handleSearchChange}
 						sx={{
 							ml: 1,
-							color: 'inherit',
-							width: '200px'
+							width: '200px',
+							color: 'primary.main'
 						}}
 						inputProps={{
 							'aria-label': 'search'
@@ -112,7 +105,9 @@ const Navbar = () => {
 						</Menu>
 					</Box>
 				) : (
-					<Button color="inherit" onClick={() => router.push('/login')}>
+					<Button sx={{
+						color: 'primary.main'
+					}} onClick={() => router.push('/login')}>
 						Login
 					</Button>
 				)}
