@@ -19,40 +19,40 @@ const baseTheme: ThemeOptions = {
 	},
 	palette: {
 		primary: {
-			main: '#1E88E5',
-			light: '#6AB7FF',
-			dark: '#1565C0',
+			main: '#00A76F',
+			light: '#5BE49B',
+			dark: '#007867',
 			contrastText: '#FFFFFF',
 		},
 		secondary: {
-			main: '#FF4081',
-			light: '#FF79B0',
-			dark: '#C60055',
+			main: '#8E33FF',
+			light: '#C684FF',
+			dark: '#5119B7',
 			contrastText: '#FFFFFF',
 		},
 		background: {
-			default: '#F9FAFB',
+			default: '#F4F6F8',
 			paper: '#FFFFFF',
 		},
 		text: {
-			primary: '#212121',
-			secondary: '#757575',
-			disabled: '#BDBDBD',
+			primary: '#1C252E',
+			secondary: '#637381',
+			disabled: '#919EAB',
 		},
 		error: {
-			main: '#E53935',
+			main: '#FF5630',
 			contrastText: '#FFFFFF',
 		},
 		success: {
-			main: '#43A047',
+			main: '#22C55E',
 			contrastText: '#FFFFFF',
 		},
 		warning: {
-			main: '#FB8C00',
+			main: '#FFAB00',
 			contrastText: '#FFFFFF',
 		},
 		info: {
-			main: '#039BE5',
+			main: '#00B8D9',
 			contrastText: '#FFFFFF',
 		},
 		divider: '#E0E0E0',
@@ -63,63 +63,64 @@ const baseTheme: ThemeOptions = {
 		h1: {
 			fontSize: '2.75rem',
 			fontWeight: 700,
-			color: '#212121'
+			color: '#212121',
 		},
 		h2: {
 			fontSize: '2.25rem',
 			fontWeight: 700,
-			color: '#212121'
+			color: '#212121',
 		},
 		h3: {
 			fontSize: '2rem',
 			fontWeight: 600,
-			color: '#212121'
+			color: '#212121',
 		},
 		h4: {
 			fontSize: '1.75rem',
 			fontWeight: 600,
-			color: '#424242'
+			color: '#424242',
 		},
 		h5: {
 			fontSize: '1.5rem',
 			fontWeight: 500,
-			color: '#424242'
+			color: '#424242',
 		},
 		h6: {
 			fontSize: '1.25rem',
 			fontWeight: 500,
-			color: '#757575'
+			color: '#757575',
 		},
 		subtitle1: {
 			fontSize: '1rem',
-			color: '#757575'
+			color: '#757575',
 		},
 		subtitle2: {
 			fontSize: '0.875rem',
-			color: '#757575'
+			color: '#757575',
 		},
 		body1: {
 			fontSize: '1rem',
-			color: '#212121'
+			color: '#212121',
 		},
 		body2: {
 			fontSize: '0.875rem',
-			color: '#424242'
+			color: '#424242',
 		},
 		button: {
 			fontSize: '0.875rem',
 			fontWeight: 700,
-			textTransform: 'uppercase'
+			textTransform: 'uppercase',
+			color: '#00A76F',
 		},
 		caption: {
 			fontSize: '0.75rem',
-			color: '#9E9E9E'
+			color: '#9E9E9E',
 		},
 		overline: {
 			fontSize: '0.75rem',
 			fontWeight: 700,
 			textTransform: 'uppercase',
-			color: '#9E9E9E'
+			color: '#9E9E9E',
 		},
 	},
 	shape: {
