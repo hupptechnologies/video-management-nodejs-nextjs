@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logout } from '@/store/feature/auth/slice';
+import { theme } from '@/lib/mui/theme';
 import { NavbarAppBar } from '@/styles/components/Navbar';
 
 const settings = ['Profile', 'My Videos', 'Logout'];
@@ -12,6 +13,7 @@ const settings = ['Profile', 'My Videos', 'Logout'];
 const Navbar = () => {
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 	const [searchTerm, setSearchTerm] = useState("");
+	const [isSearchInputFocus, setIsSearchInputFocus] = useState(false);
 	const { isLoggedIn } = useAppSelector(state => state.auth);
 	const router = useRouter();
 	const dispatch = useAppDispatch();
@@ -42,29 +44,54 @@ const Navbar = () => {
 
 	return (
 		<AppBar sx={NavbarAppBar} position="sticky">
-			<Toolbar>
-				<Box component="form" onSubmit={handleSearchSubmit} sx={{
-					display: 'flex',
-					alignItems: 'center',
+			<Toolbar sx={{
+				justifyContent: 'space-between'
+			}}>
+				<div></div>
+				<Box sx={{
+					border: `1px solid ${theme.palette.primary.main}`,
+					borderRadius: '40px',
 					mr: 2,
-					flexGrow: 1
 				}}>
-					<SearchIcon sx={{
-						color: 'primary.main'
-					}} />
-					<InputBase
-						placeholder="Search…"
-						value={searchTerm}
-						onChange={handleSearchChange}
-						sx={{
-							ml: 1,
-							width: '200px',
-							color: 'primary.main'
-						}}
-						inputProps={{
-							'aria-label': 'search'
-						}}
-					/>
+					<Box component="form" onSubmit={handleSearchSubmit} sx={{
+						display: 'flex',
+						alignItems: 'center',
+					}}>
+						{isSearchInputFocus && <SearchIcon sx={{
+							color: 'primary.main',
+							marginLeft: '8px'
+						}} />}
+						<InputBase
+							onFocus={() => setIsSearchInputFocus(true)}
+							onBlur={() => setIsSearchInputFocus(false)}
+							placeholder="Search"
+							value={searchTerm}
+							onChange={handleSearchChange}
+							sx={{
+								ml: 1,
+								width: '200px',
+								color: 'primary.main',
+								padding: '4px 0 4px 4px'
+							}}
+							inputProps={{
+								'aria-label': 'search'
+							}}
+						/>
+						<Button variant="contained" sx={{
+							backgroundColor: '#00a76f14',
+							position: 'relative',
+							boxShadow: 'none',
+							borderRadius: '0 40px 40px 0',
+							'&:hover': {
+								boxShadow: 'none',
+								backgroundColor: '#00a76f29',
+							}
+						}} type="submit">
+							<SearchIcon sx={{
+								color: 'primary.main'
+							}} />
+						</Button>
+					</Box>
 				</Box>
 				{isLoggedIn ? (
 					<Box sx={{
