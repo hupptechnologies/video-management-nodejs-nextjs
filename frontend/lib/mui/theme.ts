@@ -31,7 +31,7 @@ const baseTheme: ThemeOptions = {
 			contrastText: '#FFFFFF',
 		},
 		background: {
-			default: '#F4F6F8',
+			default: '#FFFFFF',
 			paper: '#FFFFFF',
 		},
 		text: {
