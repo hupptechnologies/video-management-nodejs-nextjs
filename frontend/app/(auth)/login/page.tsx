@@ -1,6 +1,6 @@
 "use client";
 import  React, { useEffect, useState } from 'react';
-import { TextField, Button, FormControlLabel, Checkbox, Grid, Box, Typography, Container, CircularProgress } from '@mui/material';
+import { TextField, Button, FormControlLabel, Checkbox, Grid, Box, Typography, Container, CircularProgress, Card } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -55,7 +55,7 @@ export default function Login () {
 	};
 
 	return (
-		<Container component="main" maxWidth="xs">
+		<Container component="main" maxWidth="sm">
 			<Box
 				sx={{
 					marginTop: 8,
@@ -64,78 +64,87 @@ export default function Login () {
 					alignItems: 'center',
 				}}
 			>
-				<Typography component="h1" variant="h5">
+				<Card
+					key={'login-form-card'}
+					sx={{
+						boxShadow: '0px 4px 20px rgba(0, 167, 111, 0.16)',
+						transition: 'transform 0.3s ease',
+						padding:'24px'
+					}}
+				>
+					<Typography component="h1" variant="h5">
                     Login
-				</Typography>
-				<Box component="form" onSubmit={handleSubmit} sx={{
-					mt: 1
-				}}>
-					<TextField
-						margin="normal"
-						required
-						fullWidth
-						id="email"
-						label="Email Address"
-						name="email"
-						autoComplete="email"
-						value={formData.email}
-						onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
-						autoFocus
-					/>
-					{emailError && (
-						<p style={{
-							color: 'red',
-							margin: '5px 0'
-						}}>{emailError}</p>
-					)}
-					<TextField
-						margin="normal"
-						required
-						fullWidth
-						name="password"
-						label="Password"
-						type="password"
-						id="password"
-						autoComplete="current-password"
-						value={formData.password}
-						onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
-					/>
-					<FormControlLabel
-						control={<Checkbox value="remember" color="primary" />}
-						label="Remember me"
-					/>
-					{authLoading
-						? <Box sx={{
-							alignItems: 'center',
-							justifyContent: 'center',
-							display: 'flex'
-						}}>
-							<CircularProgress />
-						</Box>
-						: <Button
-							type="submit"
+					</Typography>
+					<Box component="form" onSubmit={handleSubmit} sx={{
+						mt: 1
+					}}>
+						<TextField
+							margin="normal"
+							required
 							fullWidth
-							variant="contained"
-							sx={{
-								mt: 3,
-								mb: 2
-							}}
-						>
+							id="email"
+							label="Email Address"
+							name="email"
+							autoComplete="email"
+							value={formData.email}
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+							autoFocus
+						/>
+						{emailError && (
+							<p style={{
+								color: 'red',
+								margin: '5px 0'
+							}}>{emailError}</p>
+						)}
+						<TextField
+							margin="normal"
+							required
+							fullWidth
+							name="password"
+							label="Password"
+							type="password"
+							id="password"
+							autoComplete="current-password"
+							value={formData.password}
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+						/>
+						<FormControlLabel
+							control={<Checkbox value="remember" color="primary" />}
+							label="Remember me"
+						/>
+						{authLoading
+							? <Box sx={{
+								alignItems: 'center',
+								justifyContent: 'center',
+								display: 'flex'
+							}}>
+								<CircularProgress />
+							</Box>
+							: <Button
+								type="submit"
+								fullWidth
+								variant="contained"
+								sx={{
+									mt: 3,
+									mb: 2
+								}}
+							>
                         Log In
-						</Button>}
-					<Grid container>
-						<Grid item xs>
-							<Link style={LinkStyle} href="/#" passHref>
+							</Button>}
+						<Grid container>
+							<Grid item xs>
+								<Link style={LinkStyle} href="/#" passHref>
 								Forgot password?
-							</Link>
+								</Link>
+							</Grid>
+							<Grid item>
+								<Link style={LinkStyle} href="/signup" passHref>
+									{"Don't"} have an account? Sign Up
+								</Link>
+							</Grid>
 						</Grid>
-						<Grid item>
-							<Link style={LinkStyle} href="/signup" passHref>
-								{"Don't"} have an account? Sign Up
-							</Link>
-						</Grid>
-					</Grid>
-				</Box>
+					</Box>
+				</Card>
 			</Box>
 		</Container>
 	);
