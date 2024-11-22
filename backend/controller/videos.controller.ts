@@ -251,6 +251,11 @@ class VideoController {
 						]
 					]
 				},
+				include: [{
+					model: Channels,
+					as: 'channels',
+					attributes: ['id', 'name', 'createdAt'],
+				}],
 				limit,
 				offset
 			});
@@ -323,7 +328,12 @@ class VideoController {
 							'isLike'
 						]
 					]
-				}
+				},
+				include: [{
+					model: Channels,
+					as: 'channels',
+					attributes: ['id', 'name', 'createdAt'],
+				}],
 			});
 
 			if (!result) {
