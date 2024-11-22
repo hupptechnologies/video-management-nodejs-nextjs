@@ -1,3 +1,5 @@
+import { Channel } from "./channel";
+
 export type Video = {
     id: number;
     name: string;
@@ -7,12 +9,6 @@ export type Video = {
     isLike: boolean | null;
     channels: Channel;
     createdAt: string;
-};
-
-export type Channel = {
-    id: number;
-    name: string;
-    createdAt: string
 };
 
 export type VideoResponse = {
@@ -28,8 +24,4 @@ export interface VideoState {
     videos: Video[];
     userVideos: Video[];
     isFetchingVideo: boolean;
-}
-
-export interface VideoByIdRequest {
-    id: number;
 }

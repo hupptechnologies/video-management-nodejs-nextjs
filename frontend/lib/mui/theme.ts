@@ -78,12 +78,12 @@ const baseTheme: ThemeOptions = {
 		h4: {
 			fontSize: '1.75rem',
 			fontWeight: 600,
-			color: '#424242',
+			color: '#0f0f0f',
 		},
 		h5: {
 			fontSize: '1.5rem',
 			fontWeight: 500,
-			color: '#424242',
+			color: '#0f0f0f',
 		},
 		h6: {
 			fontSize: '1.25rem',
@@ -92,11 +92,11 @@ const baseTheme: ThemeOptions = {
 		},
 		subtitle1: {
 			fontSize: '1rem',
-			color: '#757575',
+			color: '#252424',
 		},
 		subtitle2: {
 			fontSize: '0.875rem',
-			color: '#757575',
+			color: '#252424',
 		},
 		body1: {
 			fontSize: '1rem',

@@ -1,5 +1,6 @@
-import { VideoByIdRequest, VideoByIdResponse, VideoResponse } from "@/types/video";
 import { HTTP } from "./http";
+import { VideoByIdResponse, VideoResponse } from "@/types/video";
+import { FindByIdRequest } from "@/types/common";
 
 type AxiosResponse = {
         data: VideoResponse
@@ -20,7 +21,7 @@ class VideoService {
 		});
 	}
 
-	findById (data: VideoByIdRequest) {
+	findById (data: FindByIdRequest) {
 		return HTTP.Get<VideoByIdResponse>({
 			route: `users/videos/${data.id}`,
 		});

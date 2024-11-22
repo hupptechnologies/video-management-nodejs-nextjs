@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { videoService } from "@/services/video";
 import { showToast } from "../toast/slice";
-import { VideoByIdRequest } from '@/types/video';
+import { FindByIdRequest } from '@/types/common';
 
 export const getGlobalVideos = createAsyncThunk(
 	'video/getGlobalVideos',
@@ -43,7 +43,7 @@ export const getUserVideos = createAsyncThunk(
 
 export const getVideoById = createAsyncThunk(
 	'video/getVideoById',
-	async (data: VideoByIdRequest, { rejectWithValue }) => {
+	async (data: FindByIdRequest, { rejectWithValue }) => {
 		try {
 			const response = await videoService.findById(data);
 			return response.data;
