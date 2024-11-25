@@ -10,6 +10,55 @@ BackendAuthenticatedService.interceptors.request.use((config) => {
 	return config;
 });
 
+
+const refreshAccessToken = async () => {
+	const refreshToken = localStorage.getItem('refreshToken');
+
+	try {
+		const response = await axios.post(
+			'http://0.0.0.0:4000/api/auth/refresh-token',
+			{
+			},
+			{
+				headers: {
+					'refresh-token': refreshToken,
+				},
+			}
+		);
+
+		localStorage.setItem('token', response.headers?.token);
+
+		return response.headers?.token;
+	} catch (error) {
+		console.error('Refresh token failed:', error);
+		localStorage.removeItem('token');
+		localStorage.removeItem('refreshToken');
+		window.location.href = '/login';
+		throw error;
+	}
+};
+
+BackendAuthenticatedService.interceptors.response.use(
+	(response) => response,
+	async (error) => {
+		const originalRequest = error.config;
+
+		if (error.response?.status === 401 && error.response.data.message === "Token expired" && !originalRequest._retry) {
+			originalRequest._retry = true;
+
+			try {
+				await refreshAccessToken();
+
+				return BackendAuthenticatedService(originalRequest);
+			} catch (refreshError) {
+				return Promise.reject(refreshError);
+			}
+		}
+
+		return Promise.reject(error);
+	}
+);
+
 type HeadersProps = {
 	[key: string]: string;
 };
