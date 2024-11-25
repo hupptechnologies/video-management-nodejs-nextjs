@@ -4,8 +4,9 @@ import { authSlice } from './feature/auth/slice';
 import { toastSlice } from './feature/toast/slice';
 import { videoSlice } from './feature/video/slice';
 import { navigationSlice } from './feature/navigation/slice';
+import { channelSlice } from './feature/channel/slice';
 
-const rootReducer = combineSlices(authSlice, toastSlice, videoSlice, navigationSlice);
+const rootReducer = combineSlices(authSlice, toastSlice, videoSlice, navigationSlice, channelSlice);
 
 export const makeStore = () => {
 	return configureStore({

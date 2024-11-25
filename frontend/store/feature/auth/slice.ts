@@ -34,7 +34,7 @@ export const authSlice = createAppSlice({
 				state.isLoggedIn = true;
 				localStorage.setItem('token', action.payload.headers.token);
 				state.token = action.payload.headers.token;
-				state.refreshToken = action.payload.headers?.['refresh-token'];
+				localStorage.setItem('refreshToken', action.payload.headers?.['refresh-token']);
 				state.user = action.payload.data.data;
 				state.authLoading = false;
 			})
