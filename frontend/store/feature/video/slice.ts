@@ -1,6 +1,6 @@
 import { VideoState } from '@/types/video';
 import { createAppSlice } from '@/store/createAppSlice';
-import { getGlobalVideos, getUserVideos, getVideoById } from './action';
+import { getChannelVideos, getGlobalVideos, getUserVideos, getVideoById } from './action';
 
 const initialState: VideoState = {
 	video : {
@@ -64,6 +64,16 @@ export const videoSlice = createAppSlice({
 				state.isFetchingVideo = false;
 			})
 			.addCase(getVideoById.rejected, (state) => {
+				state.isFetchingVideo = false;
+			})
+			.addCase(getChannelVideos.pending, (state) => {
+				state.isFetchingVideo = true;
+			})
+			.addCase(getChannelVideos.fulfilled, (state, action) => {
+				state.videos = action.payload.data.results;
+				state.isFetchingVideo = false;
+			})
+			.addCase(getChannelVideos.rejected, (state) => {
 				state.isFetchingVideo = false;
 			});
 	}
