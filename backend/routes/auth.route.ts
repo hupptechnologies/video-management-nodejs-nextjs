@@ -60,6 +60,13 @@ const users = async (fastify: FastifyInstance<Server, IncomingMessage, ServerRes
 	});
 
 	fastify.route({
+		method: 'GET',
+		url: '/user',
+		preHandler: fastify.auth([verifyToken]),
+		handler: UserController.find
+	});
+
+	fastify.route({
 		method: 'PUT',
 		url: '/user/:userId',
 		schema: updateUserSchema,

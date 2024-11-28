@@ -37,7 +37,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"user3@hupp.in\",\n  \"password\": \"Test@123\"\n}",
+							"raw": "{\n  \"email\": \"user@hupp.in\",\n  \"password\": \"Test@123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -311,6 +311,30 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{USERTOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASEPATH}}/auth/user",
+							"host": [
+								"{{BASEPATH}}"
+							],
+							"path": [
+								"auth",
+								"user"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -330,7 +354,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Second channel\"\n}",
+							"raw": "{\n    \"name\": \"History\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -411,7 +435,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Updated name\"\n}",
+							"raw": "{\n    \"name\": \"History talk\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

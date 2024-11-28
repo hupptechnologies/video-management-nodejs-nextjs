@@ -9,6 +9,38 @@ const { Users } = models;
 
 class UserController {
 
+	async fetchUserDetails (
+		identifier: { id: number; role: string; isDeleted: boolean },
+		res: FastifyReply
+	) {
+		try {
+			const result = await Users.findOne({
+				where: identifier,
+				attributes: {
+					exclude: ['isDeleted', 'password'],
+				},
+			});
+
+			if (!result) {
+				Response.send(res, {
+					status: statusCodes.BAD_REQUEST,
+					success: false,
+					message: message.DETAIL_NOT_FOUND,
+				});
+				return null;
+			}
+
+			return result;
+		} catch (error: any) {
+			Response.send(res, {
+				status: statusCodes.BAD_REQUEST,
+				success: false,
+				message: error.message,
+			});
+			return null;
+		}
+	}
+
 	async register (req: FastifyRequest, res: FastifyReply) {
 		try {
 			const userInfo = req.body as TUsers;
@@ -207,44 +239,49 @@ class UserController {
 		}
 	}
 
-	async findById (req: FastifyRequest, res: FastifyReply) {
-		try {
-			const { userId } = req.params as { userId: number };
-			const result = await Users.findOne({
-				where: {
-					id: userId,
-					role: 'user',
-					isDeleted: false
-				},
-				attributes: {
-					exclude: [
-						'isDeleted',
-						'password'
-					]
-				}
-			});
-			if(!result) {
-				Response.send(res, {
-					status: statusCodes.BAD_REQUEST,
-					success: false,
-					message: message.DETAIL_NOT_FOUND
-				});
-				return;
-			}
+	find = async (req: FastifyRequest, res: FastifyReply) => {
+		const userId = req.user.id;
+
+		const result = await this.fetchUserDetails(
+			{
+				id: userId,
+				role: 'user',
+				isDeleted: false
+			},
+			res
+		);
+
+		if (result) {
 			Response.send(res, {
 				status: statusCodes.SUCCESS,
 				success: true,
 				message: message.USER_DETAIL_FETCHED,
-				data: result
-			});
-		} catch (error: any) {
-			return Response.send(res, {
-				status: statusCodes.BAD_REQUEST,
-				success: false,
-				message: error.message
+				data: result,
 			});
 		}
-	}
+	};
+
+	findById = async (req: FastifyRequest, res: FastifyReply) => {
+		const { userId } = req.params as { userId: number };
+
+		const result = await this.fetchUserDetails(
+			{
+				id: userId,
+				role: 'user',
+				isDeleted: false
+			},
+			res
+		);
+
+		if (result) {
+			Response.send(res, {
+				status: statusCodes.SUCCESS,
+				success: true,
+				message: message.USER_DETAIL_FETCHED,
+				data: result,
+			});
+		}
+	};
 
 	async update (req: FastifyRequest, res: FastifyReply) {
 		try {
