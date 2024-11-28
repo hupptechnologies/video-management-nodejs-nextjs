@@ -74,7 +74,7 @@ export const updateChannel = createAsyncThunk(
 
 export const deleteChannel = createAsyncThunk(
 	'channel/deleteChannel',
-	async (data: CreateChannel, { rejectWithValue }) => {
+	async (data: FindByIdRequest, { rejectWithValue }) => {
 		try {
 			await channelService.delete(data);
 			return data;
@@ -87,7 +87,7 @@ export const deleteChannel = createAsyncThunk(
 
 export const getChannelsByUserId = createAsyncThunk(
 	'channel/getChannelsByUserId',
-	async (data: CreateChannel, { rejectWithValue }) => {
+	async (data: FindByIdRequest, { rejectWithValue }) => {
 		try {
 			const response = await channelService.channelsByUserId(data);
 			return response.data;

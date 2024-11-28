@@ -30,19 +30,19 @@ class ChannelService {
 		});
 	}
 
-	delete (data: CreateChannel) {
+	delete (data: FindByIdRequest) {
 		return HTTP.Delete<UpdateChannelResponse>({
 			route: `channels/${data.id}`
 		});
 	}
 
-	channelVideos (data: CreateChannel) {
+	channelVideos (data: FindByIdRequest) {
 		return HTTP.Get<ChannelVideosResponse>({
 			route: `channels/${data.id}/videos`
 		});
 	}
 
-	channelsByUserId (data: CreateChannel) {
+	channelsByUserId (data: FindByIdRequest) {
 		return HTTP.Get<ChannelListResponse>({
 			route: `channels/user/${data.id}`
 		});
