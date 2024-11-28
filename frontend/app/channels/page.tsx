@@ -1,18 +1,21 @@
 "use client";
+import { useEffect } from 'react';
 import { Grid, Card, CardContent, Typography, Container, useMediaQuery, Theme, Stack, Avatar, Box } from '@mui/material';
 import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
 import CircularProgressLoader from '@/components/CircularProgressLoader';
-import NoChannelFound from '@/assets/image/no-videos-found.webp';
-import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getChannels } from '@/store/feature/channel/action';
+import withAuth from '@/config/withAuth';
+import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
+import NoChannelFound from '@/assets/image/no-videos-found.webp';
+import CreateChannel from '@/components/Channels/CreateChannel';
 
 const page = () => {
 
 	const {
 		channels, isFetchingChannel
 	} = useAppSelector(state => state.channel);
+	const { isLoggedIn } = useAppSelector(state => state.auth);
 	const { collapsed } = useAppSelector(state => state.navigation);
 	const dispatch = useAppDispatch();
 	const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
@@ -31,6 +34,7 @@ const page = () => {
 			marginLeft: smallScreen || collapsed ? '80px' : '236px',
 			width: smallScreen || collapsed ? "calc(100% - 80px)" : "calc(100% - 236px)"
 		}}>
+			{isLoggedIn && <CreateChannel/>}
 			{channels?.length === 0 && typeof window !== 'undefined'
 				? (
 					<Box
@@ -120,4 +124,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default withAuth(page);
