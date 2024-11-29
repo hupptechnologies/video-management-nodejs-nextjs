@@ -1,8 +1,12 @@
-import Navbar from '@/components/Navbar';
+"use client";
+
+import { Box } from '@mui/material';
 import StoreProvider from './StoreProvider';
-import ToastWrapper from './ToastWrapper';
-import './globals.css';
 import ThemeProvider from './ThemeProvider';
+import ToastWrapper from './ToastWrapper';
+import Navbar from '@/components/Navbar';
+import NavigationManager from '@/components/Navigation/NavigationManager';
+import './globals.css';
 
 export default function RootLayout ({ children }: { children: React.ReactNode }) {
 
@@ -12,8 +16,18 @@ export default function RootLayout ({ children }: { children: React.ReactNode })
 				<body>
 					<ThemeProvider>
 						<ToastWrapper />
-						<Navbar />
-						{children}
+						<Box sx={{
+							display: 'flex',
+							flex: '1 1 auto',
+							minHeight: '100%',
+							flexDirection: 'column'
+						}}>
+							<NavigationManager />
+							<Box>
+								<Navbar />
+								{children}
+							</Box>
+						</Box>
 					</ThemeProvider>
 				</body>
 			</html>
