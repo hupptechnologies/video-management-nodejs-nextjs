@@ -23,6 +23,9 @@ const baseTheme: ThemeOptions = {
 			light: '#5BE49B',
 			dark: '#007867',
 			contrastText: '#FFFFFF',
+			50: '#00A76F14',
+			100: '#00A76F20',
+			200: '#00A76F29'
 		},
 		secondary: {
 			main: '#8E33FF',
