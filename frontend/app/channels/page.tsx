@@ -105,14 +105,12 @@ const page = () => {
 													borderRadius: '50%',
 												}}
 											/>
-											<Stack gap={0.5}>
-												<Typography variant="h6" component="div" sx={{
-													fontWeight: 600,
-													color: '#212121'
-												}}>
-													{channel.name}
-												</Typography>
-											</Stack>
+											<Typography variant="h6" component="div" sx={{
+												fontWeight: 600,
+												color: '#212121'
+											}}>
+												{channel.name}
+											</Typography>
 										</Stack>
 									</CardContent>
 								</Link>

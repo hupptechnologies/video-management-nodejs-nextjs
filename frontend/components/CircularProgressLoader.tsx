@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
-import { CircularProgress, Container } from '@mui/material';
+import { CircularProgress, Container, Theme, useMediaQuery } from '@mui/material';
+import { useAppSelector } from '@/store/hooks';
 
 interface CircularProgressLoaderProps {
     color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | 'inherit';
@@ -10,14 +11,20 @@ interface CircularProgressLoaderProps {
 }
 
 const CircularProgressLoader: React.FC<CircularProgressLoaderProps> = ({
-	color = 'primary', height = '90vh'
+	color = 'primary', height = '90vh', marginLeft, width
 }) => {
+
+	const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
+	const { collapsed } = useAppSelector(state => state.navigation);
+
 	return (
 		<Container maxWidth={false} sx={{
 			alignItems: 'center',
 			justifyContent: 'center',
 			display: 'flex',
 			height,
+			marginLeft: marginLeft || (smallScreen || collapsed ? '80px' : '236px'),
+			width: width || (smallScreen || collapsed ? "calc(100% - 80px)" : "calc(100% - 236px)")
 		}}>
 			<CircularProgress color={color} />
 		</Container>

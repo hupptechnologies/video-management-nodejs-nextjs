@@ -10,9 +10,7 @@ export default function Home () {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		if (videos.length === 0) {
-			dispatch(getGlobalVideos());
-		}
+		dispatch(getGlobalVideos());
 	}, [dispatch]);
 
 	return (
