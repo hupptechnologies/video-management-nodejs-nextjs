@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { showToast } from "../toast/slice";
 import { channelService } from '@/services/channel';
 import { FindByIdRequest } from '@/types/common';
-import { CreateChannel } from '@/types/channel';
+import { CreateChannel, UpdateChannel } from '@/types/channel';
 
 export const getChannels = createAsyncThunk(
 	'channel/getChannels',
@@ -61,7 +61,7 @@ export const createChannel = createAsyncThunk(
 
 export const updateChannel = createAsyncThunk(
 	'channel/updateChannel',
-	async (data: CreateChannel, { rejectWithValue }) => {
+	async (data: UpdateChannel, { rejectWithValue }) => {
 		try {
 			await channelService.update(data);
 			return data;

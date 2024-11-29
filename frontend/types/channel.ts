@@ -24,10 +24,14 @@ export type ChannelByIdResponse = {
     data: Channel;
 };
 
-export type CreateChannel = {
+type ChannelBase = {
     name: string;
-    id?: number
+    id?: number;
 };
+
+export type CreateChannel = ChannelBase;
+
+export type UpdateChannel = Omit<ChannelBase, 'id'> & { id: number };
 
 export type UpdateChannelResponse = {
     success: number;

@@ -1,13 +1,13 @@
 'use client';
+import { useEffect } from 'react';
 import { Box, Theme, Typography, useMediaQuery } from '@mui/material';
+import { usePathname, useRouter } from 'next/navigation';
 import FloatingSidebar from './FloatingSidebar';
 import StaticSidebar from './StaticSidebar';
-import { useEffect } from 'react';
 import CollapsedSidebar from './CollapsedSidebar';
+import NavMenuButton from '../NavMenuButton';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setFloating } from '@/store/feature/navigation/slice';
-import NavMenuButton from '../NavMenuButton';
-import { usePathname, useRouter } from 'next/navigation';
 import { NavigationManagerMainBox } from '@/styles/components/Navigation';
 
 const NavigationManager = () => {
@@ -33,7 +33,7 @@ const NavigationManager = () => {
 					alignItems: 'center',
 					color: 'primary.main',
 				}}>
-					<NavMenuButton />
+					{!isSidebarHidden && <NavMenuButton />}
 					<Typography onClick={() => router.push('/')} variant="h5" component="div" sx={{
 						flexGrow: 1,
 						cursor: 'pointer',

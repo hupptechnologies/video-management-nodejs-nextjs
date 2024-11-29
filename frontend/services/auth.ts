@@ -31,6 +31,15 @@ class AuthService {
 			}
 		});
 	}
+
+	user () {
+		return HTTP.Get<AxiosResponse>({
+			route: 'auth/user',
+			headers: {
+				"Content-Type": "application/json",
+			}
+		});
+	}
 }
 
 export const authService = new AuthService();

@@ -1,3 +1,5 @@
+import { Optional } from ".";
+
 export interface AuthRequest {
     email: string;
     password: string;
@@ -16,6 +18,6 @@ export interface AuthState {
     token: string;
     refreshToken: string;
     authLoading: boolean;
-    user: object;
+    user: Optional<AuthResponse>;
 }
 

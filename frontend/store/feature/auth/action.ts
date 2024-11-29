@@ -48,3 +48,16 @@ export const register = createAsyncThunk(
 		}
 	}
 );
+
+export const getUserDetails = createAsyncThunk(
+	'auth/getUserDetails',
+	async (_, { rejectWithValue }) => {
+		try {
+			const response = await authService.user();
+			return response.data;
+		} catch (error: any) {
+			const err = error?.response?.data;
+			return rejectWithValue(err);
+		}
+	}
+);

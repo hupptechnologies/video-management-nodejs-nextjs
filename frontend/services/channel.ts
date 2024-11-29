@@ -1,6 +1,13 @@
 import { FindByIdRequest } from "@/types/common";
 import { HTTP } from "./http";
-import { ChannelByIdResponse, ChannelListResponse, ChannelVideosResponse, CreateChannel, UpdateChannelResponse } from "@/types/channel";
+import {
+	ChannelByIdResponse,
+	ChannelListResponse,
+	ChannelVideosResponse,
+	CreateChannel,
+	UpdateChannel,
+	UpdateChannelResponse
+} from "@/types/channel";
 
 class ChannelService {
 
@@ -23,7 +30,7 @@ class ChannelService {
 		});
 	}
 
-	update (data: CreateChannel) {
+	update (data: UpdateChannel) {
 		return HTTP.Put<UpdateChannelResponse>({
 			route: `channels/${data.id}`,
 			body: data

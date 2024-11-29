@@ -62,9 +62,8 @@ export const channelSlice = createAppSlice({
 			.addCase(updateChannel.fulfilled, (state, action) => {
 				const channelId = action.payload.id;
 				const index = state.channels.findIndex(channel => channel.id === channelId);
-				if(index && channelId) {
+				if (index !== -1 && channelId) {
 					state.channels[index].name = action.payload.name;
-					state.channel.name = action.payload.name;
 				}
 				state.channel.name = action.payload.name;
 				state.isUpdatingChannel = false;

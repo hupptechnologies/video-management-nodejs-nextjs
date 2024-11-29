@@ -1,6 +1,6 @@
 import { AuthState } from '@/types/auth';
 import { createAppSlice } from '@/store/createAppSlice';
-import { login, register } from './action';
+import { getUserDetails, login, register } from './action';
 import { appLocalStorage } from '@/utils/helper';
 
 const initialState: AuthState = {
@@ -19,6 +19,7 @@ export const authSlice = createAppSlice({
 		logout (state) {
 			state.isLoggedIn = false;
 			localStorage.removeItem('token');
+			localStorage.removeItem('refreshToken');
 			state.token = '';
 			state.refreshToken = '';
 			state.user = {
@@ -49,6 +50,9 @@ export const authSlice = createAppSlice({
 			})
 			.addCase(register.rejected, (state) => {
 				state.authLoading = false;
+			})
+			.addCase(getUserDetails.fulfilled, (state, action) => {
+				state.user = action.payload.data.data;
 			});
 	}
 });
