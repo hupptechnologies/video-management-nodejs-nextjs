@@ -1,13 +1,9 @@
-import { AxiosHeaders } from "axios";
 import { HTTP } from "./http";
 import { AuthRequest, AuthResponse } from "@/types/auth";
 
 type AxiosResponse = {
-    data: {
         data: AuthResponse,
         message: string
-    },
-    headers: AxiosHeaders
 };
 
 class AuthService {

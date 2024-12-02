@@ -52,7 +52,7 @@ export const authSlice = createAppSlice({
 				state.authLoading = false;
 			})
 			.addCase(getUserDetails.fulfilled, (state, action) => {
-				state.user = action.payload.data.data;
+				state.user = action.payload.data;
 			});
 	}
 });
