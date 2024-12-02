@@ -63,10 +63,12 @@ export default function Login () {
 				});
 		} catch (err) {
 			if (err instanceof Yup.ValidationError) {
-				const errors = {
+				const errors: any = {
 				};
 				err.inner.forEach((error) => {
-					errors[error.path] = error.message;
+					if(error.path !== undefined) {
+						errors[error.path] = error.message;
+					}
 				});
 				setError(errors);
 			}
