@@ -1,20 +1,39 @@
 "use client";
 import  React, { useEffect, useState } from 'react';
-import { TextField, Button, FormControlLabel, Checkbox, Grid, Box, Typography, Container, CircularProgress, Card } from '@mui/material';
+import * as Yup from 'yup';
+import {
+	TextField,
+	Button,
+	FormControlLabel,
+	Checkbox,
+	Grid,
+	Box,
+	Typography,
+	Container,
+	CircularProgress,
+	Card,
+	InputAdornment,
+	IconButton
+} from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { login } from '@/store/feature/auth/action';
-import { validateEmail } from '@/utils/helper';
+import { loginSchema } from '@/lib/yup/schema';
 import { LinkStyle } from '@/styles/common';
 
 export default function Login () {
 
-	const [emailError, setEmailError] = useState('');
+	const initialErrorState = {
+		email: ''
+	};
+	const [error, setError] = useState(initialErrorState);
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
 	});
+	const [showPassword, setShowPassword] = useState(false);
 	const {
 		authLoading, isLoggedIn
 	} = useAppSelector(state => state.auth);
@@ -29,21 +48,29 @@ export default function Login () {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		if (validateEmail(formData.email) || formData.email === '') {
-			setEmailError('');
-		} else {
-			setEmailError('Invalid email address');
-			return;
-		}
-		const registerData = {
-			email: formData.email,
-			password: formData.password
-		};
-		dispatch(login(registerData))
-			.unwrap()
-			.then(() => {
-				router.push('/');
+		try {
+			await loginSchema.validate(formData, {
+				abortEarly: false
 			});
+			const registerData = {
+				email: formData.email,
+				password: formData.password
+			};
+			dispatch(login(registerData))
+				.unwrap()
+				.then(() => {
+					router.push('/');
+				});
+		} catch (err) {
+			if (err instanceof Yup.ValidationError) {
+				const errors = {
+				};
+				err.inner.forEach((error) => {
+					errors[error.path] = error.message;
+				});
+				setError(errors);
+			}
+		}
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +78,11 @@ export default function Login () {
 			...formData,
 			[e.target.name]: e.target.value
 		});
-		setEmailError('');
+		setError(initialErrorState);
+	};
+
+	const togglePasswordVisibility = () => {
+		setShowPassword((prev) => !prev);
 	};
 
 	return (
@@ -87,15 +118,11 @@ export default function Login () {
 							name="email"
 							autoComplete="email"
 							value={formData.email}
+							error={!!error.email}
+							helperText={error.email && 'Invalid email address'}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
 							autoFocus
 						/>
-						{emailError && (
-							<p style={{
-								color: 'red',
-								margin: '5px 0'
-							}}>{emailError}</p>
-						)}
 						<TextField
 							margin="normal"
 							required
@@ -107,6 +134,19 @@ export default function Login () {
 							autoComplete="current-password"
 							value={formData.password}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment position="end">
+										<IconButton
+											onClick={togglePasswordVisibility}
+											edge="end"
+											aria-label="toggle password visibility"
+										>
+											{showPassword ? <VisibilityOff /> : <Visibility />}
+										</IconButton>
+									</InputAdornment>
+								),
+							}}
 						/>
 						<FormControlLabel
 							control={<Checkbox value="remember" color="primary" />}

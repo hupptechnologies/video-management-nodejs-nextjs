@@ -6,21 +6,6 @@ export const getThumbnailUrl = (videoUrl: string) => {
 	return thumbnailUrl;
 };
 
-export const validateEmail = (email: string) => {
-	if (email.trim() === '') {
-		return false;
-	}
-	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-	return emailRegex.test(email);
-};
-
-export const validatePassword = (password: string) => {
-	if (password.length >= 8 && password.length <= 16) {
-		return true;
-	}
-	return false;
-};
-
 class AppLocalStorage {
 	getItem (key: string) {
 		if(typeof window !== 'undefined') {

@@ -1,14 +1,35 @@
 "use client";
-import { Button, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, Container, CircularProgress, Card } from '@mui/material';
+import {
+	Button,
+	TextField,
+	FormControlLabel,
+	Checkbox,
+	Grid,
+	Box,
+	Typography,
+	Container,
+	CircularProgress,
+	Card,
+	InputAdornment,
+	IconButton
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import * as Yup from 'yup';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { register } from '@/store/feature/auth/action';
-import { validateEmail, validatePassword } from '@/utils/helper';
+import { signUpSchema } from '@/lib/yup/schema';
 import { LinkStyle } from '@/styles/common';
 
 export default function SignUp () {
+
+	const initialErrorState = {
+		firstName: '',
+		email: '',
+		password: ''
+	};
 
 	const [formData, setFormData] = useState({
 		firstName: "",
@@ -16,8 +37,9 @@ export default function SignUp () {
 		email: "",
 		password: "",
 	});
-	const [emailError, setEmailError] = useState('');
+	const [error, setError] = useState(initialErrorState);
 	const [passwordError, setPasswordError] = useState('');
+	const [showPassword, setShowPassword] = useState(false);
 	const {
 		authLoading, isLoggedIn
 	} = useAppSelector(state => state.auth);
@@ -32,35 +54,44 @@ export default function SignUp () {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		setPasswordError(
-			validatePassword(formData.password) ? '' : 'Password length must be between 8 and 16 characters'
-		);
-		setEmailError(
-			validateEmail(formData.email)
-				? ''
-				: 'Invalid email address'
-		);
-		if (validatePassword(formData.password) && validateEmail(formData.email)) {
+
+		try {
+			await signUpSchema.validate(formData, {
+				abortEarly: false
+			});
 			const registerData = {
 				email: formData.email,
 				password: formData.password,
-				name: formData.firstName + ' ' + formData.lastName
+				name: formData.lastName ? formData.firstName + ' ' + formData.lastName : formData.firstName
 			};
 			dispatch(register(registerData))
 				.unwrap()
 				.then(() => {
 					router.push('/login');
 				});
+		} catch (err) {
+			if (err instanceof Yup.ValidationError) {
+				const errors = {
+				};
+				err.inner.forEach((error) => {
+					errors[error.path] = error.message;
+				});
+				setError(errors);
+			}
 		}
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setEmailError('');
+		setError(initialErrorState);
 		setPasswordError('');
 		setFormData({
 			...formData,
 			[e.target.name]: e.target.value
 		});
+	};
+
+	const togglePasswordVisibility = () => {
+		setShowPassword((prev) => !prev);
 	};
 
 	return (
@@ -82,7 +113,7 @@ export default function SignUp () {
 					}}
 				>
 					<Typography component="h1" variant="h5">
-          Sign up
+					Sign up
 					</Typography>
 					<Box component="form" onSubmit={handleSubmit} sx={{
 						mt: 1
@@ -91,11 +122,14 @@ export default function SignUp () {
 							<Grid item xs={6}>
 								<TextField
 									margin="normal"
+									required
 									fullWidth
 									id="firstName"
 									label="First Name"
 									name="firstName"
 									value={formData.firstName}
+									error={!!error.firstName}
+									helperText={error.firstName && error.firstName}
 									onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
 									autoFocus
 								/>
@@ -121,25 +155,36 @@ export default function SignUp () {
 							name="email"
 							autoComplete="email"
 							value={formData.email}
+							error={!!error.email}
+							helperText={error.email && error.email}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
 						/>
-						{emailError && (
-							<p style={{
-								color: 'red',
-								margin: '5px 0'
-							}}>{emailError}</p>
-						)}
 						<TextField
 							margin="normal"
 							required
 							fullWidth
 							name="password"
 							label="Password"
-							type="password"
+							type={showPassword ? "text" : "password"}
 							id="password"
 							autoComplete="current-password"
 							value={formData.password}
+							error={!!error.password}
+							helperText={error.password && error.password}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment position="end">
+										<IconButton
+											onClick={togglePasswordVisibility}
+											edge="end"
+											aria-label="toggle password visibility"
+										>
+											{showPassword ? <VisibilityOff /> : <Visibility />}
+										</IconButton>
+									</InputAdornment>
+								),
+							}}
 						/>
 						{passwordError && (
 							<p style={{
