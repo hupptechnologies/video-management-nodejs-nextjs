@@ -10,7 +10,7 @@ const { Users } = models;
 class UserController {
 
 	async fetchUserDetails (
-		identifier: { id: number; role: string; isDeleted: boolean },
+		identifier: { id: number; role?: string; isDeleted: boolean },
 		res: FastifyReply
 	) {
 		try {
@@ -245,7 +245,6 @@ class UserController {
 		const result = await this.fetchUserDetails(
 			{
 				id: userId,
-				role: 'user',
 				isDeleted: false
 			},
 			res
