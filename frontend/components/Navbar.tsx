@@ -9,13 +9,15 @@ import { getUserDetails } from '@/store/feature/auth/action';
 import { theme } from '@/lib/mui/theme';
 import { NavbarAppBar } from '@/styles/components/Navbar';
 
-const settings = ['Profile', 'My Videos', 'Logout'];
+const settings = ['Profile', 'My Videos', 'My Channels', 'Logout'];
 
 const Navbar = () => {
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [isSearchInputFocus, setIsSearchInputFocus] = useState(false);
-	const { isLoggedIn } = useAppSelector(state => state.auth);
+	const {
+		isLoggedIn, user
+	} = useAppSelector(state => state.auth);
 	const router = useRouter();
 	const dispatch = useAppDispatch();
 	const pathname = usePathname();
@@ -41,6 +43,8 @@ const Navbar = () => {
 			dispatch(logout());
 		} else if (setting === 'My Videos') {
 			router.push('/videos');
+		} else if (setting === 'My Channels') {
+			router.push(`/channels?user=${user.id}`);
 		}
 		setAnchorElUser(null);
 	};

@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { appLocalStorage } from '@/utils/helper';
 
-const withAuth = (Component: React.ComponentType) => {
-	return function ProtectedRoute (props: any) {
+const withAuth = <P extends object>(Component: React.ComponentType<P>) => {
+	return function ProtectedRoute (props: P) {
 		const router = useRouter();
 		const isAuthenticated = appLocalStorage.getItem('token');
 

@@ -2,13 +2,14 @@
 import { useEffect } from 'react';
 import { Grid, Card, CardContent, Typography, Container, useMediaQuery, Theme, Stack, Avatar, Box } from '@mui/material';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import CircularProgressLoader from '@/components/CircularProgressLoader';
+import CreateChannel from '@/components/Channels/CreateChannel';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getChannels } from '@/store/feature/channel/action';
+import { getChannels, getChannelsByUserId } from '@/store/feature/channel/action';
 import withAuth from '@/config/withAuth';
 import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
 import NoChannelFound from '@/assets/image/no-videos-found.webp';
-import CreateChannel from '@/components/Channels/CreateChannel';
 
 const page = () => {
 
@@ -19,10 +20,18 @@ const page = () => {
 	const { collapsed } = useAppSelector(state => state.navigation);
 	const dispatch = useAppDispatch();
 	const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
+	const searchParams = useSearchParams();
+	const isUser = searchParams.get('user');
 
 	useEffect(() => {
-		dispatch(getChannels());
-	}, []);
+		if(isUser) {
+			dispatch(getChannelsByUserId({
+				id: Number(isUser)
+			}));
+		} else{
+			dispatch(getChannels());
+		}
+	}, [isUser]);
 
 	if (isFetchingChannel) {
 		return <CircularProgressLoader />;

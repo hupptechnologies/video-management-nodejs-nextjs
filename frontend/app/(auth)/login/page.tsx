@@ -131,7 +131,7 @@ export default function Login () {
 							fullWidth
 							name="password"
 							label="Password"
-							type="password"
+							type={showPassword ? "text" : "password"}
 							id="password"
 							autoComplete="current-password"
 							value={formData.password}
