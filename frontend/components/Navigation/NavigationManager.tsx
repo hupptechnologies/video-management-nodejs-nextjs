@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import { Box, Theme, Typography, useMediaQuery } from '@mui/material';
+import { Avatar, Box, Theme, Typography, useMediaQuery } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
 import FloatingSidebar from './FloatingSidebar';
 import StaticSidebar from './StaticSidebar';
@@ -9,6 +9,7 @@ import NavMenuButton from '../NavMenuButton';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setFloating } from '@/store/feature/navigation/slice';
 import { NavigationManagerMainBox } from '@/styles/components/Navigation';
+import AppLogo from '@/assets/image/app-logo.png';
 
 const NavigationManager = () => {
 	const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
@@ -34,24 +35,38 @@ const NavigationManager = () => {
 					color: 'primary.main',
 				}}>
 					{!isSidebarHidden && <NavMenuButton />}
-					<Typography onClick={() => router.push('/')} variant="h5" component="div" sx={{
-						flexGrow: 1,
+					<Box onClick={() => router.push('/')} sx={{
 						cursor: 'pointer',
-						color:'primary.main',
+						display: 'flex',
+						alignItems: 'center',
+						gap: '4px'
 					}}>
-					VideoTube
-					</Typography>
+						<Avatar
+							alt={'VideoTube'}
+							src={AppLogo.src}
+							sx={{
+								width: 50,
+								height: 50,
+							}}
+						/>
+						<Typography variant="h5" component="div" sx={{
+							flexGrow: 1,
+							color: 'primary.main',
+						}}>
+							VideoTube
+						</Typography>
+					</Box>
 				</Box>
 				{!isSidebarHidden &&
-				<>
-					<FloatingSidebar />
-					{!floatingOnly && (
-						<>
-							<StaticSidebar />
-							<CollapsedSidebar />
-						</>
-					)}
-				</>
+					<>
+						<FloatingSidebar />
+						{!floatingOnly && (
+							<>
+								<StaticSidebar />
+								<CollapsedSidebar />
+							</>
+						)}
+					</>
 				}
 			</Box>
 		</>
