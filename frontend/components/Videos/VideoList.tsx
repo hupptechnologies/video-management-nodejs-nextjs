@@ -9,10 +9,13 @@ import NoVideosFound from '@/assets/image/no-videos-found.webp';
 import { Video } from '@/types/video';
 
 interface VideoListProps {
-    videos: Video[]
+    videos: Video[];
+	isChannnel?: boolean;
 }
 
-const VideoList: React.FC<VideoListProps> = ({ videos }) => {
+const VideoList: React.FC<VideoListProps> = ({
+	videos, isChannnel
+}) => {
 	const { isFetchingVideo } = useAppSelector(state => state.video);
 	const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
 	const { collapsed } = useAppSelector(state => state.navigation);
@@ -24,8 +27,8 @@ const VideoList: React.FC<VideoListProps> = ({ videos }) => {
 	return (
 		<Container maxWidth={false} sx={{
 			m: '16px 16px 16px 0',
-			marginLeft: smallScreen || collapsed ? '80px' : '236px',
-			width: smallScreen || collapsed ? "calc(100% - 80px)" : "calc(100% - 236px)"
+			marginLeft: isChannnel ? '0px' : (smallScreen || collapsed) ? '80px' : '236px',
+			width: isChannnel ? '100%' :  (smallScreen || collapsed) ? "calc(100% - 80px)" : "calc(100% - 236px)"
 		}}>
 			{videos.length === 0 && typeof window !== 'undefined'
 				? (
@@ -97,37 +100,49 @@ const VideoList: React.FC<VideoListProps> = ({ videos }) => {
 								<CardContent sx={{
 									padding: 2
 								}}>
-									<Stack gap={0.5} direction='row'>
-										<Avatar
-											alt={video.channels.name}
-											src={DefaultChannelAvatar.src}
-											sx={{
-												width: 50,
-												height: 50,
-												borderRadius: '50%',
-											}}
-										/>
-										<Stack gap={0.5}>
+									{isChannnel
+										? <Stack gap={0.5}>
 											<Typography variant="h6" component="div" sx={{
 												fontWeight: 600,
 												color: '#212121'
 											}}>
 												{video.name}
 											</Typography>
-											<Stack>
-												<Typography variant="subtitle1" component="div" sx={{
-													'&': {
-														lineHeight: '1',
-													},
-												}} >
-													{video.channels.name}
-												</Typography>
-												<Typography variant="body2" color="text.secondary">
-													{timeAgo(video.createdAt)}
-												</Typography>
-											</Stack>
+											<Typography variant="body2" color="text.secondary">
+												{timeAgo(video.createdAt)}
+											</Typography>
 										</Stack>
-									</Stack>
+										: <Stack gap={0.5} direction='row'>
+											<Avatar
+												alt={video.channels?.name}
+												src={DefaultChannelAvatar.src}
+												sx={{
+													width: 50,
+													height: 50,
+													borderRadius: '50%',
+												}}
+											/>
+											<Stack gap={0.5}>
+												<Typography variant="h6" component="div" sx={{
+													fontWeight: 600,
+													color: '#212121'
+												}}>
+													{video.name}
+												</Typography>
+												<Stack>
+													<Typography variant="subtitle1" component="div" sx={{
+														'&': {
+															lineHeight: '1',
+														},
+													}} >
+														{video.channels?.name}
+													</Typography>
+													<Typography variant="body2" color="text.secondary">
+														{timeAgo(video.createdAt)}
+													</Typography>
+												</Stack>
+											</Stack>
+										</Stack>}
 								</CardContent>
 							</Card>
 						</Grid>
