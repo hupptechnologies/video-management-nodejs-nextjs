@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Avatar, Box, Container, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 import CircularProgressLoader from '@/components/CircularProgressLoader';
 import VideoList from '@/components/Videos/VideoList';
+import UpdateChannel from '@/components/Channels/UpdateChannel';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getChannelById } from '@/store/feature/channel/action';
 import { getChannelVideos } from '@/store/feature/video/action';
@@ -60,6 +61,7 @@ const page = ({ params }: { params: { channelId: number } }) => {
 							{channel.name}
 						</Typography>
 					</Stack>
+					{channel.userId === user?.id && <UpdateChannel channel={channel}/>}
 				</Stack>
 			</Box>
 			{channel.userId === user?.id && ''}
