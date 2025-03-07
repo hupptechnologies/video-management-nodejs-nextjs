@@ -19,7 +19,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { login } from '@/store/feature/auth/action';
+import { adminLogin, login } from '@/store/feature/auth/action';
 import { loginSchema } from '@/lib/yup/schema';
 import { LinkStyle } from '@/styles/common';
 
@@ -34,6 +34,7 @@ export default function Login () {
 		password: "",
 	});
 	const [showPassword, setShowPassword] = useState(false);
+	const [isAdminLogin, setIsAdminLogin] = useState(false);
 	const {
 		authLoading, isLoggedIn
 	} = useAppSelector(state => state.auth);
@@ -56,11 +57,19 @@ export default function Login () {
 				email: formData.email,
 				password: formData.password
 			};
-			dispatch(login(registerData))
-				.unwrap()
-				.then(() => {
-					router.push('/');
-				});
+			if(isAdminLogin) {
+				dispatch(adminLogin(registerData))
+					.unwrap()
+					.then(() => {
+						router.push('/');
+					});
+			} else{
+				dispatch(login(registerData))
+					.unwrap()
+					.then(() => {
+						router.push('/');
+					});
+			}
 		} catch (err) {
 			if (err instanceof Yup.ValidationError) {
 				const errors: any = {
@@ -151,8 +160,8 @@ export default function Login () {
 							}}
 						/>
 						<FormControlLabel
-							control={<Checkbox value="remember" color="primary" />}
-							label="Remember me"
+							control={<Checkbox onChange={() => setIsAdminLogin(prevState => !prevState)} value={isAdminLogin} color="primary" />}
+							label="Log in as Admin"
 						/>
 						{authLoading
 							? <Box sx={{
