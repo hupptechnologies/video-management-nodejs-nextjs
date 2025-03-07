@@ -29,6 +29,7 @@ const sequelize = new Sequelize({
 	password: config.password,
 	repositoryMode: true,
 	models: [__dirname + '/*.model.*'],
+	logging: false
 });
 
 sequelize.authenticate()

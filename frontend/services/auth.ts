@@ -28,6 +28,16 @@ class AuthService {
 		});
 	}
 
+	adminLogin (data: AuthRequest) {
+		return HTTP.Post<AxiosResponse>({
+			route: 'auth/admin/login',
+			body: data,
+			headers: {
+				"Content-Type": "application/json",
+			}
+		});
+	}
+
 	user () {
 		return HTTP.Get<AxiosResponse>({
 			route: 'auth/user',

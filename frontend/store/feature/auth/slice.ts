@@ -1,6 +1,6 @@
 import { AuthState } from '@/types/auth';
 import { createAppSlice } from '@/store/createAppSlice';
-import { getUserDetails, login, register } from './action';
+import { adminLogin, getUserDetails, login, register } from './action';
 import { appLocalStorage } from '@/utils/helper';
 
 const initialState: AuthState = {
@@ -9,7 +9,8 @@ const initialState: AuthState = {
 	refreshToken: appLocalStorage.getItem('refreshToken') || '',
 	authLoading: false,
 	user: {
-	}
+	},
+	isAdmin: false,
 };
 
 export const authSlice = createAppSlice({
@@ -20,6 +21,7 @@ export const authSlice = createAppSlice({
 			state.isLoggedIn = false;
 			localStorage.removeItem('token');
 			localStorage.removeItem('refreshToken');
+			localStorage.removeItem('isAdmin');
 			state.token = '';
 			state.refreshToken = '';
 			state.user = {
@@ -42,6 +44,22 @@ export const authSlice = createAppSlice({
 			.addCase(login.rejected, (state) => {
 				state.authLoading = false;
 			})
+			.addCase(adminLogin.pending, (state) => {
+				state.authLoading = true;
+			})
+			.addCase(adminLogin.fulfilled, (state, action) => {
+				state.isLoggedIn = true;
+				localStorage.setItem('token', action.payload.headers.token);
+				state.token = action.payload.headers.token;
+				localStorage.setItem('refreshToken', action.payload.headers?.['refresh-token']);
+				localStorage.setItem('isAdmin', 'true');
+				state.user = action.payload.data.data;
+				state.isAdmin = true;
+				state.authLoading = false;
+			})
+			.addCase(adminLogin.rejected, (state) => {
+				state.authLoading = false;
+			})
 			.addCase(register.pending, (state) => {
 				state.authLoading = true;
 			})
@@ -51,8 +69,18 @@ export const authSlice = createAppSlice({
 			.addCase(register.rejected, (state) => {
 				state.authLoading = false;
 			})
+			.addCase(getUserDetails.pending, (state) => {
+				state.authLoading = true;
+			})
 			.addCase(getUserDetails.fulfilled, (state, action) => {
 				state.user = action.payload.data;
+				if(action.payload.data.role === 'admin') {
+					state.isAdmin = true;
+				}
+				state.authLoading = false;
+			})
+			.addCase(getUserDetails.rejected, (state) => {
+				state.authLoading = false;
 			});
 	}
 });

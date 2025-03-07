@@ -26,6 +26,29 @@ export const login = createAsyncThunk(
 	}
 );
 
+export const adminLogin = createAsyncThunk(
+	'auth/adminLogin',
+	async (data: AuthRequest, {
+		rejectWithValue, dispatch
+	}) => {
+		try {
+			const response = await authService.adminLogin(data);
+			dispatch(showToast({
+				message: "Logged in successfully",
+				severity: 'success',
+			}));
+			return response;
+		} catch (error: any) {
+			const err = error?.response?.data;
+			dispatch(showToast({
+				message: err?.message || "Login failed, Please try again",
+				severity: 'error'
+			}));
+			return rejectWithValue(err);
+		}
+	}
+);
+
 export const register = createAsyncThunk(
 	'auth/register',
 	async (data: AuthRequest, {

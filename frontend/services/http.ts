@@ -16,7 +16,7 @@ const refreshAccessToken = async () => {
 
 	try {
 		const response = await axios.post(
-			'http://0.0.0.0:4000/api/auth/refresh-token',
+			'http://0.0.0.0:4001/api/auth/refresh-token',
 			{
 			},
 			{
@@ -94,7 +94,7 @@ function getInstance ({
 	const instance = isAuthenticated
 		? BackendAuthenticatedService
 		: axios.create({
-			baseURL: 'http://0.0.0.0:4000/api/'
+			baseURL: 'http://0.0.0.0:4001/api/'
 		});
 
 	// Set common headers and default params
