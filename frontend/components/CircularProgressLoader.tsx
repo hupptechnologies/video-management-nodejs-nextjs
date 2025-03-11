@@ -2,6 +2,7 @@
 import React from 'react';
 import { CircularProgress, Container, Theme, useMediaQuery } from '@mui/material';
 import { useAppSelector } from '@/store/hooks';
+import { FlexBox } from '@/styles/common';
 
 interface CircularProgressLoaderProps {
     color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | 'inherit';
@@ -19,9 +20,7 @@ const CircularProgressLoader: React.FC<CircularProgressLoaderProps> = ({
 
 	return (
 		<Container maxWidth={false} sx={{
-			alignItems: 'center',
-			justifyContent: 'center',
-			display: 'flex',
+			...FlexBox,
 			height,
 			marginLeft: marginLeft || (smallScreen || collapsed ? '80px' : '236px'),
 			width: width || (smallScreen || collapsed ? "calc(100% - 80px)" : "calc(100% - 236px)")

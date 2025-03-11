@@ -16,12 +16,7 @@ export default function RootLayout ({ children }: { children: React.ReactNode })
 				<body>
 					<ThemeProvider>
 						<ToastWrapper />
-						<Box sx={{
-							display: 'flex',
-							flex: '1 1 auto',
-							minHeight: '100%',
-							flexDirection: 'column'
-						}}>
+						<Box className='main-layout-container'>
 							<NavigationManager />
 							<Box>
 								<Navbar />

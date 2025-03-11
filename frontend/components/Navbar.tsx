@@ -6,8 +6,9 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logout } from '@/store/feature/auth/slice';
 import { getUserDetails } from '@/store/feature/auth/action';
-import { theme } from '@/lib/mui/theme';
-import { NavbarAppBar } from '@/styles/components/Navbar';
+import { NavbarAppBar, NavbarSearchBtn } from '@/styles/components/Navbar';
+import '../styles/components/Navbar.css';
+import { FlexBox } from '@/styles/common';
 
 const settings = ['Profile', 'My Videos', 'My Channels', 'Logout'];
 
@@ -62,47 +63,21 @@ const Navbar = () => {
 				justifyContent: 'space-between'
 			}}>
 				<div></div>
-				{!isComponentHidden && <Box sx={{
-					border: `1px solid ${theme.palette.primary.main}`,
-					borderRadius: '40px',
-					mr: 2,
-				}}>
-					<Box component="form" onSubmit={handleSearchSubmit} sx={{
-						display: 'flex',
-						alignItems: 'center',
-					}}>
-						{isSearchInputFocus && <SearchIcon sx={{
-							color: 'primary.main',
-							marginLeft: '8px',
-							width: '0.8em',
-							height: '0.8em'
-						}} />}
+				{!isComponentHidden && <Box className='navbar-search-box'>
+					<Box component="form" onSubmit={handleSearchSubmit} sx={FlexBox}>
+						{isSearchInputFocus && <SearchIcon className='navbar-search-icon' />}
 						<InputBase
 							onFocus={() => setIsSearchInputFocus(true)}
 							onBlur={() => setIsSearchInputFocus(false)}
 							placeholder="Search"
 							value={searchTerm}
 							onChange={handleSearchChange}
-							sx={{
-								ml: 1,
-								width: '200px',
-								color: 'primary.main',
-								padding: '4px 0 4px 4px'
-							}}
+							className='navbar-search-input'
 							inputProps={{
 								'aria-label': 'search'
 							}}
 						/>
-						<Button variant="contained" sx={{
-							backgroundColor: 'primary.50',
-							position: 'relative',
-							boxShadow: 'none',
-							borderRadius: '0 40px 40px 0',
-							'&:hover': {
-								boxShadow: 'none',
-								backgroundColor: 'primary.200',
-							}
-						}} type="submit">
+						<Button variant="contained" sx={NavbarSearchBtn} type="submit">
 							<SearchIcon sx={{
 								color: 'primary.main'
 							}} />
@@ -110,9 +85,7 @@ const Navbar = () => {
 					</Box>
 				</Box>}
 				{isLoggedIn ? (
-					<Box sx={{
-						flexGrow: 0
-					}}>
+					<Box flexGrow={0}>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{
 								p: 0
@@ -140,9 +113,7 @@ const Navbar = () => {
 						>
 							{settings.map((setting) => (
 								<MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
-									<Typography sx={{
-										textAlign: 'center'
-									}}>{setting}</Typography>
+									<Typography textAlign='center'>{setting}</Typography>
 								</MenuItem>
 							))}
 						</Menu>

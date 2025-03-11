@@ -5,6 +5,40 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Primary Colors */
+	--primary-main: #00A76F;
+	--primary-light: #5BE49B;
+	--primary-dark: #007867;
+	--primary-contrastText: #FFFFFF;
+	--primary-50: #00A76F14;
+	--primary-100: #00A76F20;
+	--primary-200: #00A76F29;
+
+	/* Secondary Colors */
+	--secondary-main: #8E33FF;
+	--secondary-light: #C684FF;
+	--secondary-dark: #5119B7;
+	--secondary-contrastText: #FFFFFF;
+
+	/* Background Colors */
+	--background-default: #FFFFFF;
+	--background-paper: #FFFFFF;
+
+	/* Text Colors */
+	--text-primary: #1C252E;
+	--text-secondary: #637381;
+	--text-disabled: #919EAB;
+
+	/* Other Colors */
+	--error-main: #FF5630;
+	--success-main: #22C55E;
+	--warning-main: #FFAB00;
+	--info-main: #00B8D9;
+	--divider: #E0E0E0;
+
+	/* Typography */
+	--font-family: 'Inter', 'Helvetica', 'Arial', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,4 +58,24 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.main-layout-container {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+
+.wh-px-50 {
+  width: 50px;
+  height: 50px;
+}
+
+.wh-px-100 {
+  width: 100px;
+  height: 100px;
+}
+
+.br-50 {
+  border-radius: 50%;
 }

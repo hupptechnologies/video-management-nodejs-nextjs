@@ -1,0 +1,14 @@
+.not-found-main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 64px);
+    text-align: center;
+    flex-direction: column;
+    padding: 3;
+}
+
+.back-to-home-btn {
+    font-weight: bold;
+    padding: 10px 20px;
+}

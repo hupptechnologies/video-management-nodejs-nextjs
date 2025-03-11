@@ -21,7 +21,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { adminLogin, login } from '@/store/feature/auth/action';
 import { loginSchema } from '@/lib/yup/schema';
-import { LinkStyle } from '@/styles/common';
+import { FlexBox, LinkStyle } from '@/styles/common';
+import '../../../styles/pages/Auth.css';
 
 export default function Login () {
 
@@ -98,28 +99,15 @@ export default function Login () {
 
 	return (
 		<Container component="main" maxWidth="sm">
-			<Box
-				sx={{
-					marginTop: 8,
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-				}}
-			>
+			<Box className='auth-page-main-container'>
 				<Card
 					key={'login-form-card'}
-					sx={{
-						boxShadow: '0px 4px 20px rgba(0, 167, 111, 0.16)',
-						transition: 'transform 0.3s ease',
-						padding:'24px'
-					}}
+					className='auth-page-main-card'
 				>
 					<Typography component="h1" variant="h5">
                     Login
 					</Typography>
-					<Box component="form" onSubmit={handleSubmit} sx={{
-						mt: 1
-					}}>
+					<Box component="form" onSubmit={handleSubmit} mt={1} >
 						<TextField
 							margin="normal"
 							required
@@ -164,21 +152,14 @@ export default function Login () {
 							label="Log in as Admin"
 						/>
 						{authLoading
-							? <Box sx={{
-								alignItems: 'center',
-								justifyContent: 'center',
-								display: 'flex'
-							}}>
+							? <Box sx={FlexBox}>
 								<CircularProgress />
 							</Box>
 							: <Button
 								type="submit"
 								fullWidth
 								variant="contained"
-								sx={{
-									mt: 3,
-									mb: 2
-								}}
+								className='login-signup-btn'
 							>
                         Log In
 							</Button>}

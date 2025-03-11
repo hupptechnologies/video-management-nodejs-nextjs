@@ -1,0 +1,29 @@
+.channel-page-container-smallscreen {
+    margin: 16px 16px 16px 80px;
+    width: calc(100% - 80px);
+}
+
+.channel-page-container {
+    margin: 16px 16px 16px 236px;
+    width: calc(100% - 236px);
+}
+
+.empty-channel-img-box {
+    width: 200px;
+    height: auto;
+    margin-bottom: 3;
+}
+
+.empty-channel-text {
+    font-weight: 600;
+    margin-bottom: 1;
+}
+
+.channel-card-link {
+    text-decoration: none;
+}
+
+.channel-id-main-box {
+    background-color: var(--primary-100);
+    border-radius: 24px;
+}

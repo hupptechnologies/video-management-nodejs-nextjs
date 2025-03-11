@@ -102,10 +102,7 @@ const VideoList: React.FC<VideoListProps> = ({
 								}}>
 									{isChannnel
 										? <Stack gap={0.5}>
-											<Typography variant="h6" component="div" sx={{
-												fontWeight: 600,
-												color: '#212121'
-											}}>
+											<Typography variant="h6" component="div">
 												{video.name}
 											</Typography>
 											<Typography variant="body2" color="text.secondary">
@@ -123,10 +120,7 @@ const VideoList: React.FC<VideoListProps> = ({
 												}}
 											/>
 											<Stack gap={0.5}>
-												<Typography variant="h6" component="div" sx={{
-													fontWeight: 600,
-													color: '#212121'
-												}}>
+												<Typography variant="h6" component="div">
 													{video.name}
 												</Typography>
 												<Stack>

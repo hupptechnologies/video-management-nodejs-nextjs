@@ -10,3 +10,9 @@ export const LinkStyle = {
 	color: theme.palette.primary.main,
 	textDecoration: 'underline rgba(25, 118, 210, 0.4)'
 };
+
+export const FlexBox = {
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+};

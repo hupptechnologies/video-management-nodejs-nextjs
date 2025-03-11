@@ -21,7 +21,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { register } from '@/store/feature/auth/action';
 import { signUpSchema } from '@/lib/yup/schema';
-import { LinkStyle } from '@/styles/common';
+import { FlexBox, LinkStyle } from '@/styles/common';
 
 export default function SignUp () {
 
@@ -97,28 +97,16 @@ export default function SignUp () {
 
 	return (
 		<Container component="main" maxWidth="sm">
-			<Box
-				sx={{
-					marginTop: 8,
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-				}}
+			<Box className='auth-page-main-container'
 			>
 				<Card
 					key={'signup-form-card'}
-					sx={{
-						boxShadow: '0px 4px 20px rgba(0, 167, 111, 0.16)',
-						transition: 'transform 0.3s ease',
-						padding:'24px'
-					}}
+					className='auth-page-main-card'
 				>
 					<Typography component="h1" variant="h5">
 					Sign up
 					</Typography>
-					<Box component="form" onSubmit={handleSubmit} sx={{
-						mt: 1
-					}}>
+					<Box component="form" onSubmit={handleSubmit} mt={1}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
 								<TextField
@@ -198,21 +186,14 @@ export default function SignUp () {
 							label="Remember me"
 						/>
 						{authLoading
-							? <Box sx={{
-								alignItems: 'center',
-								justifyContent: 'center',
-								display: 'flex'
-							}}>
+							? <Box sx={FlexBox}>
 								<CircularProgress />
 							</Box>
 							: <Button
 								type="submit"
 								fullWidth
 								variant="contained"
-								sx={{
-									mt: 3,
-									mb: 2
-								}}
+								className='login-signup-btn'
 							>
                        Sign Up
 							</Button>}

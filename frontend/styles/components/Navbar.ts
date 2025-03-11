@@ -7,3 +7,14 @@ export const NavbarAppBar = createStyle({
 	height: '64px',
 	boxShadow: 'none'
 });
+
+export const NavbarSearchBtn = createStyle({
+	backgroundColor: 'primary.50',
+	position: 'relative',
+	boxShadow: 'none',
+	borderRadius: '0 40px 40px 0',
+	'&:hover': {
+		boxShadow: 'none',
+		backgroundColor: 'primary.200',
+	}
+});

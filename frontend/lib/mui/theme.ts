@@ -91,7 +91,7 @@ const baseTheme: ThemeOptions = {
 		h6: {
 			fontSize: '1.25rem',
 			fontWeight: 500,
-			color: '#757575',
+			color: '#212121',
 		},
 		subtitle1: {
 			fontSize: '1rem',

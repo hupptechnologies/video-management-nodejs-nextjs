@@ -9,6 +9,7 @@ import { getChannelById } from '@/store/feature/channel/action';
 import { getChannelVideos } from '@/store/feature/video/action';
 import withAuth from '@/config/withAuth';
 import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
+import '../../../styles/pages/Channel.css';
 
 const page = ({ params }: { params: { channelId: number } }) => {
 
@@ -37,25 +38,14 @@ const page = ({ params }: { params: { channelId: number } }) => {
 	}
 
 	return (
-		<Container maxWidth={false} sx={{
-			m: '16px 16px 16px 0',
-			marginLeft: smallScreen || collapsed ? '80px' : '236px',
-			width: smallScreen || collapsed ? "calc(100% - 80px)" : "calc(100% - 236px)"
-		}}>
-			<Box sx={{
-				backgroundColor: 'primary.100',
-				borderRadius: '24px'
-			}}>
+		<Container maxWidth={false} className={smallScreen || collapsed ? 'channel-page-container-smallscreen' : 'channel-page-container'}>
+			<Box component={'div'} className='channel-id-main-box'>
 				<Stack alignItems={'center'} direction='row' justifyContent={'space-between'}>
 					<Stack alignItems={'center'} direction='row'>
 						<Avatar
 							alt={channel.name}
 							src={DefaultChannelAvatar.src}
-							sx={{
-								width: 100,
-								height: 100,
-								borderRadius: '50%',
-							}}
+							className='wh-px-100 br-50'
 						/>
 						<Typography variant="h2" component="div">
 							{channel.name}

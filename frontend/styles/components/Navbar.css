@@ -1,0 +1,19 @@
+.navbar-search-box {
+    border: 1px solid var(--primary-main);
+    border-radius: 40px;
+    margin-right: 16px,
+}
+
+.navbar-search-icon {
+    color: var(--primary-main);
+    margin-left: 8px;
+    width: 0.8em;
+    height: 0.8em;
+}
+
+.navbar-search-input {
+    margin-left: 8px;
+    width: 200px;
+    color: var(--primary-main);
+    padding: 4px 0 4px 4px;
+}
