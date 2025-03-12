@@ -21,44 +21,27 @@ const ChannelModal: React.FC<ChannelProps> = ({
 			aria-labelledby="modal-title"
 			aria-describedby="modal-description"
 		>
-			<Box
-				sx={{
-					position: 'absolute',
-					top: '50%',
-					left: '50%',
-					transform: 'translate(-50%, -50%)',
-					width: 400,
-					bgcolor: 'background.paper',
-					borderRadius: 2,
-					boxShadow: 24,
-					p: 4,
-				}}
-			>
+			<Box className='channel-modal-box'>
 				<Typography id="modal-title" variant="h5">
 					{title}
 				</Typography>
 				{children}
-				<Button
-					variant="contained"
-					color="primary"
-					sx={{
-						mt: 2
-					}}
-					onClick={handleSubmit}
-				>
-					{type === 'create' ? 'Submit' : type === 'update' ? 'Update' : '' }
-				</Button>
-				<Button
-					variant="outlined"
-					color="secondary"
-					sx={{
-						mt: 2,
-						ml: 2
-					}}
-					onClick={handleClose}
-				>
+				<div className='channel-modal-button-div'>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={handleSubmit}
+					>
+						{type === 'create' ? 'Submit' : type === 'update' ? 'Update' : '' }
+					</Button>
+					<Button
+						variant="outlined"
+						color="secondary"
+						onClick={handleClose}
+					>
                         Cancel
-				</Button>
+					</Button>
+				</div>
 			</Box>
 		</Modal>
 	);

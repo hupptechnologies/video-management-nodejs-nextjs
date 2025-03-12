@@ -55,10 +55,7 @@ const CreateChannel = () => {
                     Create Channel
 				</Button>
 			</Stack>
-			<Divider sx={{
-				marginTop: 3,
-				marginBottom: 3
-			}} />
+			<Divider className='create-channel-divider' />
 			<ChannelModal open={open} handleClose={handleClose} type='create' handleSubmit={handleSubmit} title='Create Channel' >
 				<TextField
 					fullWidth
@@ -68,9 +65,6 @@ const CreateChannel = () => {
 					onChange={handleChange}
 					error={!!error}
 					helperText={error}
-					sx={{
-						mt: 2
-					}}
 				/>
 			</ChannelModal>
 		</>

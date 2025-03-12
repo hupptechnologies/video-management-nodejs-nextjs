@@ -25,11 +25,7 @@ const Toast: React.FC<ToastProps> = ({
 			<Alert
 				onClose={onClose}
 				severity={severity}
-				sx={{
-					width: 'auto',
-					maxWidth: '25rem',
-					wordBreak: 'break-word'
-				}}
+				className='toast-alert'
 			>
 				{message}
 			</Alert>

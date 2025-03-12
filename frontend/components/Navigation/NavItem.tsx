@@ -20,19 +20,9 @@ const NavItem = ({
 
 	return (
 		<ListItem disablePadding>
-			<ListItemButton sx={{
-				'&.Mui-selected': {
-					backgroundColor: 'primary.50',
-				}
-			}} onClick={onClose} selected={selected} href={item.href} component={Link}>
-				<ListItemIcon sx={{
-					color: 'primary.main'
-				}}>{selected ? item.selectedIcon : item.icon}</ListItemIcon>
-				<ListItemText sx={{
-					'& .MuiTypography-root': {
-						color: 'primary.main'
-					}
-				}} primary={item.name} />
+			<ListItemButton className='nav-list-item-button' onClick={onClose} selected={selected} href={item.href} component={Link}>
+				<ListItemIcon className='nav-list-item-button-icon'>{selected ? item.selectedIcon : item.icon}</ListItemIcon>
+				<ListItemText className='nav-list-item-button-text' primary={item.name} />
 			</ListItemButton>
 		</ListItem>
 	);

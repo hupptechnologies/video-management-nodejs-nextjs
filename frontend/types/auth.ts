@@ -19,5 +19,5 @@ export interface AuthState {
     refreshToken: string;
     authLoading: boolean;
     user: Optional<AuthResponse>;
+    isAdmin: boolean;
 }
-

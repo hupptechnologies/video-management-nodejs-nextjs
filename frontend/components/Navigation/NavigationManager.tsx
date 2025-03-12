@@ -13,7 +13,9 @@ import AppLogo from '@/assets/image/app-logo.png';
 
 const NavigationManager = () => {
 	const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
-	const { floatingOnly } = useAppSelector(state => state.navigation);
+	const {
+		floatingOnly, collapsed
+	} = useAppSelector(state => state.navigation);
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const pathname = usePathname();
@@ -29,30 +31,15 @@ const NavigationManager = () => {
 	return (
 		<>
 			<Box sx={NavigationManagerMainBox}>
-				<Box sx={{
-					display: 'flex',
-					alignItems: 'center',
-					color: 'primary.main',
-				}}>
+				<Box className='navigation-manager-inner-box'>
 					{!isSidebarHidden && <NavMenuButton />}
-					<Box onClick={() => router.push('/')} sx={{
-						cursor: 'pointer',
-						display: 'flex',
-						alignItems: 'center',
-						gap: '4px'
-					}}>
+					<Box onClick={() => router.push('/')} className='navigation-avatar-box'>
 						<Avatar
 							alt={'VideoTube'}
 							src={AppLogo.src}
-							sx={{
-								width: 50,
-								height: 50,
-							}}
+							className='wh-px-50'
 						/>
-						<Typography variant="h5" component="div" sx={{
-							flexGrow: 1,
-							color: 'primary.main',
-						}}>
+						<Typography variant="h5" component="div" className='navigation-app-name'>
 							VideoTube
 						</Typography>
 					</Box>
@@ -62,8 +49,7 @@ const NavigationManager = () => {
 						<FloatingSidebar />
 						{!floatingOnly && (
 							<>
-								<StaticSidebar />
-								<CollapsedSidebar />
+								{collapsed ? <CollapsedSidebar /> : <StaticSidebar />}
 							</>
 						)}
 					</>

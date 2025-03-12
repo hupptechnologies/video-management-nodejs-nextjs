@@ -27,3 +27,27 @@
     background-color: var(--primary-100);
     border-radius: 24px;
 }
+
+.channel-modal-box {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: var(--background-paper);
+    border-radius: 16px;
+    box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    padding: 32px;
+}
+
+.channel-modal-button-div{
+    display: flex;
+    gap: 12px;
+}
+
+.create-channel-divider{
+    margin: 24px 0;
+}

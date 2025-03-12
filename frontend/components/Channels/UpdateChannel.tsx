@@ -62,9 +62,6 @@ const UpdateChannel = ({ channel }: { channel: Channel }) => {
 				aria-controls={open ? 'menu' : undefined}
 				aria-haspopup="true"
 				onClick={handleClick}
-				sx={{
-					mr: 2
-				}}
 			>
 				<MoreVert />
 			</IconButton>
@@ -88,9 +85,6 @@ const UpdateChannel = ({ channel }: { channel: Channel }) => {
 					onChange={handleChange}
 					error={!!error}
 					helperText={error}
-					sx={{
-						mt: 2
-					}}
 				/>
 			</ChannelModal>
 		</>

@@ -1,0 +1,77 @@
+@media (min-width: 0px) {
+    .collapsed-sidebar-drawer {
+        display: none;
+    }
+}
+
+@media (min-width: 600px) {
+    .collapsed-sidebar-drawer {
+        display: block;
+    }
+}
+
+@media (min-width: 1200px) {
+    .collapsed-sidebar-drawer {
+        display: block;
+    }
+}
+
+.collapsed-sidebar-drawer>div {
+    top: 64px;
+    bottom: 0;
+    width: 80px;
+    overflow: hidden;
+    border-right: none;
+    padding: 0 4px;
+}
+
+.collapsed-sidebar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.floating-sidebar-drawer {
+    overflow: hidden;
+}
+
+.floating-sidebar-drawer>.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0 {
+    padding-right: 4px;
+    width: 240px;
+}
+
+.navigation-avatar-box {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.navigation-app-name {
+    flex-grow: 1;
+    color: var(--primary-main);
+}
+
+.main-navigation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.navigation-manager-inner-box {
+    display: flex;
+    align-items: center;
+    color: var(--primary-main);
+}
+
+.nav-list-item-button.Mui-selected {
+    background-color: var(--primary-50);
+}
+
+.nav-list-item-button-text .MuiTypography-root {
+    color: var(--primary-main);
+}
+
+.nav-list-item-button-icon {
+    color: var(--primary-main);
+}

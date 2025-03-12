@@ -24,44 +24,20 @@ const FloatingSidebar = () => {
 			open={floating}
 			onClose={onClose}
 			elevation={0}
-			sx={{
-				overflow: 'hidden',
-				display: {
-					xs: 'block',
-					lg: floatingOnly ? 'block' : 'none'
-				},
-				'&>div': {
-					pr: 0.5
-				},
-				'&>.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0': {
-					width: '240px'
-				}
-			}}
+			className={`floating-sidebar-drawer${!floatingOnly ? ' dn' : ''}`}
 		>
 			<Stack maxWidth={236} role="presentation" maxHeight="100%" pt={1} pb={0.5} overflow="hidden">
 				<Stack direction="row" alignItems="center" px={2} pb={1}>
 					<NavMenuButton />
-					<Box sx={{
-						cursor: 'pointer',
-						display: 'flex',
-						alignItems: 'center',
-						gap: '4px'
-					}} onClick={() => {
+					<Box className='navigation-avatar-box' onClick={() => {
 						router.push('/');
 						onClose();
 					}} >
 						<Avatar
 							alt={'VideoTube'}
 							src={AppLogo.src}
-							sx={{
-								width: 30,
-								height: 30,
-							}}
 						/>
-						<Typography variant="subtitle1" component="div" sx={{
-							flexGrow: 1,
-							color: 'primary.main',
-						}}>
+						<Typography variant="subtitle1" component="div" className='navigation-app-name'>
 							VideoTube
 						</Typography>
 					</Box>

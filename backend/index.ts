@@ -17,9 +17,7 @@ import fastifyStatic from '@fastify/static';
 import path from 'path';
 import fastifyCookie from 'fastify-cookie';
 
-const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({
-	logger: true
-});
+const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify();
 
 __dirname = path.resolve();
 

@@ -7,6 +7,7 @@ import ToastWrapper from './ToastWrapper';
 import Navbar from '@/components/Navbar';
 import NavigationManager from '@/components/Navigation/NavigationManager';
 import './globals.css';
+import '../styles/components/Navigation.css';
 
 export default function RootLayout ({ children }: { children: React.ReactNode }) {
 
