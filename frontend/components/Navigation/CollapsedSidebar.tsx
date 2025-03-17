@@ -3,7 +3,6 @@
 import { Box, Drawer, List } from '@mui/material';
 import NavItem from './NavItem';
 import { collapsedNavigation } from '@/config/siteNavigation';
-import { CollapsedSidebarBox } from '@/styles/components/Navigation';
 
 const CollapsedSidebar = () => {
 
@@ -18,7 +17,7 @@ const CollapsedSidebar = () => {
 			<Box
 				mb="60px"
 				role="presentation"
-				sx={CollapsedSidebarBox}
+				className='collapsed-sidebar-box'
 			>
 				<List className='collapsed-sidebar-list'>
 					{collapsedNavigation.map((x) => (

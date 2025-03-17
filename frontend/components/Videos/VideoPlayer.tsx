@@ -6,7 +6,6 @@ import CircularProgressLoader from '../CircularProgressLoader';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setFloatingOnly } from '@/store/feature/navigation/slice';
 import { getVideoById } from '@/store/feature/video/action';
-import { VideoPlayerControlBoxStyle, VideoPlayerMainBoxStyle } from '@/styles/components/VideoPlayer';
 import '../../styles/components/VideoPlayer.css';
 
 const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
@@ -107,7 +106,7 @@ const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
 	}
 
 	return (
-		<Box sx={VideoPlayerMainBoxStyle}>
+		<Box className='video-player-main-box'>
 			<video
 				ref={videoRef}
 				width="100%"
@@ -119,7 +118,7 @@ const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
 				<source src={video.url} type="video/mp4" />
 		Your browser does not support the video tag.
 			</video>
-			<Box sx={VideoPlayerControlBoxStyle}>
+			<Box className='video-player-controls-main-box'>
 				<IconButton onClick={togglePlay} className='video-player-play-btn'>
 					{playing ? <Pause /> : <PlayArrow />}
 				</IconButton>

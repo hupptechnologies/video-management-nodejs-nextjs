@@ -41,17 +41,13 @@ const VideoList: React.FC<VideoListProps> = ({
 							>
 								<Link href={`/videos/${video.id}`} className='list-item-card-link'>
 									<CardMedia
-										sx={{
-											height: 240,
-										}}
+										className='video-list-item-card-media'
 										component="img"
 										image={getThumbnailUrl(video.url)}
 										alt={video.name}
 									/>
 								</Link>
-								<CardContent sx={{
-									padding: 2
-								}}>
+								<CardContent className='video-list-item-card-content'>
 									{isChannnel
 										? <Stack gap={0.5}>
 											<Typography variant="h6" component="div">

@@ -21,7 +21,6 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { register } from '@/store/feature/auth/action';
 import { signUpSchema } from '@/lib/yup/schema';
-import { FlexBox, LinkStyle } from '@/styles/common';
 import '../../../styles/pages/Auth.css';
 
 export default function SignUp () {
@@ -101,7 +100,7 @@ export default function SignUp () {
 			<Box className='auth-page-main-container'
 			>
 				<Card
-					key={'signup-form-card'}
+					key='signup-form-card'
 					className='auth-page-main-card'
 				>
 					<Typography component="h1" variant="h5">
@@ -184,7 +183,7 @@ export default function SignUp () {
 							label="Remember me"
 						/>
 						{authLoading
-							? <Box sx={FlexBox}>
+							? <Box className='center-flex-box'>
 								<CircularProgress />
 							</Box>
 							: <Button
@@ -195,7 +194,7 @@ export default function SignUp () {
 							>
                        Sign Up
 							</Button>}
-						<Link style={LinkStyle} href={'/login'} passHref>
+						<Link className='next-link-custom-style' href='/login' passHref>
                           Already have an account? Login
 						</Link>
 					</Box>

@@ -8,7 +8,6 @@ import CollapsedSidebar from './CollapsedSidebar';
 import NavMenuButton from '../NavMenuButton';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setFloating } from '@/store/feature/navigation/slice';
-import { NavigationManagerMainBox } from '@/styles/components/Navigation';
 import AppLogo from '@/assets/image/app-logo.png';
 
 const NavigationManager = () => {
@@ -30,12 +29,12 @@ const NavigationManager = () => {
 
 	return (
 		<>
-			<Box sx={NavigationManagerMainBox}>
+			<Box className='navigation-manager-main-box'>
 				<Box className='navigation-manager-inner-box'>
 					{!isSidebarHidden && <NavMenuButton />}
 					<Box onClick={() => router.push('/')} className='navigation-avatar-box'>
 						<Avatar
-							alt={'VideoTube'}
+							alt='VideoTube'
 							src={AppLogo.src}
 							className='wh-px-50'
 						/>

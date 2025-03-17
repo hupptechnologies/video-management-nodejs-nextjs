@@ -6,9 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logout } from '@/store/feature/auth/slice';
 import { getUserDetails } from '@/store/feature/auth/action';
-import { NavbarAppBar, NavbarSearchBtn } from '@/styles/components/Navbar';
 import '../styles/components/Navbar.css';
-import { FlexBox } from '@/styles/common';
 
 const settings = ['Profile', 'My Videos', 'My Channels', 'Logout'];
 
@@ -58,13 +56,11 @@ const Navbar = () => {
 	};
 
 	return (
-		<AppBar sx={NavbarAppBar} position="sticky">
-			<Toolbar sx={{
-				justifyContent: 'space-between'
-			}}>
+		<AppBar className='navbar-app-bar' position="sticky">
+			<Toolbar className='navbar-tool-bar'>
 				<div></div>
 				{!isComponentHidden && <Box className='navbar-search-box'>
-					<Box component="form" onSubmit={handleSearchSubmit} sx={FlexBox}>
+					<Box component="form" onSubmit={handleSearchSubmit} className='center-flex-box'>
 						{isSearchInputFocus && <SearchIcon className='navbar-search-icon' />}
 						<InputBase
 							onFocus={() => setIsSearchInputFocus(true)}
@@ -77,27 +73,20 @@ const Navbar = () => {
 								'aria-label': 'search'
 							}}
 						/>
-						<Button variant="contained" sx={NavbarSearchBtn} type="submit">
-							<SearchIcon sx={{
-								color: 'primary.main'
-							}} />
+						<Button variant="contained" className='navbar-search-btn' type="submit">
+							<SearchIcon className='navbar-search-icon'/>
 						</Button>
 					</Box>
 				</Box>}
 				{isLoggedIn ? (
 					<Box flexGrow={0}>
 						<Tooltip title="Open settings">
-							<IconButton onClick={handleOpenUserMenu} sx={{
-								p: 0
-							}}>
+							<IconButton onClick={handleOpenUserMenu} className='menu-icon-btn'>
 								<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
 							</IconButton>
 						</Tooltip>
 						<Menu
-							sx={{
-								mt: '45px'
-							}}
-							id="menu-appbar"
+							className='navbar-menu'
 							anchorEl={anchorElUser}
 							anchorOrigin={{
 								vertical: 'top',
@@ -119,9 +108,7 @@ const Navbar = () => {
 						</Menu>
 					</Box>
 				) : (
-					<Button sx={{
-						color: 'primary.main'
-					}} onClick={() => router.push('/login')}>
+					<Button className='navbar-login-btn' onClick={() => router.push('/login')}>
 						Login
 					</Button>
 				)}

@@ -25,6 +25,9 @@
 	--background-default: #FFFFFF;
 	--background-paper: #FFFFFF;
 	--background-secondary: #E5E5E5;
+	--background-dark: #000000;
+	--background-dark-600: #00000099;
+	--background-dark-300: #0000004d;
 
 	/* Text Colors */
 	--text-primary: #1C252E;

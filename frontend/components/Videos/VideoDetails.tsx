@@ -24,9 +24,9 @@ const VideoDetails = () => {
 				>
 					{video?.name}
 				</Typography>
-				<Stack direction='row' justifyContent={'space-between'}>
+				<Stack direction='row' justifyContent='space-between'>
 					<Link href={`/channels/${video.channels.id}`}>
-						<Stack direction='row' alignItems={'center'}>
+						<Stack direction='row' alignItems='center'>
 							<Avatar
 								alt={video.channels.name}
 								src={DefaultChannelAvatar.src}

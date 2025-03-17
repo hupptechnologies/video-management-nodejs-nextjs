@@ -34,7 +34,7 @@ const FloatingSidebar = () => {
 						onClose();
 					}} >
 						<Avatar
-							alt={'VideoTube'}
+							alt='VideoTube'
 							src={AppLogo.src}
 						/>
 						<Typography variant="subtitle1" component="div" className='navigation-app-name'>

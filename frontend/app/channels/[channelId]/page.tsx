@@ -39,9 +39,9 @@ const page = ({ params }: { params: { channelId: number } }) => {
 
 	return (
 		<Container maxWidth={false} className={smallScreen || collapsed ? 'page-container-smallscreen' : 'page-container'}>
-			<Box component={'div'} className='channel-id-main-box'>
-				<Stack alignItems={'center'} direction='row' justifyContent={'space-between'}>
-					<Stack alignItems={'center'} direction='row'>
+			<Box component='div' className='channel-id-main-box'>
+				<Stack alignItems='center' direction='row' justifyContent='space-between'>
+					<Stack alignItems='center' direction='row'>
 						<Avatar
 							alt={channel.name}
 							src={DefaultChannelAvatar.src}

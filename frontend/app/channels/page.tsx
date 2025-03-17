@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getChannels, getChannelsByUserId } from '@/store/feature/channel/action';
 import withAuth from '@/config/withAuth';
 import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
-import { ChannelListContentCard } from '@/styles/pages/Channel';
 import '../../styles/pages/Channel.css';
 
 const page = () => {
@@ -51,8 +50,8 @@ const page = () => {
 								key={channel.id} className='channel-list-item-card'
 							>
 								<Link href={`/channels/${channel.id}`} className='channel-list-item-card-link'>
-									<CardContent sx={ChannelListContentCard}>
-										<Stack gap={0.5} alignItems={'center'} direction='row'>
+									<CardContent className='channel-list-item-card-content'>
+										<Stack gap={0.5} alignItems='center' direction='row'>
 											<Avatar
 												alt={channel.name}
 												src={DefaultChannelAvatar.src}

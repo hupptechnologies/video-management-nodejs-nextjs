@@ -45,7 +45,7 @@ const CreateChannel = () => {
 
 	return (
 		<>
-			<Stack alignItems={'end'}>
+			<Stack alignItems='end'>
 				<Button
 					variant="contained"
 					startIcon={<Add />}

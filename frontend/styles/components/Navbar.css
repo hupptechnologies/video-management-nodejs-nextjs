@@ -1,3 +1,23 @@
+.navbar-app-bar {
+    padding-left: 240px;
+    background-color: var(--background-paper);
+    justify-content: center;
+    height: 64px;
+    box-shadow: none;
+}
+
+.navbar-search-btn {
+    background-color: var(--primary-50);
+    position: relative;
+    box-shadow: none;
+    border-radius: 0 40px 40px 0;
+}
+
+.navbar-search-btn:hover {
+    box-shadow: none;
+    background-color: var(--primary-200);
+}
+
 .navbar-search-box {
     border: 1px solid var(--primary-main);
     border-radius: 40px;
@@ -20,4 +40,24 @@
 
 .nav-menu-btn-icon {
     margin-right: 16px;
+}
+
+.navbar-tool-bar {
+    justify-content: space-between;
+}
+
+.navbar-search-icon {
+    color: var(--primary-main);
+}
+
+.menu-icon-btn {
+    padding: 0;
+}
+
+.navbar-menu {
+    margin-top: 45px;
+}
+
+.navbar-login-btn {
+    color: var(--primary-main);
 }

@@ -1,10 +1,9 @@
-import { MainBoxStyle } from '@/styles/components/SuggestedVideos';
-import { Box } from '@mui/material';
 import React from 'react';
+import { Box } from '@mui/material';
 
 const SuggestedVideos = () => {
 	return (
-		<Box sx={MainBoxStyle}>SuggestedVideos</Box>
+		<Box className='suggested-videos-main-box'>SuggestedVideos</Box>
 	);
 };
 

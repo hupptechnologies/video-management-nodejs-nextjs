@@ -4,7 +4,6 @@ import { useCallback } from 'react';
 import { NavItem as NavItemT } from '@/types/config';
 import { mainNavigation } from '@/config/siteNavigation';
 import { useAppSelector } from '@/store/hooks';
-import { MainNavigationBox } from '@/styles/components/Navigation';
 
 const MainNavigation = ({ onClose }: {onClose?: () => void}) => {
 
@@ -30,7 +29,7 @@ const MainNavigation = ({ onClose }: {onClose?: () => void}) => {
 	return (
 		<Box
 			role="presentation"
-			sx={MainNavigationBox}
+			className='main-navigation-box'
 		>
 			{getNavList(mainNavigation(isAdmin))}
 		</Box>

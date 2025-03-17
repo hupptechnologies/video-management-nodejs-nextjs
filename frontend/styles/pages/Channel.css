@@ -54,11 +54,19 @@
     padding: 32px;
 }
 
-.channel-modal-button-div{
+.channel-modal-button-div {
     display: flex;
     gap: 12px;
 }
 
-.create-channel-divider{
+.create-channel-divider {
     margin: 24px 0;
+}
+
+.channel-list-item-card-content {
+    padding: 16px;
+}
+
+.channel-list-item-card-content:last-child {
+    padding-bottom: 16px;
 }

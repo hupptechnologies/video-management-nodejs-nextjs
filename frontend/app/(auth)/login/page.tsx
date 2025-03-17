@@ -21,7 +21,6 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { adminLogin, login } from '@/store/feature/auth/action';
 import { loginSchema } from '@/lib/yup/schema';
-import { FlexBox, LinkStyle } from '@/styles/common';
 import '../../../styles/pages/Auth.css';
 
 export default function Login () {
@@ -101,7 +100,7 @@ export default function Login () {
 		<Container component="main" maxWidth="sm">
 			<Box className='auth-page-main-container'>
 				<Card
-					key={'login-form-card'}
+					key='login-form-card'
 					className='auth-page-main-card'
 				>
 					<Typography component="h1" variant="h5">
@@ -152,7 +151,7 @@ export default function Login () {
 							label="Log in as Admin"
 						/>
 						{authLoading
-							? <Box sx={FlexBox}>
+							? <Box className='center-flex-box'>
 								<CircularProgress />
 							</Box>
 							: <Button
@@ -165,13 +164,13 @@ export default function Login () {
 							</Button>}
 						<Grid container>
 							<Grid item xs>
-								<Link style={LinkStyle} href="/#" passHref>
+								<Link className='next-link-custom-style' href="/#" passHref>
 								Forgot password?
 								</Link>
 							</Grid>
 							<Grid item>
-								<Link style={LinkStyle} href="/signup" passHref>
-									{"Don't"} have an account? Sign Up
+								<Link className='next-link-custom-style' href="/signup" passHref>
+									Don't have an account? Sign Up
 								</Link>
 							</Grid>
 						</Grid>

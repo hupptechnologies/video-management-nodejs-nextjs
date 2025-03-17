@@ -6,8 +6,7 @@ import VideoPlayer from '@/components/Videos/VideoPlayer';
 import VideoDetails from '@/components/Videos/VideoDetails';
 import { useAppDispatch } from '@/store/hooks';
 import { setFloatingOnly } from '@/store/feature/navigation/slice';
-import { VideoIdMainBoxStyle } from '@/styles/videos/VideoId';
-import { VideoPlayerContainerMainBoxStyle } from '@/styles/components/VideoPlayer';
+import '../../../styles/components/VideoPlayer.css';
 
 export default function VideoPlayerPage ({ params }: { params: { videoId: number } }) {
 	const dispatch = useAppDispatch();
@@ -20,8 +19,8 @@ export default function VideoPlayerPage ({ params }: { params: { videoId: number
 	}, []);
 
 	return (
-		<Box sx={VideoIdMainBoxStyle}>
-			<Box sx={VideoPlayerContainerMainBoxStyle}>
+		<Box className='video-id-page-main-box'>
+			<Box className='video-player-main-box-container'>
 				<VideoPlayer params={params}/>
 				<VideoDetails/>
 			</Box>

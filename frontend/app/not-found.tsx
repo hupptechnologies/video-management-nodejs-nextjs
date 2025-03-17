@@ -9,7 +9,7 @@ const NotFoundPage = () => {
 		<div className='not-found-main-container'
 		>
 			<Typography
-				variant="h1" fontSize={'8rem'} fontWeight={700}
+				variant="h1" fontSize='8rem' fontWeight={700}
 				className="error-404-text"
 			>
                 404

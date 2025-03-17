@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import NavigationManager from '@/components/Navigation/NavigationManager';
 import './globals.css';
 import '../styles/components/Navigation.css';
+import '../styles/common/index.css';
 
 export default function RootLayout ({ children }: { children: React.ReactNode }) {
 
