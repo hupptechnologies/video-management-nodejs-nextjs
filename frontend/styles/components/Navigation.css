@@ -75,3 +75,30 @@
 .nav-list-item-button-icon {
     color: var(--primary-main);
 }
+
+@media (min-width: 0px) {
+    .static-sidebar-drawer {
+        display: none;
+    }
+}
+
+@media (min-width: 600px) {
+    .static-sidebar-drawer {
+        display: block;
+    }
+}
+
+@media (min-width: 1200px) {
+    .static-sidebar-drawer {
+        display: block;
+    }
+}
+
+.static-sidebar-drawer>div {
+    top: 64px;
+    bottom: 0;
+    width: 240px;
+    overflow: hidden;
+    border-right: none;
+    padding: 0 16px;
+}

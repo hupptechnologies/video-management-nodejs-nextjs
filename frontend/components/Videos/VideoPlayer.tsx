@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setFloatingOnly } from '@/store/feature/navigation/slice';
 import { getVideoById } from '@/store/feature/video/action';
 import { VideoPlayerControlBoxStyle, VideoPlayerMainBoxStyle } from '@/styles/components/VideoPlayer';
+import '../../styles/components/VideoPlayer.css';
 
 const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
 
@@ -113,75 +114,37 @@ const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
 				onTimeUpdate={handleProgress}
 				onClick={togglePlay}
 				onEnded={() => setPlaying(false)}
-				style={{
-					borderRadius: '8px',
-					outline: 'none'
-				}}
+				className='video-player-main-video'
 			>
 				<source src={video.url} type="video/mp4" />
 		Your browser does not support the video tag.
 			</video>
-
 			<Box sx={VideoPlayerControlBoxStyle}>
-				<IconButton onClick={togglePlay} sx={{
-					color: 'white'
-				}}>
+				<IconButton onClick={togglePlay} className='video-player-play-btn'>
 					{playing ? <Pause /> : <PlayArrow />}
 				</IconButton>
-
-				<Typography sx={{
-					color: 'white',
-					mx: 1
-				}}>{formatTime(currentTime)}</Typography>
-
+				<Typography className='video-player-current-time-text'>{formatTime(currentTime)}</Typography>
 				<Slider
 					value={progress}
 					onChange={handleSeek}
-					sx={{
-						flexGrow: 1,
-						mx: 2,
-						color: 'primary.main',
-						'& .MuiSlider-thumb': {
-							width: 10,
-							height: 10,
-							boxShadow: '0 0 4px rgba(0, 0, 0, 0.3)'
-						}
-					}}
+					className='video-player-time-slider'
 					aria-labelledby="video-progress"
 					min={0}
 					max={100}
 				/>
-
-				<Typography sx={{
-					color: 'white',
-					mx: 1
-				}}>{formatTime(duration)}</Typography>
-
-				<IconButton onClick={toggleMute} sx={{
-					color: 'white'
-				}}>
+				<Typography className='video-player-total-duration-text'>{formatTime(duration)}</Typography>
+				<IconButton onClick={toggleMute} className='video-player-mute-btn'>
 					{muted || volume === 0 ? <VolumeOff /> : <VolumeUp />}
 				</IconButton>
-
 				<Slider
 					value={volume}
 					onChange={handleVolumeChange}
-					sx={{
-						width: 100,
-						color: 'primary.main',
-						'& .MuiSlider-thumb': {
-							width: 8,
-							height: 8,
-						}
-					}}
+					className='video-player-volume-slider'
 					aria-labelledby="volume-slider"
 					min={0}
 					max={100}
 				/>
-
-				<IconButton onClick={handleFullscreen} sx={{
-					color: 'white'
-				}}>
+				<IconButton onClick={handleFullscreen} className='video-player-fullscreen-btn'>
 					<Fullscreen />
 				</IconButton>
 			</Box>

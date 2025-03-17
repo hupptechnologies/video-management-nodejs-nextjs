@@ -14,3 +14,8 @@
 .login-signup-btn {
     margin: 24px 0 16px 0;
 }
+
+.signup-password-error {
+    color: var(--error-main);
+    margin: 5px 0;
+}

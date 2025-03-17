@@ -1,9 +1,9 @@
-.channel-page-container-smallscreen {
+.page-container-smallscreen {
     margin: 16px 16px 16px 80px;
     width: calc(100% - 80px);
 }
 
-.channel-page-container {
+.page-container {
     margin: 16px 16px 16px 236px;
     width: calc(100% - 236px);
 }
@@ -11,16 +11,27 @@
 .empty-channel-img-box {
     width: 200px;
     height: auto;
-    margin-bottom: 3;
+    margin-bottom: 24px;
 }
 
 .empty-channel-text {
     font-weight: 600;
-    margin-bottom: 1;
+    margin-bottom: 8px;
 }
 
-.channel-card-link {
+.channel-list-item-card-link {
     text-decoration: none;
+}
+
+.channel-list-item-card {
+    border-radius: 24px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.channel-list-item-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.15);
 }
 
 .channel-id-main-box {

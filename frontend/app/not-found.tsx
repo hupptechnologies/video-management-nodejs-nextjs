@@ -26,9 +26,7 @@ const NotFoundPage = () => {
                 Sorry, the page you’re looking for doesn’t exist. It might have been removed or you may have entered the wrong URL.
 			</Typography>
 			<Stack direction="row" spacing={2}>
-				<Link href="/" style={{
-					textDecoration: "none"
-				}}>
+				<Link href="/" className="back-to-home-link">
 					<Button
 						variant="contained"
 						className="back-to-home-btn"

@@ -5,10 +5,14 @@
     height: calc(100vh - 64px);
     text-align: center;
     flex-direction: column;
-    padding: 3;
+    padding: 24px;
 }
 
 .back-to-home-btn {
     font-weight: bold;
     padding: 10px 20px;
+}
+
+.back-to-home-link {
+    text-decoration: none;
 }

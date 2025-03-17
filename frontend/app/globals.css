@@ -24,6 +24,7 @@
 	/* Background Colors */
 	--background-default: #FFFFFF;
 	--background-paper: #FFFFFF;
+	--background-secondary: #E5E5E5;
 
 	/* Text Colors */
 	--text-primary: #1C252E;
@@ -88,4 +89,8 @@ body {
 
 .dn {
 	display: none;
+}
+
+.w-100 {
+	width: 100%;
 }

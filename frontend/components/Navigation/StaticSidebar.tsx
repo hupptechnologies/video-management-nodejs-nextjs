@@ -11,20 +11,7 @@ const StaticSidebar = () => {
 			hideBackdrop
 			elevation={0}
 			variant="permanent"
-			sx={{
-				display: {
-					xs: 'none',
-					lg: 'block'
-				},
-				'&>div': {
-					top: '64px',
-					width: '240px',
-					bottom: 0,
-					overflow: 'hidden',
-					borderRight: 'none',
-					padding: '0 16px'
-				},
-			}}
+			className='static-sidebar-drawer'
 		>
 			<MainNavigation />
 		</Drawer>

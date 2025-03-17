@@ -30,11 +30,7 @@ const VideoDetails = () => {
 							<Avatar
 								alt={video.channels.name}
 								src={DefaultChannelAvatar.src}
-								sx={{
-									width: 50,
-									height: 50,
-									borderRadius: '50%',
-								}}
+								className='wh-px-50 br-50'
 							/>
 							<Typography
 								variant="subtitle1"
@@ -43,18 +39,10 @@ const VideoDetails = () => {
 							</Typography>
 						</Stack>
 					</Link>
-					<Box sx={{
-						borderRadius: '40px',
-						display: 'flex',
-						backgroundColor: '#E5E5E5',
-					}}>
+					<Box className='video-details-like-dislike-box'>
 						<Stack direction="row" alignItems="center">
 							<Button
-								sx={{
-									height: '100%',
-									borderRadius: '40px 0 0 40px',
-									borderRight: '1px solid #bababa'
-								}}
+								className='video-player-like-btn'
 								variant="text"
 								startIcon={<ThumbUpAltOutlined />}
 								onClick={handleLike}
@@ -62,10 +50,7 @@ const VideoDetails = () => {
 								<Typography>{video.likeCount}</Typography>
 							</Button>
 							<Button
-								sx={{
-									height: '100%',
-									borderRadius: '0 40px 40px 0',
-								}}
+								className='video-player-like-btn'
 								variant="text"
 								startIcon={<ThumbDownAltOutlined />}
 								onClick={handleDislike}

@@ -1,15 +1,17 @@
 "use client";
-import { Grid, Card, CardMedia, CardContent, Typography, Container, useMediaQuery, Theme, Stack, Avatar, Box } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Typography, Container, useMediaQuery, Theme, Stack, Avatar } from '@mui/material';
 import Link from 'next/link';
 import CircularProgressLoader from '../CircularProgressLoader';
+import EmptyList from '../EmptyList';
 import { useAppSelector } from '@/store/hooks';
 import { getThumbnailUrl, timeAgo } from '@/utils/helper';
-import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
-import NoVideosFound from '@/assets/image/no-videos-found.webp';
 import { Video } from '@/types/video';
+import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
+import '../../styles/components/VideoPlayer.css';
+import '../../styles/pages/Channel.css';
 
 interface VideoListProps {
-    videos: Video[];
+	videos: Video[];
 	isChannnel?: boolean;
 }
 
@@ -25,72 +27,22 @@ const VideoList: React.FC<VideoListProps> = ({
 	}
 
 	return (
-		<Container maxWidth={false} sx={{
-			m: '16px 16px 16px 0',
-			marginLeft: isChannnel ? '0px' : (smallScreen || collapsed) ? '80px' : '236px',
-			width: isChannnel ? '100%' :  (smallScreen || collapsed) ? "calc(100% - 80px)" : "calc(100% - 236px)"
-		}}>
+		<Container maxWidth={false} className={isChannnel
+			? 'channel-videolist-page-container'
+			: smallScreen || collapsed ? 'page-container-smallscreen' : 'page-container'} >
 			{videos.length === 0 && typeof window !== 'undefined'
-				? (
-					<Box
-						sx={{
-							height: '60vh',
-							display: 'flex',
-							flexDirection: 'column',
-							justifyContent: 'center',
-							alignItems: 'center',
-							textAlign: 'center',
-							color: 'text.secondary',
-						}}
-					>
-						<Box
-							component="img"
-							src={NoVideosFound.src}
-							alt="No videos available"
-							sx={{
-								width: '200px',
-								height: 'auto',
-								mb: 3
-							}}
-						/>
-						<Typography variant="h5" sx={{
-							fontWeight: 600,
-							mb: 1
-						}}>
-						No Videos Found
-						</Typography>
-						<Typography variant="body1" color="text.secondary">
-						Explore other categories or upload new videos to get started.
-						</Typography>
-					</Box>
-				)
-				: <Grid container sx={{
-					width: '100%'
-				}} spacing={2}>
+				? <EmptyList type='video' title='No Videos Found' body='Explore other categories or upload new videos to get started.' />
+				: <Grid container className='w-100' spacing={2}>
 					{videos?.map((video) => (
 						<Grid item key={video.id} xs={12} sm={6} md={4} lg={4} xl={3}>
 							<Card
 								key={video.id}
-								sx={{
-									borderRadius: 3,
-									boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-									transition: 'transform 0.3s ease',
-									'&:hover': {
-										transform: 'scale(1.02)',
-										boxShadow: '0px 6px 24px rgba(0, 0, 0, 0.15)',
-									},
-								}}
+								className='video-list-item-card'
 							>
-								<Link href={`/videos/${video.id}`} style={{
-									textDecoration: 'none'
-								}}>
+								<Link href={`/videos/${video.id}`} className='list-item-card-link'>
 									<CardMedia
 										sx={{
 											height: 240,
-											borderTopLeftRadius: 'inherit',
-											borderTopRightRadius: 'inherit',
-											overflow: 'hidden',
-											position: 'relative',
 										}}
 										component="img"
 										image={getThumbnailUrl(video.url)}
@@ -113,22 +65,14 @@ const VideoList: React.FC<VideoListProps> = ({
 											<Avatar
 												alt={video.channels?.name}
 												src={DefaultChannelAvatar.src}
-												sx={{
-													width: 50,
-													height: 50,
-													borderRadius: '50%',
-												}}
+												className='wh-px-50 br-50'
 											/>
 											<Stack gap={0.5}>
 												<Typography variant="h6" component="div">
 													{video.name}
 												</Typography>
 												<Stack>
-													<Typography variant="subtitle1" component="div" sx={{
-														'&': {
-															lineHeight: '1',
-														},
-													}} >
+													<Typography variant="subtitle1" component="div" lineHeight={1} >
 														{video.channels?.name}
 													</Typography>
 													<Typography variant="body2" color="text.secondary">

@@ -1,0 +1,20 @@
+.empty-list-box {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.empty-list-img-box {
+    width: 200px;
+    height: auto;
+    margin-bottom: 24px;
+}
+
+.empty-list-text {
+    font-weight: 600;
+    margin-bottom: 8px;
+}

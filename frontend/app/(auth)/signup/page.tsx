@@ -22,6 +22,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { register } from '@/store/feature/auth/action';
 import { signUpSchema } from '@/lib/yup/schema';
 import { FlexBox, LinkStyle } from '@/styles/common';
+import '../../../styles/pages/Auth.css';
 
 export default function SignUp () {
 
@@ -176,10 +177,7 @@ export default function SignUp () {
 							}}
 						/>
 						{passwordError && (
-							<p style={{
-								color: 'red',
-								margin: '5px 0'
-							}}>{passwordError}</p>
+							<p className='signup-password-error'>{passwordError}</p>
 						)}
 						<FormControlLabel
 							control={<Checkbox value="remember" color="primary" />}
