@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { authService } from "@/services/auth";
 import { AuthRequest } from "@/types/auth";
 import { showToast } from "../toast/slice";
+import { DefaultParams } from '@/types/common';
 
 export const login = createAsyncThunk(
 	'auth/login',
@@ -77,6 +78,19 @@ export const getUserDetails = createAsyncThunk(
 	async (_, { rejectWithValue }) => {
 		try {
 			const response = await authService.user();
+			return response.data;
+		} catch (error: any) {
+			const err = error?.response?.data;
+			return rejectWithValue(err);
+		}
+	}
+);
+
+export const getUsersList = createAsyncThunk(
+	'auth/getUsersList',
+	async (data: DefaultParams, { rejectWithValue }) => {
+		try {
+			const response = await authService.userList(data);
 			return response.data;
 		} catch (error: any) {
 			const err = error?.response?.data;

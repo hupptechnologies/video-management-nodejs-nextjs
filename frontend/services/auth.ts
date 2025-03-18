@@ -1,5 +1,6 @@
+import { DefaultParams } from "@/types/common";
 import { HTTP } from "./http";
-import { AuthRequest, AuthResponse } from "@/types/auth";
+import { AuthRequest, AuthResponse, UserListResponse } from "@/types/auth";
 
 type AxiosResponse = {
         data: AuthResponse,
@@ -43,6 +44,26 @@ class AuthService {
 			route: 'auth/user',
 			headers: {
 				"Content-Type": "application/json",
+			}
+		});
+	}
+
+	userList (data?: DefaultParams) {
+		return HTTP.Get<UserListResponse>({
+			route: 'auth/user/list',
+			headers: {
+				"Content-Type": "application/json",
+			},
+			params:{
+				...(data?.limit && {
+					limit: data.limit || 10
+				}),
+				...(data?.offset && {
+					offset: data.offset || 0
+				}),
+				...(data?.search && {
+					search: data.search || ''
+				}),
 			}
 		});
 	}

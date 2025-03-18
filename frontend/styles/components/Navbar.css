@@ -11,6 +11,7 @@
     position: relative;
     box-shadow: none;
     border-radius: 0 40px 40px 0;
+    height: 40px;
 }
 
 .navbar-search-btn:hover {
@@ -21,7 +22,7 @@
 .navbar-search-box {
     border: 1px solid var(--primary-main);
     border-radius: 40px;
-    margin-right: 16px,
+    margin-right: 16px;
 }
 
 .navbar-search-icon {

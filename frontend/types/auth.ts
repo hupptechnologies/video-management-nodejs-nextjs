@@ -21,3 +21,12 @@ export interface AuthState {
     user: Optional<AuthResponse>;
     isAdmin: boolean;
 }
+
+export interface UserListResponse {
+    data: {
+       results: AuthResponse[],
+       totalCount: number
+    }
+    message: string
+    isAdmin: boolean;
+}
