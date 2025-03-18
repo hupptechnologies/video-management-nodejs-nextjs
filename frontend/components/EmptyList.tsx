@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import NoItemFound from '@/assets/image/no-videos-found.webp';
+import { NoItemFound } from '@/assets/image';
 import '../styles/common/EmptyList.css';
 
 interface EmptyListProps {

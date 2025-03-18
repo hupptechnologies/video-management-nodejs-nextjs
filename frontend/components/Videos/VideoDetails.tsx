@@ -3,7 +3,7 @@ import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import { ThumbDownAltOutlined, ThumbUpAltOutlined } from '@mui/icons-material';
 import Link from 'next/link';
 import { useAppSelector } from '@/store/hooks';
-import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
+import { DefaultChannelAvatar } from '@/assets/image';
 
 const VideoDetails = () => {
 	const { video } = useAppSelector(state => state.video);

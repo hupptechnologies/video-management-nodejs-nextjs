@@ -6,7 +6,7 @@ import EmptyList from '../EmptyList';
 import { useAppSelector } from '@/store/hooks';
 import { getThumbnailUrl, timeAgo } from '@/utils/helper';
 import { Video } from '@/types/video';
-import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
+import { DefaultChannelAvatar } from '@/assets/image';
 import '../../styles/components/VideoPlayer.css';
 import '../../styles/pages/Channel.css';
 

@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getChannelById } from '@/store/feature/channel/action';
 import { getChannelVideos } from '@/store/feature/video/action';
 import withAuth from '@/config/withAuth';
-import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
+import { DefaultChannelAvatar } from '@/assets/image';
 import '../../../styles/pages/Channel.css';
 
 const page = ({ params }: { params: { channelId: number } }) => {

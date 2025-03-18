@@ -6,7 +6,7 @@ import MainNavigation from './MainNavigation';
 import NavMenuButton from '../NavMenuButton';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setFloating } from '@/store/feature/navigation/slice';
-import AppLogo from '@/assets/image/app-logo.png';
+import { AppLogo } from '@/assets/image';
 
 const FloatingSidebar = () => {
 	const {

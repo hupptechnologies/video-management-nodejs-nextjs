@@ -9,7 +9,7 @@ import EmptyList from '@/components/EmptyList';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getChannels, getChannelsByUserId } from '@/store/feature/channel/action';
 import withAuth from '@/config/withAuth';
-import DefaultChannelAvatar from '@/assets/image/default-channel-avatar.png';
+import { DefaultChannelAvatar } from '@/assets/image';
 import '../../styles/pages/Channel.css';
 
 const page = () => {
