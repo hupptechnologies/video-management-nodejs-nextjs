@@ -23,8 +23,8 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
+      "@/app/*": [
+        "app/*"
       ],
       "@/assets/*": [
         "assets/*"
@@ -32,14 +32,17 @@
       "@/components/*": [
         "components/*"
       ],
-      "@/context/*": [
-        "context/*"
+      "@/config/*": [
+        "config/*"
       ],
-      "@/theme/*": [
-        "theme/*"
+      "@/lib/*": [
+        "lib/*"
       ],
-      "@/redux/*": [
-        "redux/*"
+      "@/store": [
+        "store",
+      ],
+      "@/store/*": [
+        "store/*"
       ],
       "@/services/*": [
         "services/*"

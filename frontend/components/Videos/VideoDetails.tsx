@@ -8,13 +8,9 @@ import { DefaultChannelAvatar } from '@/assets/image';
 const VideoDetails = () => {
 	const { video } = useAppSelector((state) => state.video);
 
-	const handleLike = () => {
-		console.log('handleLike');
-	};
+	const handleLike = () => {};
 
-	const handleDislike = () => {
-		console.log('handleDislike');
-	};
+	const handleDislike = () => {};
 
 	return (
 		<Box>

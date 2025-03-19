@@ -1,5 +1,9 @@
-import { combineSlices, configureStore } from '@reduxjs/toolkit';
-import type { Action, ThunkAction } from '@reduxjs/toolkit';
+import {
+	combineSlices,
+	configureStore,
+	type Action,
+	type ThunkAction,
+} from '@reduxjs/toolkit';
 import { authSlice } from './feature/auth/slice';
 import { toastSlice } from './feature/toast/slice';
 import { videoSlice } from './feature/video/slice';
