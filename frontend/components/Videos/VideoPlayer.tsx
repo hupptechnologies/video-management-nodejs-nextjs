@@ -59,7 +59,7 @@ const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
 		}
 	};
 
-	const handleVolumeChange = (event: Event, newValue: number | number[]) => {
+	const handleVolumeChange = (_event: Event, newValue: number | number[]) => {
 		setVolume(newValue as number);
 		setMuted(newValue === 0);
 	};
@@ -82,7 +82,7 @@ const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
 		}
 	};
 
-	const handleSeek = (event: Event, newValue: number | number[]) => {
+	const handleSeek = (_event: Event, newValue: number | number[]) => {
 		const video = videoRef.current;
 		if (video) {
 			const seekTime = ((newValue as number) / 100) * video.duration;
