@@ -1,60 +1,58 @@
-import { FindByIdRequest } from "@/types/common";
-import { HTTP } from "./http";
+import { FindByIdRequest } from '@/types/common';
+import { HTTP } from './http';
 import {
 	ChannelByIdResponse,
 	ChannelListResponse,
 	ChannelVideosResponse,
 	CreateChannel,
 	UpdateChannel,
-	UpdateChannelResponse
-} from "@/types/channel";
+	UpdateChannelResponse,
+} from '@/types/channel';
 
 class ChannelService {
-
-	list () {
+	list() {
 		return HTTP.Get<ChannelListResponse>({
 			route: 'channels/list',
 		});
 	}
 
-	findById (data: FindByIdRequest) {
+	findById(data: FindByIdRequest) {
 		return HTTP.Get<ChannelByIdResponse>({
 			route: `channels/${data.id}`,
 		});
 	}
 
-	create (data: CreateChannel) {
+	create(data: CreateChannel) {
 		return HTTP.Post<ChannelByIdResponse>({
-			route: `channels/create`,
-			body: data
+			route: 'channels/create',
+			body: data,
 		});
 	}
 
-	update (data: UpdateChannel) {
+	update(data: UpdateChannel) {
 		return HTTP.Put<UpdateChannelResponse>({
 			route: `channels/${data.id}`,
-			body: data
+			body: data,
 		});
 	}
 
-	delete (data: FindByIdRequest) {
+	delete(data: FindByIdRequest) {
 		return HTTP.Delete<UpdateChannelResponse>({
-			route: `channels/${data.id}`
+			route: `channels/${data.id}`,
 		});
 	}
 
-	channelVideos (data: FindByIdRequest) {
+	channelVideos(data: FindByIdRequest) {
 		return HTTP.Get<ChannelVideosResponse>({
-			route: `channels/${data.id}/videos`
+			route: `channels/${data.id}/videos`,
 		});
 	}
 
-	channelsByUserId (data: FindByIdRequest) {
+	channelsByUserId(data: FindByIdRequest) {
 		return HTTP.Get<ChannelListResponse>({
-			route: `channels/user/${data.id}`
+			route: `channels/user/${data.id}`,
 		});
 	}
-
 }
 
 export const channelService = new ChannelService();

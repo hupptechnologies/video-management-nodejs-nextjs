@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-require('dotenv')
-	.config({
-		path: '.env'
-	});
+require('dotenv').config({
+	path: '.env',
+});
 
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
@@ -15,11 +14,11 @@ import Channels from './channel.model';
 import VideoComments from './videoComments.model';
 
 export interface Models {
-    VideoLikes: typeof VideoLikes;
-    Users: typeof Users;
-    Videos: typeof Videos;
-    Channels: typeof Channels;
-    VideoComments: typeof VideoComments;
+	VideoLikes: typeof VideoLikes;
+	Users: typeof Users;
+	Videos: typeof Videos;
+	Channels: typeof Channels;
+	VideoComments: typeof VideoComments;
 }
 
 const sequelize = new Sequelize({
@@ -29,18 +28,18 @@ const sequelize = new Sequelize({
 	password: config.password,
 	repositoryMode: true,
 	models: [__dirname + '/*.model.*'],
-	logging: false
+	logging: false,
 });
 
-sequelize.authenticate()
+sequelize
+	.authenticate()
 	.then(() => {
 		console.log('Connection has been established successfully.');
 	})
-	.catch(err => {
+	.catch((err) => {
 		console.error('Unable to connect to the database:', err);
 	});
 
 export const models = sequelize.models as unknown as Models;
 
 export default sequelize;
-

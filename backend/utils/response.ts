@@ -1,4 +1,4 @@
-import { FastifyReply } from "fastify";
+import { FastifyReply } from 'fastify';
 
 interface ResponseModel {
 	success?: boolean;
@@ -9,10 +9,8 @@ interface ResponseModel {
 }
 
 export class Response {
-	static send (res: FastifyReply, response: ResponseModel) {
-		res
-			.code(response.status)
-			.send(response);
+	static send(res: FastifyReply, response: ResponseModel) {
+		res.code(response.status).send(response);
 	}
 }
 
@@ -22,5 +20,5 @@ export const statusCodes = {
 	BAD_REQUEST: 400,
 	FORBIDDEN: 403,
 	UNAUTHORIZED: 401,
-	NOT_FOUND: 404
+	NOT_FOUND: 404,
 };

@@ -1,4 +1,3 @@
-
 import { FastifySchema } from 'fastify';
 
 export const loginSchema: FastifySchema = {
@@ -10,12 +9,12 @@ export const loginSchema: FastifySchema = {
 		properties: {
 			email: {
 				type: 'string',
-				format: 'email'
+				format: 'email',
 			},
 			password: {
-				type: 'string'
-			}
-		}
+				type: 'string',
+			},
+		},
 	},
 };
 
@@ -27,16 +26,16 @@ export const registerSchema: FastifySchema = {
 		required: ['name', 'email', 'password'],
 		properties: {
 			name: {
-				type: 'string'
+				type: 'string',
 			},
 			email: {
 				type: 'string',
-				format: 'email'
+				format: 'email',
 			},
 			password: {
-				type: 'string'
-			}
-		}
+				type: 'string',
+			},
+		},
 	},
 };
 
@@ -48,16 +47,16 @@ export const adminRegisterSchema: FastifySchema = {
 		required: ['name', 'email', 'password'],
 		properties: {
 			name: {
-				type: 'string'
+				type: 'string',
 			},
 			email: {
 				type: 'string',
-				format: 'email'
+				format: 'email',
 			},
 			password: {
-				type: 'string'
-			}
-		}
+				type: 'string',
+			},
+		},
 	},
 };
 
@@ -66,8 +65,8 @@ export const userListSchema: FastifySchema = {
 	description: 'Users List API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 };
 
@@ -76,18 +75,18 @@ export const userByIdSchema: FastifySchema = {
 	description: 'Users By Id API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		type: 'object',
 		properties: {
 			userId: {
-				type: 'string'
+				type: 'string',
 			},
 		},
-		required: ['userId']
-	}
+		required: ['userId'],
+	},
 };
 
 export const updateUserSchema: FastifySchema = {
@@ -97,26 +96,26 @@ export const updateUserSchema: FastifySchema = {
 		type: 'object',
 		properties: {
 			userId: {
-				type: 'string'
+				type: 'string',
 			},
 		},
-		required: ['userId']
+		required: ['userId'],
 	},
 	body: {
 		type: 'object',
 		properties: {
 			name: {
-				type: 'string'
+				type: 'string',
 			},
 			password: {
-				type: 'string'
+				type: 'string',
 			},
 		},
-		required: ['name', 'password']
+		required: ['name', 'password'],
 	},
 	security: [
 		{
-			token: []
-		}
-	]
+			token: [],
+		},
+	],
 };

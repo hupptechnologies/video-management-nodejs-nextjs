@@ -10,20 +10,18 @@ BackendAuthenticatedService.interceptors.request.use((config) => {
 	return config;
 });
 
-
 const refreshAccessToken = async () => {
 	const refreshToken = localStorage.getItem('refreshToken');
 
 	try {
 		const response = await axios.post(
 			`${process.env.NEXT_PUBLIC_BASE_API_URL}auth/refresh-token`,
-			{
-			},
+			{},
 			{
 				headers: {
 					'refresh-token': refreshToken,
 				},
-			}
+			},
 		);
 
 		localStorage.setItem('token', response.headers?.token);
@@ -43,7 +41,11 @@ BackendAuthenticatedService.interceptors.response.use(
 	async (error) => {
 		const originalRequest = error.config;
 
-		if (error.response?.status === 401 && error.response.data.message === "Token expired" && !originalRequest._retry) {
+		if (
+			error.response?.status === 401 &&
+			error.response.data.message === 'Token expired' &&
+			!originalRequest._retry
+		) {
 			originalRequest._retry = true;
 
 			try {
@@ -56,7 +58,7 @@ BackendAuthenticatedService.interceptors.response.use(
 		}
 
 		return Promise.reject(error);
-	}
+	},
 );
 
 type HeadersProps = {
@@ -81,10 +83,9 @@ interface APIParamsType {
  * @param cancelToken - Token for cancelling the request.
  * @returns Axios instance.
  */
-function getInstance ({
+function getInstance({
 	isAuthenticated = false,
-	headersProps = {
-	},
+	headersProps = {},
 	params,
 }: {
 	isAuthenticated?: boolean;
@@ -94,8 +95,8 @@ function getInstance ({
 	const instance = isAuthenticated
 		? BackendAuthenticatedService
 		: axios.create({
-			baseURL: process.env.NEXT_PUBLIC_BASE_API_URL
-		});
+				baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
+			});
 
 	// Set common headers and default params
 	instance.defaults.headers.common = headersProps;
@@ -112,7 +113,7 @@ function getInstance ({
  * @param params - Request parameters.
  * @returns Promise containing Axios response.
  */
-function callAPI<T> ({
+function callAPI<T>({
 	method,
 	route,
 	body,
@@ -122,21 +123,21 @@ function callAPI<T> ({
 }: APIParamsType): Promise<AxiosResponse<T>> {
 	const instance = getInstance({
 		isAuthenticated,
-		params
+		params,
 	});
 	// Use the provided responseType if it's defined
 	if (responseType) {
 		instance.defaults.responseType = responseType;
 	}
 	switch (method) {
-	case 'get':
-	case 'delete':
-		return instance[method]<T>(route, body);
-	case 'post':
-	case 'put':
-		return instance[method]<T>(route, body);
-	default:
-		throw new Error(`Invalid HTTP method: ${method}`);
+		case 'get':
+		case 'delete':
+			return instance[method]<T>(route, body);
+		case 'post':
+		case 'put':
+			return instance[method]<T>(route, body);
+		default:
+			throw new Error(`Invalid HTTP method: ${method}`);
 	}
 }
 
@@ -147,36 +148,40 @@ export const HTTP = {
 	/**
 	 * Make a GET request.
 	 */
-	Get: <T>(params: Omit<APIParamsType, 'method'>, isAuthenticated = true) => callAPI<T>({
-		...params,
-		method: 'get',
-		isAuthenticated
-	}),
+	Get: <T>(params: Omit<APIParamsType, 'method'>, isAuthenticated = true) =>
+		callAPI<T>({
+			...params,
+			method: 'get',
+			isAuthenticated,
+		}),
 
 	/**
 	 * Make a POST request.
 	 */
-	Post: <T>(params: Omit<APIParamsType, 'method'>, isAuthenticated = true) => callAPI<T>({
-		...params,
-		method: 'post',
-		isAuthenticated
-	}),
+	Post: <T>(params: Omit<APIParamsType, 'method'>, isAuthenticated = true) =>
+		callAPI<T>({
+			...params,
+			method: 'post',
+			isAuthenticated,
+		}),
 
 	/**
 	 * Make a PUT request.
 	 */
-	Put: <T>(params: Omit<APIParamsType, 'method'>, isAuthenticated = true) => callAPI<T>({
-		...params,
-		method: 'put',
-		isAuthenticated
-	}),
+	Put: <T>(params: Omit<APIParamsType, 'method'>, isAuthenticated = true) =>
+		callAPI<T>({
+			...params,
+			method: 'put',
+			isAuthenticated,
+		}),
 
 	/**
 	 * Make a DELETE request.
 	 */
-	Delete: <T>(params: Omit<APIParamsType, 'method'>, isAuthenticated = true) => callAPI<T>({
-		...params,
-		method: 'delete',
-		isAuthenticated
-	}),
+	Delete: <T>(params: Omit<APIParamsType, 'method'>, isAuthenticated = true) =>
+		callAPI<T>({
+			...params,
+			method: 'delete',
+			isAuthenticated,
+		}),
 };

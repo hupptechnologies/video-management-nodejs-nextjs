@@ -1,5 +1,17 @@
 'use client';
-import { AppBar, Toolbar, Typography, IconButton, InputBase, Box, Button, Menu, MenuItem, Tooltip, Avatar } from '@mui/material';
+import {
+	AppBar,
+	Toolbar,
+	Typography,
+	IconButton,
+	InputBase,
+	Box,
+	Button,
+	Menu,
+	MenuItem,
+	Tooltip,
+	Avatar,
+} from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -12,15 +24,13 @@ const settings = ['Profile', 'My Videos', 'My Channels', 'Logout'];
 
 const Navbar = () => {
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-	const [searchTerm, setSearchTerm] = useState("");
+	const [searchTerm, setSearchTerm] = useState('');
 	const [isSearchInputFocus, setIsSearchInputFocus] = useState(false);
-	const {
-		isLoggedIn, user
-	} = useAppSelector(state => state.auth);
+	const { isLoggedIn, user } = useAppSelector((state) => state.auth);
 	const router = useRouter();
 	const dispatch = useAppDispatch();
 	const pathname = usePathname();
-	const hideComponentRoutes = ["/login", "/signup"];
+	const hideComponentRoutes = ['/login', '/signup'];
 	const isComponentHidden = hideComponentRoutes.includes(pathname);
 
 	useEffect(() => {
@@ -56,37 +66,52 @@ const Navbar = () => {
 	};
 
 	return (
-		<AppBar className='navbar-app-bar' position="sticky">
-			<Toolbar className='navbar-tool-bar'>
+		<AppBar className="navbar-app-bar" position="sticky">
+			<Toolbar className="navbar-tool-bar">
 				<div></div>
-				{!isComponentHidden && <Box className='navbar-search-box'>
-					<Box component="form" onSubmit={handleSearchSubmit} className='center-flex-box'>
-						{isSearchInputFocus && <SearchIcon className='navbar-search-icon' />}
-						<InputBase
-							onFocus={() => setIsSearchInputFocus(true)}
-							onBlur={() => setIsSearchInputFocus(false)}
-							placeholder="Search"
-							value={searchTerm}
-							onChange={handleSearchChange}
-							className='navbar-search-input'
-							inputProps={{
-								'aria-label': 'search'
-							}}
-						/>
-						<Button variant="contained" className='navbar-search-btn' type="submit">
-							<SearchIcon className='navbar-search-icon'/>
-						</Button>
+				{!isComponentHidden && (
+					<Box className="navbar-search-box">
+						<Box
+							component="form"
+							onSubmit={handleSearchSubmit}
+							className="center-flex-box"
+						>
+							{isSearchInputFocus && (
+								<SearchIcon className="navbar-search-icon" />
+							)}
+							<InputBase
+								onFocus={() => setIsSearchInputFocus(true)}
+								onBlur={() => setIsSearchInputFocus(false)}
+								placeholder="Search"
+								value={searchTerm}
+								onChange={handleSearchChange}
+								className="navbar-search-input"
+								inputProps={{
+									'aria-label': 'search',
+								}}
+							/>
+							<Button
+								variant="contained"
+								className="navbar-search-btn"
+								type="submit"
+							>
+								<SearchIcon className="navbar-search-icon" />
+							</Button>
+						</Box>
 					</Box>
-				</Box>}
+				)}
 				{isLoggedIn ? (
 					<Box flexGrow={0}>
 						<Tooltip title="Open settings">
-							<IconButton onClick={handleOpenUserMenu} className='menu-icon-btn'>
+							<IconButton
+								onClick={handleOpenUserMenu}
+								className="menu-icon-btn"
+							>
 								<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
 							</IconButton>
 						</Tooltip>
 						<Menu
-							className='navbar-menu'
+							className="navbar-menu"
 							anchorEl={anchorElUser}
 							anchorOrigin={{
 								vertical: 'top',
@@ -101,14 +126,20 @@ const Navbar = () => {
 							onClose={handleCloseUserMenu}
 						>
 							{settings.map((setting) => (
-								<MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
-									<Typography textAlign='center'>{setting}</Typography>
+								<MenuItem
+									key={setting}
+									onClick={() => handleCloseUserMenu(setting)}
+								>
+									<Typography textAlign="center">{setting}</Typography>
 								</MenuItem>
 							))}
 						</Menu>
 					</Box>
 				) : (
-					<Button className='navbar-login-btn' onClick={() => router.push('/login')}>
+					<Button
+						className="navbar-login-btn"
+						onClick={() => router.push('/login')}
+					>
 						Login
 					</Button>
 				)}

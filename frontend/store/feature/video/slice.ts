@@ -1,9 +1,14 @@
 import { VideoState } from '@/types/video';
 import { createAppSlice } from '@/store/createAppSlice';
-import { getChannelVideos, getGlobalVideos, getUserVideos, getVideoById } from './action';
+import {
+	getChannelVideos,
+	getGlobalVideos,
+	getUserVideos,
+	getVideoById,
+} from './action';
 
 const initialState: VideoState = {
-	video : {
+	video: {
 		id: 0,
 		name: '',
 		url: '',
@@ -13,13 +18,13 @@ const initialState: VideoState = {
 		channels: {
 			id: 0,
 			name: '',
-			createdAt: ''
+			createdAt: '',
 		},
-		createdAt: ''
+		createdAt: '',
 	},
 	videos: [],
-	userVideos:[],
-	isFetchingVideo : false
+	userVideos: [],
+	isFetchingVideo: false,
 };
 
 export const videoSlice = createAppSlice({
@@ -32,7 +37,7 @@ export const videoSlice = createAppSlice({
 		},
 		setVideo: (state, action) => {
 			state.video = action.payload;
-		}
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -76,9 +81,7 @@ export const videoSlice = createAppSlice({
 			.addCase(getChannelVideos.rejected, (state) => {
 				state.isFetchingVideo = false;
 			});
-	}
+	},
 });
 
-export const {
-	resetVideoState, setVideo
-} = videoSlice.actions;
+export const { resetVideoState, setVideo } = videoSlice.actions;

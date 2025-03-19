@@ -1,32 +1,32 @@
-import { Optional } from ".";
+import { Optional } from '.';
 
 export interface AuthRequest {
-    email: string;
-    password: string;
-    name?: string;
+	email: string;
+	password: string;
+	name?: string;
 }
 
 export interface AuthResponse {
-    id: number;
-    email: string;
-    name?: string;
-    role?: string;
+	id: number;
+	email: string;
+	name?: string;
+	role?: string;
 }
 
 export interface AuthState {
-    isLoggedIn: boolean;
-    token: string;
-    refreshToken: string;
-    authLoading: boolean;
-    user: Optional<AuthResponse>;
-    isAdmin: boolean;
+	isLoggedIn: boolean;
+	token: string;
+	refreshToken: string;
+	authLoading: boolean;
+	user: Optional<AuthResponse>;
+	isAdmin: boolean;
 }
 
 export interface UserListResponse {
-    data: {
-       results: AuthResponse[],
-       totalCount: number
-    }
-    message: string
-    isAdmin: boolean;
+	data: {
+		results: AuthResponse[];
+		totalCount: number;
+	};
+	message: string;
+	isAdmin: boolean;
 }

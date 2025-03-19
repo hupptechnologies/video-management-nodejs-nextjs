@@ -1,5 +1,5 @@
 export interface ToastState {
-    open: boolean;
-    message: string;
-    severity: 'success' | 'error' | 'info' | 'warning';
+	open: boolean;
+	message: string;
+	severity: 'success' | 'error' | 'info' | 'warning';
 }

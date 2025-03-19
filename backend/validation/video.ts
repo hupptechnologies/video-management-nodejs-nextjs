@@ -6,18 +6,18 @@ export const addVideoSchema: FastifySchema = {
 	consumes: ['multipart/form-data'],
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		type: 'object',
 		properties: {
 			channelId: {
 				type: 'number',
-			}
+			},
 		},
-		required: ['channelId']
-	}
+		required: ['channelId'],
+	},
 };
 
 export const videoListForAdminSchema: FastifySchema = {
@@ -25,14 +25,14 @@ export const videoListForAdminSchema: FastifySchema = {
 	description: 'Videos List For Admin API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	querystring: {
 		approval: {
-			type: 'string'
-		}
-	}
+			type: 'string',
+		},
+	},
 };
 
 export const videoApprovalSchema: FastifySchema = {
@@ -40,24 +40,24 @@ export const videoApprovalSchema: FastifySchema = {
 	description: 'Video Approval API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	querystring: {
 		type: 'object',
 		properties: {
 			approval: {
 				type: 'string',
-				enum: ['approved', 'rejected']
-			}
+				enum: ['approved', 'rejected'],
+			},
 		},
-		required: ['approval']
+		required: ['approval'],
 	},
 	params: {
 		videoId: {
-			type: 'number'
-		}
-	}
+			type: 'number',
+		},
+	},
 };
 
 export const videoListSchema: FastifySchema = {
@@ -65,13 +65,13 @@ export const videoListSchema: FastifySchema = {
 	description: 'User/Admin Videos List API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		userId: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 };
 
@@ -80,13 +80,13 @@ export const videoByIdSchema: FastifySchema = {
 	description: 'Video By Id API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		videoId: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 };
 
@@ -95,18 +95,18 @@ export const updateVideoSchema: FastifySchema = {
 	description: 'Update Video API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	body: {
 		name: {
-			type: 'string'
+			type: 'string',
 		},
 	},
 	params: {
 		videoId: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 };
 
@@ -115,23 +115,23 @@ export const addVideoCommentSchema: FastifySchema = {
 	description: 'Add Video Comment API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	body: {
 		type: 'object',
 		properties: {
 			comment: {
 				type: 'string',
-				minLength: 3
-			}
+				minLength: 3,
+			},
 		},
-		required: ['comment']
+		required: ['comment'],
 	},
 	params: {
 		videoId: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 };
 
@@ -140,13 +140,13 @@ export const getVideoCommentSchema: FastifySchema = {
 	description: 'Get Video Comment API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		videoId: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 };
 
@@ -155,23 +155,23 @@ export const updateVideoCommentSchema: FastifySchema = {
 	description: 'Update Video Comment API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	body: {
 		type: 'object',
 		properties: {
 			comment: {
 				type: 'string',
-				minLength: 3
-			}
+				minLength: 3,
+			},
 		},
-		required: ['comment']
+		required: ['comment'],
 	},
 	params: {
 		commentId: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 };
 
@@ -180,13 +180,13 @@ export const deleteVideoCommentSchema: FastifySchema = {
 	description: 'Delete Video Comment API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		commentId: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 };
 
@@ -195,18 +195,18 @@ export const likeVideoSchema: FastifySchema = {
 	description: 'Like Video API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	body: {
 		isLike: {
 			type: 'boolean',
-		}
+		},
 	},
 	params: {
 		videoId: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 };
 
@@ -215,7 +215,7 @@ export const glovalVideoListSchema: FastifySchema = {
 	description: 'Videos List API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 };

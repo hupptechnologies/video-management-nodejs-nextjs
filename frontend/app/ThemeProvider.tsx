@@ -6,7 +6,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { theme } from '@/lib/mui/theme';
 
 const ThemeProvider = ({ children }: PropsWithChildren) => {
-
 	return (
 		<MUIThemeProvider theme={theme}>
 			<CssBaseline enableColorScheme />

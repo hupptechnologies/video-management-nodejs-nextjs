@@ -1,25 +1,26 @@
-import { FastifyInstance } from "fastify";
-import { IncomingMessage, Server, ServerResponse } from "http";
-import ChannelController from "../controller/channels.controller";
+import { FastifyInstance } from 'fastify';
+import { IncomingMessage, Server, ServerResponse } from 'http';
+import ChannelController from '../controller/channels.controller';
 import {
 	addChannelSchema,
 	channelByIdSchema,
 	channelListSchema,
 	channelVideoListSchema,
 	deleteChannelSchema,
-	updateChannelSchema
+	updateChannelSchema,
 } from '../validation/channel';
 import { verifyToken } from '../utils';
 // import upload from "../middleware/upload";
 
-const channels = async (fastify: FastifyInstance<Server, IncomingMessage, ServerResponse>) => {
-
+const channels = async (
+	fastify: FastifyInstance<Server, IncomingMessage, ServerResponse>,
+) => {
 	fastify.route({
 		method: 'POST',
 		url: '/create',
 		schema: addChannelSchema,
 		preHandler: fastify.auth([verifyToken]),
-		handler: ChannelController.create
+		handler: ChannelController.create,
 	});
 
 	fastify.route({
@@ -27,7 +28,7 @@ const channels = async (fastify: FastifyInstance<Server, IncomingMessage, Server
 		url: '/list',
 		schema: channelListSchema,
 		preHandler: fastify.auth([verifyToken]),
-		handler: ChannelController.list
+		handler: ChannelController.list,
 	});
 
 	fastify.route({
@@ -35,7 +36,7 @@ const channels = async (fastify: FastifyInstance<Server, IncomingMessage, Server
 		url: '/:channelId',
 		schema: channelByIdSchema,
 		preHandler: fastify.auth([verifyToken]),
-		handler: ChannelController.findById
+		handler: ChannelController.findById,
 	});
 
 	fastify.route({
@@ -43,7 +44,7 @@ const channels = async (fastify: FastifyInstance<Server, IncomingMessage, Server
 		url: '/user/:userId',
 		schema: channelByIdSchema,
 		preHandler: fastify.auth([verifyToken]),
-		handler: ChannelController.findByUserId
+		handler: ChannelController.findByUserId,
 	});
 
 	fastify.route({
@@ -51,7 +52,7 @@ const channels = async (fastify: FastifyInstance<Server, IncomingMessage, Server
 		url: '/:channelId',
 		schema: updateChannelSchema,
 		preHandler: fastify.auth([verifyToken]),
-		handler: ChannelController.update
+		handler: ChannelController.update,
 	});
 
 	fastify.route({
@@ -59,7 +60,7 @@ const channels = async (fastify: FastifyInstance<Server, IncomingMessage, Server
 		url: '/:channelId',
 		schema: deleteChannelSchema,
 		preHandler: fastify.auth([verifyToken]),
-		handler: ChannelController.delete
+		handler: ChannelController.delete,
 	});
 
 	fastify.route({
@@ -67,10 +68,8 @@ const channels = async (fastify: FastifyInstance<Server, IncomingMessage, Server
 		url: '/:channelId/videos',
 		schema: channelVideoListSchema,
 		preHandler: fastify.auth([verifyToken]),
-		handler: ChannelController.videoList
+		handler: ChannelController.videoList,
 	});
-
 };
-
 
 export default channels;

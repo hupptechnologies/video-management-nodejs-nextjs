@@ -27,7 +27,7 @@ export const mainNavigation = (isAdmin: boolean) => {
 			href: '/users',
 			icon: <SupervisedUserCircleOutlined />,
 			selectedIcon: <SupervisedUserCircle />,
-		}
+		},
 	] as NavItem[];
 	return main.filter(Boolean);
 };

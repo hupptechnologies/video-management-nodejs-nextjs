@@ -1,86 +1,86 @@
 import { FastifySchema } from 'fastify/types/schema';
 
 export const addFolderSchema: FastifySchema = {
-	tags: ["Folder"],
+	tags: ['Folder'],
 	description: 'Add New Folder API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
-	body:{
+	body: {
 		type: 'object',
 		required: ['name'],
 		properties: {
 			name: {
-				type: 'string'
+				type: 'string',
 			},
 			parentFolderId: {
-				type: 'number'
+				type: 'number',
 			},
-		}
-	}
+		},
+	},
 };
 
 export const folderListSchema: FastifySchema = {
-	tags: ["Folder"],
+	tags: ['Folder'],
 	description: 'Folder List API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 };
 
 export const updateFolderSchema: FastifySchema = {
-	tags: ["Folder"],
+	tags: ['Folder'],
 	description: 'Update Folder Name By Id API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 	body: {
 		type: 'object',
 		properties: {
 			name: {
-				type: 'string'
+				type: 'string',
 			},
-		}
-	}
+		},
+	},
 };
 
 export const folderByIdSchema: FastifySchema = {
-	tags: ["Folder"],
+	tags: ['Folder'],
 	description: 'Folder By Id API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
-	}
+			type: 'string',
+		},
+	},
 };
 
 export const deleteFolderSchema: FastifySchema = {
-	tags: ["Folder"],
+	tags: ['Folder'],
 	description: 'Delete Folder By Id API',
 	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
-	}
+			type: 'string',
+		},
+	},
 };

@@ -1,17 +1,24 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { message, statusCodes, Response, generateRefreshToken, verifyRefreshToken } from '../utils';
+import {
+	message,
+	statusCodes,
+	Response,
+	generateRefreshToken,
+	verifyRefreshToken,
+	generateEncryptedPassword,
+	generateJWTToken,
+	comparePassWord,
+} from '../utils';
 import { models } from '../models';
-import { generateEncryptedPassword, generateJWTToken, comparePassWord } from '../utils';
 import { Op } from 'sequelize';
 import { TUsers, TQuery } from '../interface';
 
 const { Users } = models;
 
 class UserController {
-
-	async fetchUserDetails (
+	async fetchUserDetails(
 		identifier: { id: number; role?: string; isDeleted: boolean },
-		res: FastifyReply
+		res: FastifyReply,
 	) {
 		try {
 			const result = await Users.findOne({
@@ -41,7 +48,7 @@ class UserController {
 		}
 	}
 
-	async register (req: FastifyRequest, res: FastifyReply) {
+	async register(req: FastifyRequest, res: FastifyReply) {
 		try {
 			const userInfo = req.body as TUsers;
 			const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}/;
@@ -50,7 +57,7 @@ class UserController {
 				Response.send(res, {
 					status: statusCodes.BAD_REQUEST,
 					success: false,
-					message: message.PASSWORD_VALIDATION
+					message: message.PASSWORD_VALIDATION,
 				});
 				return;
 			}
@@ -58,24 +65,24 @@ class UserController {
 			const existingUser = await Users.findOne({
 				where: {
 					email: userInfo.email,
-					isDeleted: false
-				}
+					isDeleted: false,
+				},
 			});
 			if (existingUser) {
 				Response.send(res, {
 					status: statusCodes.BAD_REQUEST,
 					success: false,
-					message: message.EMAIL_USED
+					message: message.EMAIL_USED,
 				});
 				return;
 			}
 
-			userInfo.role = req.url.includes('admin') ?  'admin' : 'user';
+			userInfo.role = req.url.includes('admin') ? 'admin' : 'user';
 			userInfo.password = await generateEncryptedPassword(userInfo.password);
 
 			const createUser = await Users.create({
 				...userInfo,
-				isDeleted: false
+				isDeleted: false,
 			});
 
 			const tokenData = {
@@ -93,24 +100,24 @@ class UserController {
 			delete (createUser.dataValues as Record<string, any>).password;
 
 			Response.send(res, {
-				status:statusCodes.SUCCESS,
+				status: statusCodes.SUCCESS,
 				success: true,
 				message: message.REGISTER_SUCCESS,
-				data: createUser
+				data: createUser,
 			});
 		} catch (error: any) {
 			return Response.send(res, {
 				status: statusCodes.BAD_REQUEST,
 				success: false,
-				message: error.message
+				message: error.message,
 			});
 		}
 	}
 
-	async login (req: FastifyRequest, res: FastifyReply) {
+	async login(req: FastifyRequest, res: FastifyReply) {
 		try {
 			const userInfo = req.body as TUsers;
-			const role = req.url.includes('admin') ?  'admin' : 'user';
+			const role = req.url.includes('admin') ? 'admin' : 'user';
 			const existingUser = await Users.findOne({
 				where: {
 					email: userInfo.email,
@@ -122,19 +129,21 @@ class UserController {
 				Response.send(res, {
 					status: statusCodes.BAD_REQUEST,
 					success: false,
-					message: message.LOGIN_INVALID
+					message: message.LOGIN_INVALID,
 				});
 				return;
 			}
 
-			const isMatched = await comparePassWord(userInfo.password,
-				existingUser?.dataValues.password);
+			const isMatched = await comparePassWord(
+				userInfo.password,
+				existingUser?.dataValues.password,
+			);
 
 			if (!isMatched) {
 				Response.send(res, {
 					status: statusCodes.BAD_REQUEST,
 					success: false,
-					message: message.LOGIN_INVALID
+					message: message.LOGIN_INVALID,
 				});
 				return;
 			}
@@ -155,22 +164,21 @@ class UserController {
 			delete existingUser.dataValues.isDeleted;
 
 			Response.send(res, {
-				status:statusCodes.SUCCESS,
+				status: statusCodes.SUCCESS,
 				success: true,
 				message: message.LOGIN_SUCCESS,
-				data: existingUser
+				data: existingUser,
 			});
-
 		} catch (error: any) {
 			return Response.send(res, {
 				status: statusCodes.BAD_REQUEST,
 				success: false,
-				message: error.message
+				message: error.message,
 			});
 		}
 	}
 
-	async refreshToken (req: FastifyRequest, res: FastifyReply) {
+	async refreshToken(req: FastifyRequest, res: FastifyReply) {
 		try {
 			await verifyRefreshToken(req, res);
 		} catch (error) {
@@ -181,60 +189,52 @@ class UserController {
 		}
 	}
 
-	async list (req: FastifyRequest, res: FastifyReply) {
+	async list(req: FastifyRequest, res: FastifyReply) {
 		try {
-			const {
-				search, limit = 10, offset = 0
-			} = req.query as TQuery;
+			const { search, limit = 10, offset = 0 } = req.query as TQuery;
 
 			const where: any = {
 				role: 'user',
 				isDeleted: false,
 			};
-			if(search) {
+			if (search) {
 				where[Op.or] = [
 					{
 						name: {
-							[Op.iLike]: `%${search}%`
-						}
+							[Op.iLike]: `%${search}%`,
+						},
 					},
 					{
 						email: {
-							[Op.iLike]: `%${search}%`
-						}
+							[Op.iLike]: `%${search}%`,
+						},
 					},
 				];
 			}
 
-			const {
-				count,
-				rows
-			} = await Users.findAndCountAll({
+			const { count, rows } = await Users.findAndCountAll({
 				where,
 				attributes: {
-					exclude: [
-						'isDeleted',
-						'password'
-					]
+					exclude: ['isDeleted', 'password'],
 				},
 				limit,
-				offset
+				offset,
 			});
 
 			return Response.send(res, {
 				data: {
 					results: rows,
-					totalCount: count
+					totalCount: count,
 				},
 				status: statusCodes.SUCCESS,
 				success: true,
-				message: message.LIST_SUCCESS
+				message: message.LIST_SUCCESS,
 			});
 		} catch (error: any) {
 			return Response.send(res, {
 				status: statusCodes.BAD_REQUEST,
 				success: false,
-				message: error.message
+				message: error.message,
 			});
 		}
 	}
@@ -245,9 +245,9 @@ class UserController {
 		const result = await this.fetchUserDetails(
 			{
 				id: userId,
-				isDeleted: false
+				isDeleted: false,
 			},
-			res
+			res,
 		);
 
 		if (result) {
@@ -267,9 +267,9 @@ class UserController {
 			{
 				id: userId,
 				role: 'user',
-				isDeleted: false
+				isDeleted: false,
 			},
-			res
+			res,
 		);
 
 		if (result) {
@@ -282,7 +282,7 @@ class UserController {
 		}
 	};
 
-	async update (req: FastifyRequest, res: FastifyReply) {
+	async update(req: FastifyRequest, res: FastifyReply) {
 		try {
 			const { userId } = req.params as { userId: number };
 
@@ -290,14 +290,14 @@ class UserController {
 				where: {
 					id: userId,
 					role: 'user',
-					isDeleted: false
+					isDeleted: false,
 				},
 			});
-			if(!existingUser) {
+			if (!existingUser) {
 				Response.send(res, {
 					status: statusCodes.BAD_REQUEST,
 					success: false,
-					message: message.DETAIL_NOT_FOUND
+					message: message.DETAIL_NOT_FOUND,
 				});
 				return;
 			}
@@ -307,41 +307,40 @@ class UserController {
 				Response.send(res, {
 					status: statusCodes.BAD_REQUEST,
 					success: false,
-					message: message.PASSWORD_VALIDATION
+					message: message.PASSWORD_VALIDATION,
 				});
 				return;
 			}
 
-			if(body.password) {
+			if (body.password) {
 				body.password = await generateEncryptedPassword(body.password);
 			}
-			const {
-				name,
-				password,
-			} = body;
+			const { name, password } = body;
 
-			await Users.update({
-				name,
-				password,
-			}, {
-				where: {
-					id: userId
-				}
-			});
+			await Users.update(
+				{
+					name,
+					password,
+				},
+				{
+					where: {
+						id: userId,
+					},
+				},
+			);
 			Response.send(res, {
 				status: statusCodes.SUCCESS,
 				success: true,
-				message: message.UPDATE_USER
+				message: message.UPDATE_USER,
 			});
 		} catch (error: any) {
 			return Response.send(res, {
 				status: statusCodes.BAD_REQUEST,
-				success:  false,
-				message: error.message
+				success: false,
+				message: error.message,
 			});
 		}
 	}
 }
 
 export default new UserController();
-

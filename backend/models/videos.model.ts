@@ -1,5 +1,12 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { Table, Model, Column, DataType, BelongsTo, HasMany } from 'sequelize-typescript';
+import {
+	Table,
+	Model,
+	Column,
+	DataType,
+	BelongsTo,
+	HasMany,
+} from 'sequelize-typescript';
 import { TVideo } from '../interface';
 import Channels from './channel.model';
 import Users from './users.model';
@@ -9,61 +16,55 @@ import VideoComments from './videoComments.model';
 	timestamps: true,
 	tableName: 'videos',
 	freezeTableName: true,
-	schema: 'admin'
+	schema: 'admin',
 })
-
 export default class Videos extends Model<TVideo> {
-
-    @Column(DataType.STRING(1024))
+	@Column(DataType.STRING(1024))
 	declare name: string;
 
-    @Column(DataType.STRING(1024))
-    declare url: string;
+	@Column(DataType.STRING(1024))
+	declare url: string;
 
-    @Column(DataType.INTEGER)
-    declare userId: number;
+	@Column(DataType.INTEGER)
+	declare userId: number;
 
-    @Column(DataType.INTEGER)
-    declare channelId: number;
+	@Column(DataType.INTEGER)
+	declare channelId: number;
 
-    @Column({
-    	type:DataType.BOOLEAN,
-    	defaultValue: false,
-    })
-    declare isDeleted: boolean;
+	@Column({
+		type: DataType.BOOLEAN,
+		defaultValue: false,
+	})
+	declare isDeleted: boolean;
 
-    @Column({
-    	type: DataType.ENUM,
-    	values: [
-    		'pending',
-    		'approved',
-    		'rejected',
-    	],
-    	defaultValue: 'pending',
-    })
-    declare approval: string;
+	@Column({
+		type: DataType.ENUM,
+		values: ['pending', 'approved', 'rejected'],
+		defaultValue: 'pending',
+	})
+	declare approval: string;
 
-    @BelongsTo(() => Channels, {
-    	foreignKey: 'channelId',
-    	as: 'channels'
-    })
-    declare channels: Channels;
+	@BelongsTo(() => Channels, {
+		foreignKey: 'channelId',
+		as: 'channels',
+	})
+	declare channels: Channels;
 
-    @BelongsTo(() => Users, {
-    	foreignKey: 'userId',
-    	as: 'users'
-    })
-    declare users: Users;
+	@BelongsTo(() => Users, {
+		foreignKey: 'userId',
+		as: 'users',
+	})
+	declare users: Users;
 
-    @HasMany(() => VideoLikes, {
-    	foreignKey: 'videoId',
-    	as: 'videoLikes'
-    })
-    declare videoLikes: VideoLikes[];
+	@HasMany(() => VideoLikes, {
+		foreignKey: 'videoId',
+		as: 'videoLikes',
+	})
+	declare videoLikes: VideoLikes[];
 
-    @HasMany(() => VideoComments, {
-    	foreignKey: 'videoId',
-    	as: 'videoComments'
-    })
-    declare videoComments: VideoComments[];
+	@HasMany(() => VideoComments, {
+		foreignKey: 'videoId',
+		as: 'videoComments',
+	})
+	declare videoComments: VideoComments[];
 }

@@ -5,32 +5,26 @@ import { NavItem as NavItemT } from '@/types/config';
 import { mainNavigation } from '@/config/siteNavigation';
 import { useAppSelector } from '@/store/hooks';
 
-const MainNavigation = ({ onClose }: {onClose?: () => void}) => {
-
-	const {
-		isAdmin, authLoading
-	} = useAppSelector(state => state.auth);
+const MainNavigation = ({ onClose }: { onClose?: () => void }) => {
+	const { isAdmin, authLoading } = useAppSelector((state) => state.auth);
 
 	const getNavList = useCallback(
 		(items: NavItemT[]) => (
-			<List className='main-navigation-list'>
+			<List className="main-navigation-list">
 				{items.map((x) => (
 					<NavItem item={x} key={x.name} onClose={onClose} />
 				))}
 			</List>
 		),
-		[]
+		[],
 	);
 
-	if(authLoading) {
+	if (authLoading) {
 		return null;
 	}
 
 	return (
-		<Box
-			role="presentation"
-			className='main-navigation-box'
-		>
+		<Box role="presentation" className="main-navigation-box">
 			{getNavList(mainNavigation(isAdmin))}
 		</Box>
 	);

@@ -8,57 +8,52 @@ import VideoComments from './videoComments.model';
 	timestamps: true,
 	tableName: 'users',
 	freezeTableName: true,
-	schema: 'admin'
+	schema: 'admin',
 })
-
 export default class Users extends Model<IUsers, TUsers> {
-
 	@Column(DataType.STRING(1024))
 	declare name: string;
 
 	@Column(DataType.STRING(1024))
-	declare	email: string;
+	declare email: string;
 
 	@Column(DataType.STRING)
 	declare password: string;
 
 	@Column({
-		type:DataType.BOOLEAN,
+		type: DataType.BOOLEAN,
 		defaultValue: false,
 	})
 	declare isDeleted: boolean;
 
 	@Column({
 		type: DataType.ENUM,
-		values: [
-			'user',
-			'admin'
-		],
+		values: ['user', 'admin'],
 		defaultValue: 'user',
 	})
 	declare role: string;
 
 	@HasMany(() => Videos, {
 		foreignKey: 'userId',
-		as: 'videos'
+		as: 'videos',
 	})
 	declare videos: Videos[];
 
 	@HasMany(() => Channels, {
 		foreignKey: 'userId',
-		as: 'channels'
+		as: 'channels',
 	})
 	declare channels: Channels[];
 
 	@HasMany(() => VideoLikes, {
 		foreignKey: 'userId',
-		as: 'videoLikes'
+		as: 'videoLikes',
 	})
 	declare videoLikes: VideoLikes[];
 
 	@HasMany(() => VideoComments, {
 		foreignKey: 'userId',
-		as: 'videoComments'
+		as: 'videoComments',
 	})
 	declare videoComments: VideoComments[];
 }

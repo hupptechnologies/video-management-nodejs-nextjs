@@ -4,7 +4,7 @@ import { NavigationState } from '@/types/navigation';
 const initialState: NavigationState = {
 	floating: false,
 	floatingOnly: false,
-	collapsed: false
+	collapsed: false,
 };
 
 export const navigationSlice = createSlice({
@@ -23,6 +23,5 @@ export const navigationSlice = createSlice({
 	},
 });
 
-export const {
-	setFloating, setFloatingOnly, setCollapsed
-} = navigationSlice.actions;
+export const { setFloating, setFloatingOnly, setCollapsed } =
+	navigationSlice.actions;

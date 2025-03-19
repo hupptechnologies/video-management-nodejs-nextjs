@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useState } from 'react';
 import { IconButton, Menu, MenuItem, TextField } from '@mui/material';
 import { MoreVert } from '@mui/icons-material';
@@ -47,10 +47,12 @@ const UpdateChannel = ({ channel }: { channel: Channel }) => {
 			setError(validationError);
 			return;
 		}
-		dispatch(updateChannel({
-			name: channelName,
-			id: channel.id
-		}));
+		dispatch(
+			updateChannel({
+				name: channelName,
+				id: channel.id,
+			}),
+		);
 		handleClose();
 		handleMenuClose();
 	};
@@ -76,7 +78,13 @@ const UpdateChannel = ({ channel }: { channel: Channel }) => {
 			>
 				<MenuItem onClick={handleOpen}>Update</MenuItem>
 			</Menu>
-			<ChannelModal open={open} handleClose={handleClose} type='update' handleSubmit={handleUpdate} title='Update Channel' >
+			<ChannelModal
+				open={open}
+				handleClose={handleClose}
+				type="update"
+				handleSubmit={handleUpdate}
+				title="Update Channel"
+			>
 				<TextField
 					fullWidth
 					label="Channel Name"

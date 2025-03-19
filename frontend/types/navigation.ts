@@ -1,5 +1,5 @@
 export interface NavigationState {
-    floating: boolean;
-    floatingOnly: boolean;
-    collapsed: boolean;
+	floating: boolean;
+	floatingOnly: boolean;
+	collapsed: boolean;
 }

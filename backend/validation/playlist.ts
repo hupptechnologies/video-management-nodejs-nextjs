@@ -3,181 +3,180 @@ import { FastifySchema } from 'fastify/types/schema';
 export const addPlaylistSchema: FastifySchema = {
 	tags: ['Playlist'],
 	description: 'Add New Playlist API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
-	body:{
+	body: {
 		type: 'object',
 		required: ['name', 'parentFolderId'],
 		properties: {
 			name: {
-				type: 'string'
+				type: 'string',
 			},
 			parentFolderId: {
-				type: 'number'
+				type: 'number',
 			},
-		}
-	}
-
+		},
+	},
 };
 
 export const playListSchema: FastifySchema = {
 	tags: ['Playlist'],
 	description: 'PlayList List API',
-	security:[
+	security: [
 		{
-			token: []
-		}
-	]
+			token: [],
+		},
+	],
 };
 
 export const updatePlaylistSchema: FastifySchema = {
 	tags: ['Playlist'],
 	description: 'Update Playlist By ID API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 	body: {
 		type: 'object',
 		properties: {
 			name: {
-				type: 'string'
+				type: 'string',
 			},
-		}
-	}
+		},
+	},
 };
 
 export const playlistByIdSchema: FastifySchema = {
 	tags: ['Playlist'],
 	description: 'Playlist By ID API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
-	}
+			type: 'string',
+		},
+	},
 };
 
 export const deletePlaylistSchema: FastifySchema = {
 	tags: ['Playlist'],
 	description: 'Delete Plaulist By ID API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
-	}
+			type: 'string',
+		},
+	},
 };
 
 export const addSongInPlaylistSchema: FastifySchema = {
 	tags: ['Playlist-Song'],
 	description: 'Add New Song Into Playlist API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
-	body:{
+	body: {
 		type: 'object',
 		required: ['songIds'],
 		properties: {
 			songIds: {
 				type: 'array',
 				items: {
-					type: 'string'
-				}
-			}
-		}
-	}
+					type: 'string',
+				},
+			},
+		},
+	},
 };
 
 export const playlistSongSchema: FastifySchema = {
 	tags: ['Playlist-Song'],
 	description: 'Playlist Song List API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 };
 
 export const getSongsForPlaylistSchema: FastifySchema = {
 	tags: ['Playlist-Song'],
 	description: 'Song List API With Folder ID',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 	querystring: {
 		search: {
-			type: 'string'
-		}
-	}
+			type: 'string',
+		},
+	},
 };
 
 export const deleteSongInPlaylistSchema: FastifySchema = {
 	tags: ['Playlist-Song'],
 	description: 'Delete Song From Playlist API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
+			type: 'string',
 		},
 		songId: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 };
 
 export const updateOrderSongSchema: FastifySchema = {
 	tags: ['Playlist-Song'],
 	description: 'Update Order Of Song API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 	body: {
 		type: 'object',
@@ -188,17 +187,17 @@ export const updateOrderSongSchema: FastifySchema = {
 					type: 'object',
 					properties: {
 						id: {
-							type: 'string'
+							type: 'string',
 						},
 						songId: {
-							type: 'string'
+							type: 'string',
 						},
 						orderIndex: {
-							type: 'string'
-						}
-					}
-				}
-			}
-		}
-	}
+							type: 'string',
+						},
+					},
+				},
+			},
+		},
+	},
 };

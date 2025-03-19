@@ -1,6 +1,12 @@
-"use client";
+'use client';
 import { Box, IconButton, Slider, Typography } from '@mui/material';
-import { PlayArrow, Pause, VolumeUp, VolumeOff, Fullscreen } from '@mui/icons-material';
+import {
+	PlayArrow,
+	Pause,
+	VolumeUp,
+	VolumeOff,
+	Fullscreen,
+} from '@mui/icons-material';
 import React, { useRef, useState, useEffect } from 'react';
 import CircularProgressLoader from '../CircularProgressLoader';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -9,7 +15,6 @@ import { getVideoById } from '@/store/feature/video/action';
 import '../../styles/components/VideoPlayer.css';
 
 const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
-
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = useState(false);
 	const [volume, setVolume] = useState(100);
@@ -17,15 +22,15 @@ const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
 	const [progress, setProgress] = useState(0);
 	const [duration, setDuration] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);
-	const {
-		isFetchingVideo, video
-	} = useAppSelector(state => state.video);
+	const { isFetchingVideo, video } = useAppSelector((state) => state.video);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(getVideoById({
-			id: params.videoId
-		}));
+		dispatch(
+			getVideoById({
+				id: params.videoId,
+			}),
+		);
 	}, []);
 
 	useEffect(() => {
@@ -80,7 +85,7 @@ const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
 	const handleSeek = (event: Event, newValue: number | number[]) => {
 		const video = videoRef.current;
 		if (video) {
-			const seekTime = (newValue as number / 100) * video.duration;
+			const seekTime = ((newValue as number) / 100) * video.duration;
 			video.currentTime = seekTime;
 			setProgress(newValue as number);
 		}
@@ -101,49 +106,56 @@ const VideoPlayer = ({ params }: { params: { videoId: number } }) => {
 		return `${minutes}:${seconds}`;
 	};
 
-	if(isFetchingVideo || video.url === '') {
-		return <CircularProgressLoader/>;
+	if (isFetchingVideo || video.url === '') {
+		return <CircularProgressLoader />;
 	}
 
 	return (
-		<Box className='video-player-main-box'>
+		<Box className="video-player-main-box">
 			<video
 				ref={videoRef}
 				width="100%"
 				onTimeUpdate={handleProgress}
 				onClick={togglePlay}
 				onEnded={() => setPlaying(false)}
-				className='video-player-main-video'
+				className="video-player-main-video"
 			>
 				<source src={video.url} type="video/mp4" />
-		Your browser does not support the video tag.
+				Your browser does not support the video tag.
 			</video>
-			<Box className='video-player-controls-main-box'>
-				<IconButton onClick={togglePlay} className='video-player-play-btn'>
+			<Box className="video-player-controls-main-box">
+				<IconButton onClick={togglePlay} className="video-player-play-btn">
 					{playing ? <Pause /> : <PlayArrow />}
 				</IconButton>
-				<Typography className='video-player-current-time-text'>{formatTime(currentTime)}</Typography>
+				<Typography className="video-player-current-time-text">
+					{formatTime(currentTime)}
+				</Typography>
 				<Slider
 					value={progress}
 					onChange={handleSeek}
-					className='video-player-time-slider'
+					className="video-player-time-slider"
 					aria-labelledby="video-progress"
 					min={0}
 					max={100}
 				/>
-				<Typography className='video-player-total-duration-text'>{formatTime(duration)}</Typography>
-				<IconButton onClick={toggleMute} className='video-player-mute-btn'>
+				<Typography className="video-player-total-duration-text">
+					{formatTime(duration)}
+				</Typography>
+				<IconButton onClick={toggleMute} className="video-player-mute-btn">
 					{muted || volume === 0 ? <VolumeOff /> : <VolumeUp />}
 				</IconButton>
 				<Slider
 					value={volume}
 					onChange={handleVolumeChange}
-					className='video-player-volume-slider'
+					className="video-player-volume-slider"
 					aria-labelledby="volume-slider"
 					min={0}
 					max={100}
 				/>
-				<IconButton onClick={handleFullscreen} className='video-player-fullscreen-btn'>
+				<IconButton
+					onClick={handleFullscreen}
+					className="video-player-fullscreen-btn"
+				>
 					<Fullscreen />
 				</IconButton>
 			</Box>

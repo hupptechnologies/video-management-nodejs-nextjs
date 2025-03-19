@@ -4,106 +4,106 @@ export const addSongSchema: FastifySchema = {
 	tags: ['Song'],
 	description: 'Add New Song API',
 	consumes: ['multipart/form-data'],
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
-	body:{
+	body: {
 		type: 'object',
-		required: [ 'song', 'tags'],
+		required: ['song', 'tags'],
 		properties: {
 			song: {
 				type: 'string',
-				format: 'binary'
+				format: 'binary',
 			},
 			tags: {
 				type: 'string',
-			}
-		}
-	}
+			},
+		},
+	},
 };
 
 export const songsListSchema: FastifySchema = {
 	tags: ['Song'],
 	description: 'Songs List API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	querystring: {
 		search: {
-			type: 'string'
-		}
-	}
+			type: 'string',
+		},
+	},
 };
 
 export const updateSongSchema: FastifySchema = {
 	tags: ['Song'],
 	description: 'Update Song By ID API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
+			type: 'string',
+		},
 	},
 	body: {
 		type: 'object',
 		required: ['title'],
 		properties: {
 			artist: {
-				type: 'string'
+				type: 'string',
 			},
 			title: {
-				type: 'string'
+				type: 'string',
 			},
 			rating: {
-				type: 'number'
+				type: 'number',
 			},
 			duration: {
-				type: 'string'
+				type: 'string',
 			},
 			tags: {
 				type: 'array',
 				items: {
-					type: 'string'
-				}
-			}
-		}
-	}
+					type: 'string',
+				},
+			},
+		},
+	},
 };
 
 export const songByIdSchema: FastifySchema = {
 	tags: ['Song'],
 	description: 'Song By ID API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
-	}
+			type: 'string',
+		},
+	},
 };
 
 export const deleteSongSchema: FastifySchema = {
 	tags: ['Song'],
 	description: 'Delete Song By ID API',
-	security:[
+	security: [
 		{
-			token: []
-		}
+			token: [],
+		},
 	],
 	params: {
 		id: {
-			type: 'string'
-		}
-	}
+			type: 'string',
+		},
+	},
 };

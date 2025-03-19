@@ -1,70 +1,69 @@
-import { DefaultParams } from "@/types/common";
-import { HTTP } from "./http";
-import { AuthRequest, AuthResponse, UserListResponse } from "@/types/auth";
+import { DefaultParams } from '@/types/common';
+import { HTTP } from './http';
+import { AuthRequest, AuthResponse, UserListResponse } from '@/types/auth';
 
 type AxiosResponse = {
-        data: AuthResponse,
-        message: string
+	data: AuthResponse;
+	message: string;
 };
 
 class AuthService {
-
-	register (data: AuthRequest) {
+	register(data: AuthRequest) {
 		return HTTP.Post<AxiosResponse>({
 			route: 'auth/register',
 			body: data,
 			headers: {
-				"Content-Type": "application/json",
+				'Content-Type': 'application/json',
 			},
 		});
 	}
 
-	login (data: AuthRequest) {
+	login(data: AuthRequest) {
 		return HTTP.Post<AxiosResponse>({
 			route: 'auth/login',
 			body: data,
 			headers: {
-				"Content-Type": "application/json",
-			}
+				'Content-Type': 'application/json',
+			},
 		});
 	}
 
-	adminLogin (data: AuthRequest) {
+	adminLogin(data: AuthRequest) {
 		return HTTP.Post<AxiosResponse>({
 			route: 'auth/admin/login',
 			body: data,
 			headers: {
-				"Content-Type": "application/json",
-			}
+				'Content-Type': 'application/json',
+			},
 		});
 	}
 
-	user () {
+	user() {
 		return HTTP.Get<AxiosResponse>({
 			route: 'auth/user',
 			headers: {
-				"Content-Type": "application/json",
-			}
+				'Content-Type': 'application/json',
+			},
 		});
 	}
 
-	userList (data?: DefaultParams) {
+	userList(data?: DefaultParams) {
 		return HTTP.Get<UserListResponse>({
 			route: 'auth/user/list',
 			headers: {
-				"Content-Type": "application/json",
+				'Content-Type': 'application/json',
 			},
-			params:{
+			params: {
 				...(data?.limit && {
-					limit: data.limit || 10
+					limit: data.limit || 10,
 				}),
 				...(data?.offset && {
-					offset: data.offset || 0
+					offset: data.offset || 0,
 				}),
 				...(data?.search && {
-					search: data.search || ''
+					search: data.search || '',
 				}),
-			}
+			},
 		});
 	}
 }

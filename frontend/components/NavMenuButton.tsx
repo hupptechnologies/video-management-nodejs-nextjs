@@ -5,11 +5,13 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setCollapsed, setFloating } from '@/store/feature/navigation/slice';
 
 const NavMenuButton = () => {
-	const {
-		collapsed, floating, floatingOnly
-	} = useAppSelector(state => state.navigation);
+	const { collapsed, floating, floatingOnly } = useAppSelector(
+		(state) => state.navigation,
+	);
 	const dispatch = useAppDispatch();
-	const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
+	const smallScreen = useMediaQuery((theme: Theme) =>
+		theme.breakpoints.down('lg'),
+	);
 
 	const onClick = () => {
 		if (smallScreen || floatingOnly) {
@@ -20,7 +22,13 @@ const NavMenuButton = () => {
 	};
 
 	return (
-		<IconButton size="medium" color="primary" aria-label="menu" className='nav-menu-btn-icon' onClick={onClick}>
+		<IconButton
+			size="medium"
+			color="primary"
+			aria-label="menu"
+			className="nav-menu-btn-icon"
+			onClick={onClick}
+		>
 			<Menu />
 		</IconButton>
 	);

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { Box } from '@mui/material';
 import StoreProvider from './StoreProvider';
@@ -10,15 +10,18 @@ import './globals.css';
 import '../styles/components/Navigation.css';
 import '../styles/common/index.css';
 
-export default function RootLayout ({ children }: { children: React.ReactNode }) {
-
+export default function RootLayout({
+	children,
+}: {
+	children: React.ReactNode;
+}) {
 	return (
 		<StoreProvider>
 			<html lang="en">
 				<body>
 					<ThemeProvider>
 						<ToastWrapper />
-						<Box className='main-layout-container'>
+						<Box className="main-layout-container">
 							<NavigationManager />
 							<Box>
 								<Navbar />

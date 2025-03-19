@@ -1,6 +1,7 @@
 export const message = {
 	// eslint-disable-next-line max-len
-	PASSWORD_VALIDATION: 'Password must meet complexity requirements: at least one lowercase, one uppercase, one digit, one special character, and min length of 8 characters.',
+	PASSWORD_VALIDATION:
+		'Password must meet complexity requirements: at least one lowercase, one uppercase, one digit, one special character, and min length of 8 characters.',
 	REGISTER_SUCCESS: 'User created successfully',
 	LOGIN_SUCCESS: 'User loggedIn successfully.',
 	LOGIN_INVALID: 'Invalid username or password',
@@ -39,5 +40,5 @@ export const message = {
 	VIDEO_COMMENTS_SUCCESS: 'Video comments fetch successfully',
 	FEEDBACK_SUCCESS: 'Successfully added the feedback',
 	FEEDBACK_UPDATE: 'Successfully updated the feedback',
-	FEEDBACK_REMOVE: 'Successfully removed the feedback'
+	FEEDBACK_REMOVE: 'Successfully removed the feedback',
 };

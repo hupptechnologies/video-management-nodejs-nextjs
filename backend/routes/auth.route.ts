@@ -1,24 +1,25 @@
-import { FastifyInstance } from "fastify";
-import { IncomingMessage, Server, ServerResponse } from "http";
-import UserController from "../controller/users.controller";
+import { FastifyInstance } from 'fastify';
+import { IncomingMessage, Server, ServerResponse } from 'http';
+import UserController from '../controller/users.controller';
 import {
 	registerSchema,
 	loginSchema,
 	adminRegisterSchema,
 	userListSchema,
 	userByIdSchema,
-	updateUserSchema
+	updateUserSchema,
 } from '../validation/auth';
 import { verifyAdminToken, verifyToken } from '../utils';
 // import upload from "../middleware/upload";
 
-const users = async (fastify: FastifyInstance<Server, IncomingMessage, ServerResponse>) => {
-
+const users = async (
+	fastify: FastifyInstance<Server, IncomingMessage, ServerResponse>,
+) => {
 	fastify.route({
 		method: 'POST',
 		url: '/register',
 		schema: registerSchema,
-		handler: UserController.register
+		handler: UserController.register,
 	});
 
 	fastify.route({
@@ -26,21 +27,21 @@ const users = async (fastify: FastifyInstance<Server, IncomingMessage, ServerRes
 		url: '/admin/register',
 		schema: adminRegisterSchema,
 		// preHandler: upload.single('logo'),
-		handler: UserController.register
+		handler: UserController.register,
 	});
 
 	fastify.route({
 		method: 'POST',
 		url: '/login',
 		schema: loginSchema,
-		handler: UserController.login
+		handler: UserController.login,
 	});
 
 	fastify.route({
 		method: 'POST',
 		url: '/admin/login',
 		schema: loginSchema,
-		handler: UserController.login
+		handler: UserController.login,
 	});
 
 	fastify.route({
@@ -48,7 +49,7 @@ const users = async (fastify: FastifyInstance<Server, IncomingMessage, ServerRes
 		url: '/user/list',
 		schema: userListSchema,
 		preHandler: fastify.auth([verifyAdminToken]),
-		handler: UserController.list
+		handler: UserController.list,
 	});
 
 	fastify.route({
@@ -56,14 +57,14 @@ const users = async (fastify: FastifyInstance<Server, IncomingMessage, ServerRes
 		url: '/user/:userId',
 		schema: userByIdSchema,
 		preHandler: fastify.auth([verifyToken]),
-		handler: UserController.findById
+		handler: UserController.findById,
 	});
 
 	fastify.route({
 		method: 'GET',
 		url: '/user',
 		preHandler: fastify.auth([verifyToken]),
-		handler: UserController.find
+		handler: UserController.find,
 	});
 
 	fastify.route({
@@ -71,15 +72,14 @@ const users = async (fastify: FastifyInstance<Server, IncomingMessage, ServerRes
 		url: '/user/:userId',
 		schema: updateUserSchema,
 		preHandler: fastify.auth([verifyToken]),
-		handler: UserController.update
+		handler: UserController.update,
 	});
 
 	fastify.route({
 		method: 'POST',
 		url: '/refresh-token',
-		handler: UserController.refreshToken
+		handler: UserController.refreshToken,
 	});
 };
-
 
 export default users;

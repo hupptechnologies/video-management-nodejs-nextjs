@@ -11,14 +11,16 @@ import { setFloating } from '@/store/feature/navigation/slice';
 import { AppLogo } from '@/assets/image';
 
 const NavigationManager = () => {
-	const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
-	const {
-		floatingOnly, collapsed
-	} = useAppSelector(state => state.navigation);
+	const smallScreen = useMediaQuery((theme: Theme) =>
+		theme.breakpoints.down('lg'),
+	);
+	const { floatingOnly, collapsed } = useAppSelector(
+		(state) => state.navigation,
+	);
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const pathname = usePathname();
-	const hideSidebarRoutes = ["/login", "/signup"];
+	const hideSidebarRoutes = ['/login', '/signup'];
 	const isSidebarHidden = hideSidebarRoutes.includes(pathname);
 
 	useEffect(() => {
@@ -29,30 +31,31 @@ const NavigationManager = () => {
 
 	return (
 		<>
-			<Box className='navigation-manager-main-box'>
-				<Box className='navigation-manager-inner-box'>
+			<Box className="navigation-manager-main-box">
+				<Box className="navigation-manager-inner-box">
 					{!isSidebarHidden && <NavMenuButton />}
-					<Box onClick={() => router.push('/')} className='navigation-avatar-box'>
-						<Avatar
-							alt='VideoTube'
-							src={AppLogo.src}
-							className='wh-px-50'
-						/>
-						<Typography variant="h5" component="div" className='navigation-app-name'>
+					<Box
+						onClick={() => router.push('/')}
+						className="navigation-avatar-box"
+					>
+						<Avatar alt="VideoTube" src={AppLogo.src} className="wh-px-50" />
+						<Typography
+							variant="h5"
+							component="div"
+							className="navigation-app-name"
+						>
 							VideoTube
 						</Typography>
 					</Box>
 				</Box>
-				{!isSidebarHidden &&
+				{!isSidebarHidden && (
 					<>
 						<FloatingSidebar />
 						{!floatingOnly && (
-							<>
-								{collapsed ? <CollapsedSidebar /> : <StaticSidebar />}
-							</>
+							<>{collapsed ? <CollapsedSidebar /> : <StaticSidebar />}</>
 						)}
 					</>
-				}
+				)}
 			</Box>
 		</>
 	);

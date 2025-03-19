@@ -1,4 +1,11 @@
-import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import {
+	Table,
+	Model,
+	Column,
+	DataType,
+	ForeignKey,
+	BelongsTo,
+} from 'sequelize-typescript';
 import Users from './users.model';
 import Videos from './videos.model';
 import { TVideoLikes } from '../interface';
@@ -7,11 +14,9 @@ import { TVideoLikes } from '../interface';
 	timestamps: true,
 	tableName: 'video_likes',
 	freezeTableName: true,
-	schema: 'admin'
+	schema: 'admin',
 })
-
 export default class VideoLikes extends Model<TVideoLikes> {
-
 	@ForeignKey(() => Users)
 	@Column({
 		type: DataType.INTEGER,
@@ -34,13 +39,13 @@ export default class VideoLikes extends Model<TVideoLikes> {
 
 	@BelongsTo(() => Users, {
 		foreignKey: 'userId',
-		as: 'users'
+		as: 'users',
 	})
 	declare user: Users;
 
 	@BelongsTo(() => Videos, {
 		foreignKey: 'videoId',
-		as: 'videos'
+		as: 'videos',
 	})
 	declare video: Videos;
 }

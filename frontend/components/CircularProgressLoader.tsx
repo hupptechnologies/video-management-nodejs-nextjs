@@ -1,28 +1,52 @@
-"use client";
+'use client';
 import React from 'react';
-import { CircularProgress, Container, Theme, useMediaQuery } from '@mui/material';
+import {
+	CircularProgress,
+	Container,
+	Theme,
+	useMediaQuery,
+} from '@mui/material';
 import { useAppSelector } from '@/store/hooks';
 
 interface CircularProgressLoaderProps {
-    color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | 'inherit';
+	color?:
+		| 'primary'
+		| 'secondary'
+		| 'error'
+		| 'info'
+		| 'success'
+		| 'warning'
+		| 'inherit';
 	height?: string;
 	marginLeft?: string;
 	width?: string;
 }
 
 const CircularProgressLoader: React.FC<CircularProgressLoaderProps> = ({
-	color = 'primary', height = '90vh', marginLeft, width
+	color = 'primary',
+	height = '90vh',
+	marginLeft,
+	width,
 }) => {
-
-	const smallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
-	const { collapsed } = useAppSelector(state => state.navigation);
+	const smallScreen = useMediaQuery((theme: Theme) =>
+		theme.breakpoints.down('lg'),
+	);
+	const { collapsed } = useAppSelector((state) => state.navigation);
 
 	return (
-		<Container maxWidth={false} className='center-flex-box' sx={{
-			height,
-			marginLeft: marginLeft || (smallScreen || collapsed ? '80px' : '236px'),
-			width: width || (smallScreen || collapsed ? "calc(100% - 80px)" : "calc(100% - 236px)")
-		}}>
+		<Container
+			maxWidth={false}
+			className="center-flex-box"
+			sx={{
+				height,
+				marginLeft: marginLeft || (smallScreen || collapsed ? '80px' : '236px'),
+				width:
+					width ||
+					(smallScreen || collapsed
+						? 'calc(100% - 80px)'
+						: 'calc(100% - 236px)'),
+			}}
+		>
 			<CircularProgress color={color} />
 		</Container>
 	);

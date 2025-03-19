@@ -1,19 +1,26 @@
 import { createAppSlice } from '@/store/createAppSlice';
 import { ChannelState } from '@/types/channel';
-import { createChannel, deleteChannel, getChannelById, getChannels, getChannelsByUserId, updateChannel } from './action';
+import {
+	createChannel,
+	deleteChannel,
+	getChannelById,
+	getChannels,
+	getChannelsByUserId,
+	updateChannel,
+} from './action';
 
 const initialState: ChannelState = {
-	channel : {
+	channel: {
 		id: 0,
 		name: '',
 		createdAt: '',
 		userId: 0,
 	},
 	channels: [],
-	isFetchingChannel : false,
-	isCreatingChannel : false,
-	isUpdatingChannel : false,
-	isDeletingChannel : false,
+	isFetchingChannel: false,
+	isCreatingChannel: false,
+	isUpdatingChannel: false,
+	isDeletingChannel: false,
 };
 
 export const channelSlice = createAppSlice({
@@ -22,7 +29,7 @@ export const channelSlice = createAppSlice({
 	reducers: {
 		setChannel: (state, action) => {
 			state.channel = action.payload;
-		}
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -61,7 +68,9 @@ export const channelSlice = createAppSlice({
 			})
 			.addCase(updateChannel.fulfilled, (state, action) => {
 				const channelId = action.payload.id;
-				const index = state.channels.findIndex(channel => channel.id === channelId);
+				const index = state.channels.findIndex(
+					(channel) => channel.id === channelId,
+				);
 				if (index !== -1 && channelId) {
 					state.channels[index].name = action.payload.name;
 				}
@@ -76,8 +85,10 @@ export const channelSlice = createAppSlice({
 			})
 			.addCase(deleteChannel.fulfilled, (state, action) => {
 				const channelId = action.payload.id;
-				const index = state.channels.findIndex(channel => channel.id === channelId);
-				if(index && channelId) {
+				const index = state.channels.findIndex(
+					(channel) => channel.id === channelId,
+				);
+				if (index && channelId) {
 					state.channels.splice(index, 1);
 					state.channel.id = channelId;
 				}
@@ -96,7 +107,7 @@ export const channelSlice = createAppSlice({
 			.addCase(getChannelsByUserId.rejected, (state) => {
 				state.isFetchingChannel = false;
 			});
-	}
+	},
 });
 
 export const { setChannel } = channelSlice.actions;

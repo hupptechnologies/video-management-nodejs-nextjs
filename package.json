@@ -8,10 +8,12 @@
     "dev-frontend": "next dev frontend",
     "build": "npm run build-backend && npm run build-frontend",
     "build-backend": "cd backend && npm install && npm run build",
-    "build-frontend": "cd backend/frontend && npm install && next build",
+    "build-frontend": "cd frontend && npm install && next build",
     "postinstall": "(cd backend && npm install) && (cd frontend && npm install)",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint-frontend": "cd frontend && npx eslint .",
+    "lint-backend": "cd backend && npx eslint .",
+    "lint:fix-frontend": "cd frontend && npx eslint . --fix",
+    "lint:fix-backend": "cd backend && npx eslint . --fix"
   },
   "dependencies": {
     "concurrently": "^8.2.0",

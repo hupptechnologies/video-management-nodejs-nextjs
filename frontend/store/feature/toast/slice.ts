@@ -23,6 +23,4 @@ export const toastSlice = createSlice({
 	},
 });
 
-export const {
-	showToast, hideToast
-} = toastSlice.actions;
+export const { showToast, hideToast } = toastSlice.actions;

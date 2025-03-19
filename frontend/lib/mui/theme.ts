@@ -25,7 +25,7 @@ const baseTheme: ThemeOptions = {
 			contrastText: '#FFFFFF',
 			50: '#00A76F14',
 			100: '#00A76F20',
-			200: '#00A76F29'
+			200: '#00A76F29',
 		},
 		secondary: {
 			main: '#8E33FF',
@@ -61,7 +61,7 @@ const baseTheme: ThemeOptions = {
 		divider: '#E0E0E0',
 	},
 	typography: {
-		fontFamily: `'Inter', 'Helvetica', 'Arial', sans-serif`,
+		fontFamily: "'Inter', 'Helvetica', 'Arial', sans-serif",
 		fontSize: 16,
 		h1: {
 			fontSize: '2.75rem',

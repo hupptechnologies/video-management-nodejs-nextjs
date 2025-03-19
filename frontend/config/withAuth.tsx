@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { appLocalStorage } from '@/utils/helper';
 
 const withAuth = <P extends object>(Component: React.ComponentType<P>) => {
-	return function ProtectedRoute (props: P) {
+	return function ProtectedRoute(props: P) {
 		const router = useRouter();
 		const isAuthenticated = appLocalStorage.getItem('token');
 

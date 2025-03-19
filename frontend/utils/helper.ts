@@ -7,8 +7,8 @@ export const getThumbnailUrl = (videoUrl: string) => {
 };
 
 class AppLocalStorage {
-	getItem (key: string) {
-		if(typeof window !== 'undefined') {
+	getItem(key: string) {
+		if (typeof window !== 'undefined') {
 			return localStorage.getItem(key);
 		}
 		return null;
@@ -30,7 +30,7 @@ export const timeAgo = (dateString: string): string => {
 	} else if (seconds < 86400) {
 		const hours = Math.floor(seconds / 3600);
 		return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
-	}else if (seconds < 2592000) {
+	} else if (seconds < 2592000) {
 		const days = Math.floor(seconds / 86400);
 		return `${days} ${days === 1 ? 'day' : 'days'} ago`;
 	} else if (seconds < 31536000) {
@@ -41,4 +41,3 @@ export const timeAgo = (dateString: string): string => {
 		return `${years} ${years === 1 ? 'year' : 'years'} ago`;
 	}
 };
-

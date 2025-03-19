@@ -8,8 +8,7 @@ const initialState: AuthState = {
 	token: appLocalStorage.getItem('token') || '',
 	refreshToken: appLocalStorage.getItem('refreshToken') || '',
 	authLoading: false,
-	user: {
-	},
+	user: {},
 	isAdmin: false,
 };
 
@@ -17,16 +16,15 @@ export const authSlice = createAppSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		logout (state) {
+		logout(state) {
 			state.isLoggedIn = false;
 			localStorage.removeItem('token');
 			localStorage.removeItem('refreshToken');
 			localStorage.removeItem('isAdmin');
 			state.token = '';
 			state.refreshToken = '';
-			state.user = {
-			};
-		}
+			state.user = {};
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -37,7 +35,10 @@ export const authSlice = createAppSlice({
 				state.isLoggedIn = true;
 				localStorage.setItem('token', action.payload.headers.token);
 				state.token = action.payload.headers.token;
-				localStorage.setItem('refreshToken', action.payload.headers?.['refresh-token']);
+				localStorage.setItem(
+					'refreshToken',
+					action.payload.headers?.['refresh-token'],
+				);
 				state.user = action.payload.data.data;
 				state.authLoading = false;
 			})
@@ -51,7 +52,10 @@ export const authSlice = createAppSlice({
 				state.isLoggedIn = true;
 				localStorage.setItem('token', action.payload.headers.token);
 				state.token = action.payload.headers.token;
-				localStorage.setItem('refreshToken', action.payload.headers?.['refresh-token']);
+				localStorage.setItem(
+					'refreshToken',
+					action.payload.headers?.['refresh-token'],
+				);
 				localStorage.setItem('isAdmin', 'true');
 				state.user = action.payload.data.data;
 				state.isAdmin = true;
@@ -74,7 +78,7 @@ export const authSlice = createAppSlice({
 			})
 			.addCase(getUserDetails.fulfilled, (state, action) => {
 				state.user = action.payload.data;
-				if(action.payload.data.role === 'admin') {
+				if (action.payload.data.role === 'admin') {
 					state.isAdmin = true;
 				}
 				state.authLoading = false;
@@ -82,7 +86,7 @@ export const authSlice = createAppSlice({
 			.addCase(getUserDetails.rejected, (state) => {
 				state.authLoading = false;
 			});
-	}
+	},
 });
 
 export const { logout } = authSlice.actions;

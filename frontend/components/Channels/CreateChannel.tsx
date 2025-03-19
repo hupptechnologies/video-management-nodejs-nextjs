@@ -37,26 +37,34 @@ const CreateChannel = () => {
 			setError(validationError);
 			return;
 		}
-		dispatch(createChannel({
-			name: channelName
-		}));
+		dispatch(
+			createChannel({
+				name: channelName,
+			}),
+		);
 		handleClose();
 	};
 
 	return (
 		<>
-			<Stack alignItems='end'>
+			<Stack alignItems="end">
 				<Button
 					variant="contained"
 					startIcon={<Add />}
 					color="primary"
 					onClick={handleOpen}
 				>
-                    Create Channel
+					Create Channel
 				</Button>
 			</Stack>
-			<Divider className='create-channel-divider' />
-			<ChannelModal open={open} handleClose={handleClose} type='create' handleSubmit={handleSubmit} title='Create Channel' >
+			<Divider className="create-channel-divider" />
+			<ChannelModal
+				open={open}
+				handleClose={handleClose}
+				type="create"
+				handleSubmit={handleSubmit}
+				title="Create Channel"
+			>
 				<TextField
 					fullWidth
 					label="Channel Name"

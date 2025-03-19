@@ -1,27 +1,27 @@
-import { Channel } from "./channel";
+import { Channel } from './channel';
 
 export type Video = {
-    id: number;
-    name: string;
-    url: string;
-    likeCount: string;
-    dislikeCount: string;
-    isLike: boolean | null;
-    channels: Channel;
-    createdAt: string;
+	id: number;
+	name: string;
+	url: string;
+	likeCount: string;
+	dislikeCount: string;
+	isLike: boolean | null;
+	channels: Channel;
+	createdAt: string;
 };
 
 export type VideoResponse = {
-    results: Video[];
+	results: Video[];
 };
 
 export type VideoByIdResponse = {
-    data: Video;
+	data: Video;
 };
 
 export interface VideoState {
-    video: Video;
-    videos: Video[];
-    userVideos: Video[];
-    isFetchingVideo: boolean;
+	video: Video;
+	videos: Video[];
+	userVideos: Video[];
+	isFetchingVideo: boolean;
 }
