@@ -1,6 +1,10 @@
 import { HTTP } from './http';
-import { VideoByIdResponse, VideoResponse } from '@/types/video';
-import { FindByIdRequest } from '@/types/common';
+import {
+	AdminVideosRequest,
+	VideoByIdResponse,
+	VideoResponse,
+} from '@/types/video';
+import { DefaultParams, FindByIdRequest } from '@/types/common';
 
 type AxiosResponse = {
 	data: VideoResponse;
@@ -23,6 +27,25 @@ class VideoService {
 	findById(data: FindByIdRequest) {
 		return HTTP.Get<VideoByIdResponse>({
 			route: `users/videos/${data.id}`,
+		});
+	}
+	adminVideos(data: AdminVideosRequest & DefaultParams) {
+		return HTTP.Get<AxiosResponse>({
+			route: 'admin/videos',
+			params: {
+				...(data.approval && {
+					approval: data.approval || '',
+				}),
+				...(data?.limit && {
+					limit: data.limit || 10,
+				}),
+				...(data?.offset && {
+					offset: data.offset || 0,
+				}),
+				...(data?.search && {
+					search: data.search || '',
+				}),
+			},
 		});
 	}
 }

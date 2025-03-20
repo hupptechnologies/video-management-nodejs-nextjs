@@ -1,0 +1,18 @@
+.approval-list-item-card-media {
+    width: 80px;
+    height: 45px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.approval-table-divider {
+    margin: 24px 0;
+}
+
+.admin-approval-list-thead-row {
+    background-color: var(--primary-main);
+}
+
+.admin-approval-list-thead-row-cell {
+    color: var(--background);
+}

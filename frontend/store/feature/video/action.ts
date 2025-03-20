@@ -2,7 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { showToast } from '../toast/slice';
 import { videoService } from '@/services/video';
 import { channelService } from '@/services/channel';
-import { FindByIdRequest } from '@/types/common';
+import { DefaultParams, FindByIdRequest } from '@/types/common';
+import { AdminVideosRequest } from '@/types/video';
 
 export const getGlobalVideos = createAsyncThunk(
 	'video/getGlobalVideos',
@@ -60,6 +61,19 @@ export const getChannelVideos = createAsyncThunk(
 	async (data: FindByIdRequest, { rejectWithValue }) => {
 		try {
 			const response = await channelService.channelVideos(data);
+			return response.data;
+		} catch (error: any) {
+			const err = error?.response?.data;
+			return rejectWithValue(err);
+		}
+	},
+);
+
+export const getAdminVideos = createAsyncThunk(
+	'video/getAdminVideos',
+	async (data: AdminVideosRequest & DefaultParams, { rejectWithValue }) => {
+		try {
+			const response = await videoService.adminVideos(data);
 			return response.data;
 		} catch (error: any) {
 			const err = error?.response?.data;

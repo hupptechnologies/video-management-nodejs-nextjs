@@ -9,10 +9,12 @@ export type Video = {
 	isLike: boolean | null;
 	channels: Channel;
 	createdAt: string;
+	approval?: string;
 };
 
 export type VideoResponse = {
 	results: Video[];
+	totalCount?: number;
 };
 
 export type VideoByIdResponse = {
@@ -24,4 +26,8 @@ export interface VideoState {
 	videos: Video[];
 	userVideos: Video[];
 	isFetchingVideo: boolean;
+}
+
+export interface AdminVideosRequest {
+	approval: string;
 }

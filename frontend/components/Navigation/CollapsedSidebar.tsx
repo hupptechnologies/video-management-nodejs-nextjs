@@ -2,9 +2,16 @@
 
 import { Box, Drawer, List } from '@mui/material';
 import NavItem from './NavItem';
+import { useAppSelector } from '@/store/hooks';
 import { collapsedNavigation } from '@/config/siteNavigation';
 
 const CollapsedSidebar = () => {
+	const { isAdmin, authLoading } = useAppSelector((state) => state.auth);
+
+	if (authLoading) {
+		return null;
+	}
+
 	return (
 		<Drawer
 			open
@@ -15,7 +22,7 @@ const CollapsedSidebar = () => {
 		>
 			<Box mb="60px" role="presentation" className="collapsed-sidebar-box">
 				<List className="collapsed-sidebar-list">
-					{collapsedNavigation.map((x) => (
+					{collapsedNavigation(isAdmin).map((x) => (
 						<NavItem item={x} key={x.name} />
 					))}
 				</List>
