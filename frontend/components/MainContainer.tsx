@@ -23,15 +23,11 @@ const MainContainer: React.FC<MainContainerProps> = ({
 		<Container
 			maxWidth={false}
 			sx={{
-				m: '16px 16px 16px 0',
-				marginLeft: marginLeft
-					? marginLeft
-					: smallScreen || collapsed
-						? '80px'
-						: '236px',
-				width: width
-					? width
-					: smallScreen || collapsed
+				m: `16px 16px 16px ${
+					marginLeft ? marginLeft : smallScreen || collapsed ? '80px' : '236px'
+				}`,
+				width:
+					(width ?? (smallScreen || collapsed))
 						? 'calc(100% - 80px)'
 						: 'calc(100% - 236px)',
 			}}
