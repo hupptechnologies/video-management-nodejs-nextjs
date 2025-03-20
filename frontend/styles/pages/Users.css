@@ -1,0 +1,16 @@
+.users-table-box {
+    padding: 16px;
+    background-color: var(--background-default);
+}
+
+.users-table-paper {
+    overflow: hidden;
+}
+
+.user-list-thead-row {
+    background-color: var(--primary-main);
+}
+
+.user-list-thead-row-cell {
+    color: var(--background);
+}

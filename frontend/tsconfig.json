@@ -50,11 +50,11 @@
       "@/utils/*": [
         "utils/*"
       ],
-      "@/types": [
-        "types/index"
+      "@/types/*": [
+        "types/*"
       ],
-      "@/styles": [
-        "styles/index"
+      "@/styles/*": [
+        "styles/*"
       ]
     },
     "incremental": true
