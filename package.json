@@ -21,6 +21,7 @@
     "nodemon": "^3.0.0"
   },
   "devDependencies": {
+    "@types/node": "22.13.10",
     "eslint": "^8.33.0"
   }
 }
