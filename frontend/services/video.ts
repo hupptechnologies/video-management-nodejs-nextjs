@@ -1,6 +1,8 @@
 import { HTTP } from './http';
 import {
 	AdminVideosRequest,
+	LikeVideoRequest,
+	LikeVideoResponse,
 	VideoByIdResponse,
 	VideoResponse,
 } from '@/types/video';
@@ -51,6 +53,12 @@ class VideoService {
 	updateVideoApproval(data: AdminVideosRequest & FindByIdRequest) {
 		return HTTP.Put<VideoByIdResponse>({
 			route: `admin/videos/${data.id}?approval=${data.approval}`,
+		});
+	}
+	likeVideo(data: LikeVideoRequest) {
+		return HTTP.Put<LikeVideoResponse>({
+			route: `videos/like/${data.videoId}`,
+			body: data,
 		});
 	}
 }

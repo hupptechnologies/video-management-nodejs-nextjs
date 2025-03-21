@@ -21,6 +21,15 @@ export type VideoByIdResponse = {
 	data: Video;
 };
 
+export type LikeVideoRequest = {
+	videoId: number;
+	isLike: boolean | null;
+};
+
+export type LikeVideoResponse = {
+	data: LikeVideoRequest;
+};
+
 export interface VideoState {
 	video: Video;
 	videos: Video[];
