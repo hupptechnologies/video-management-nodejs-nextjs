@@ -17,24 +17,33 @@ import {
 	MenuItem,
 	SelectChangeEvent,
 	TablePagination,
+	Modal,
+	Box,
 } from '@mui/material';
+import { useRouter, useSearchParams } from 'next/navigation';
 import MainContainer from '@/components/MainContainer';
 import CircularProgressLoader from '@/components/CircularProgressLoader';
+import EmptyList from '@/components/EmptyList';
 import { useAppDispatch } from '@/store/hooks';
 import { getAdminVideos } from '@/store/feature/video/action';
+import { showToast } from '@/store/feature/toast/slice';
+import { videoService } from '@/services/video';
 import { getThumbnailUrl } from '@/utils/helper';
 import { Video } from '@/types/video';
 import '@/styles/pages/Approvals.css';
-import EmptyList from '@/components/EmptyList';
 
 const page = () => {
-	const [approvalType, setApprovalType] = useState('pending');
 	const [videos, setVideos] = useState([] as Video[]);
 	const [totalCount, setTotalCount] = useState(0);
 	const [isFetchingVideo, setIsFetchingVideo] = useState(false);
+	const [openVideoModal, setOpenVideoModal] = useState<string | null>(null);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
+	const searchParams = useSearchParams();
+	const approvalParam = searchParams.get('approval');
+	const [approvalType, setApprovalType] = useState(approvalParam ?? 'pending');
 	const dispatch = useAppDispatch();
+	const router = useRouter();
 	const selectOptions = [
 		{ label: 'Pending', value: 'pending' },
 		{ label: 'Approved', value: 'approved' },
@@ -43,7 +52,16 @@ const page = () => {
 
 	useEffect(() => {
 		setIsFetchingVideo(true);
-		dispatch(getAdminVideos({ approval: 'pending', limit: rowsPerPage }))
+		dispatch(
+			getAdminVideos({
+				approval: ['pending', 'approved', 'rejected'].includes(
+					approvalParam ?? '',
+				)
+					? approvalParam!
+					: 'pending',
+				limit: rowsPerPage,
+			}),
+		)
 			.unwrap()
 			.then((data) => {
 				setVideos(data.data.results);
@@ -56,6 +74,10 @@ const page = () => {
 		setVideos([]);
 		setIsFetchingVideo(true);
 		setApprovalType(event.target.value);
+		const params = new URLSearchParams();
+		params.set('approval', event.target.value);
+
+		router.replace(`?${params.toString()}`);
 		dispatch(
 			getAdminVideos({ approval: event.target.value, limit: rowsPerPage }),
 		)
@@ -68,9 +90,29 @@ const page = () => {
 			.finally(() => setIsFetchingVideo(false));
 	};
 
-	const handleApprove = () => {};
+	const handleApprove = async (id: number) => {
+		try {
+			await videoService.updateVideoApproval({ id, approval: 'approved' });
+			const updatedVideos = videos.filter((video) => video.id !== id);
+			setVideos(updatedVideos);
+		} catch {
+			dispatch(
+				showToast({ message: 'Failed to update approval', severity: 'error' }),
+			);
+		}
+	};
 
-	const handleReject = () => {};
+	const handleReject = async (id: number) => {
+		try {
+			await videoService.updateVideoApproval({ id, approval: 'rejected' });
+			const updatedVideos = videos.filter((video) => video.id !== id);
+			setVideos(updatedVideos);
+		} catch {
+			dispatch(
+				showToast({ message: 'Failed to update approval', severity: 'error' }),
+			);
+		}
+	};
 
 	const handleChangePage = (_event: unknown, newPage: number) => {
 		setPage(newPage);
@@ -180,6 +222,7 @@ const page = () => {
 														component="img"
 														image={getThumbnailUrl(video.url)}
 														alt={video.name}
+														onClick={() => setOpenVideoModal(video.url)}
 													/>
 													<Typography variant="subtitle1" component="div">
 														{video.name}
@@ -227,6 +270,16 @@ const page = () => {
 						onRowsPerPageChange={handleChangeRowsPerPage}
 					/>
 				</>
+			)}
+			{openVideoModal && (
+				<Modal open={!!openVideoModal} onClose={() => setOpenVideoModal(null)}>
+					<Box className="video-modal-box">
+						<video controls autoPlay className="video-modal-video">
+							<source src={openVideoModal} type="video/mp4" />
+							Your browser does not support the video tag.
+						</video>
+					</Box>
+				</Modal>
 			)}
 		</MainContainer>
 	);

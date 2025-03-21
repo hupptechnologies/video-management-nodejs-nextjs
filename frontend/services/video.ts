@@ -48,6 +48,11 @@ class VideoService {
 			},
 		});
 	}
+	updateVideoApproval(data: AdminVideosRequest & FindByIdRequest) {
+		return HTTP.Put<VideoByIdResponse>({
+			route: `admin/videos/${data.id}?approval=${data.approval}`,
+		});
+	}
 }
 
 export const videoService = new VideoService();
