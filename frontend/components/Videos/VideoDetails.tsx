@@ -1,16 +1,69 @@
-import React from 'react';
-import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import {
+	Avatar,
+	Box,
+	Button,
+	debounce,
+	Stack,
+	Typography,
+} from '@mui/material';
 import { ThumbDownAltOutlined, ThumbUpAltOutlined } from '@mui/icons-material';
 import Link from 'next/link';
 import { useAppSelector } from '@/store/hooks';
+import { videoService } from '@/services/video';
 import { DefaultChannelAvatar } from '@/assets/image';
+
+const handleLikeDislikeDebounce = debounce((video, isLike) => {
+	videoService.likeVideo({ videoId: video.id, isLike });
+}, 300);
 
 const VideoDetails = () => {
 	const { video } = useAppSelector((state) => state.video);
+	const [likeCount, setLikeCount] = useState(parseInt(video?.likeCount) || 0);
+	const [dislikeCount, setDislikeCount] = useState(
+		parseInt(video?.dislikeCount) || 0,
+	);
+	const [liked, setLiked] = useState(false);
+	const [disliked, setDisliked] = useState(false);
 
-	const handleLike = () => {};
+	useEffect(() => {
+		if (video) {
+			setLikeCount(parseInt(video?.likeCount));
+			setDislikeCount(parseInt(video?.dislikeCount));
+			setLiked(video.isLike === true);
+			setDisliked(video.isLike === false);
+		}
+	}, [video]);
 
-	const handleDislike = () => {};
+	const handleLike = () => {
+		if (liked) {
+			setLikeCount((prev) => prev - 1);
+			setLiked(false);
+		} else {
+			setLikeCount((prev) => prev + 1);
+			setLiked(true);
+			if (disliked) {
+				setDislikeCount((prev) => prev - 1);
+				setDisliked(false);
+			}
+		}
+		handleLikeDislikeDebounce(video, true);
+	};
+
+	const handleDislike = () => {
+		if (disliked) {
+			setDislikeCount((prev) => prev - 1);
+			setDisliked(false);
+		} else {
+			setDislikeCount((prev) => prev + 1);
+			setDisliked(true);
+			if (liked) {
+				setLikeCount((prev) => prev - 1);
+				setLiked(false);
+			}
+		}
+		handleLikeDislikeDebounce(video, false);
+	};
 
 	return (
 		<Box>
@@ -30,20 +83,20 @@ const VideoDetails = () => {
 					<Box className="video-details-like-dislike-box">
 						<Stack direction="row" alignItems="center">
 							<Button
-								className="video-player-like-btn"
+								className={`video-player-like-btn${liked ? ' active' : ''}`}
 								variant="text"
 								startIcon={<ThumbUpAltOutlined />}
 								onClick={handleLike}
 							>
-								<Typography>{video.likeCount}</Typography>
+								<Typography>{likeCount}</Typography>
 							</Button>
 							<Button
-								className="video-player-like-btn"
+								className={`video-player-dislike-btn${disliked ? ' active' : ''}`}
 								variant="text"
 								startIcon={<ThumbDownAltOutlined />}
 								onClick={handleDislike}
 							>
-								<Typography>{video.dislikeCount}</Typography>
+								<Typography>{dislikeCount}</Typography>
 							</Button>
 						</Stack>
 					</Box>
