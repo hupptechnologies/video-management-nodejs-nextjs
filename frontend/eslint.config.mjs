@@ -17,21 +17,21 @@ export default tseslint.config(
       prettier: prettierPlugin,
       '@next/next': nextPlugin
     },
-        files: ['**/*.ts', '**/*.tsx'],
-        languageOptions: {
-            parser: tsparser,
-            parserOptions: {
-              project: './tsconfig.json',
-              ecmaVersion: 'latest',
-              sourceType: 'module',
-            },
-        },
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: {
+      parser: tsparser,
+      parserOptions: {
+        project: './tsconfig.json',
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       quotes: ['error', 'single', { avoidEscape: true }],
       semi: ['error', 'always'],
       'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
-      'prettier/prettier': ['error', { useTabs: true, tabWidth: 2,singleQuote: true, }],
+      'prettier/prettier': ['error', { useTabs: true, tabWidth: 2, singleQuote: true, }],
       'react-hooks/exhaustive-deps': 'off',
       'no-console': [
         'error',
