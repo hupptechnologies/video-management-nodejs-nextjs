@@ -181,7 +181,7 @@ class UserController {
 	async refreshToken(req: FastifyRequest, res: FastifyReply) {
 		try {
 			await verifyRefreshToken(req, res);
-		} catch (error) {
+		} catch {
 			return Response.send(res, {
 				status: statusCodes.INTERNAL_SERVER_ERR,
 				message: message.UNAUTHORIZED,

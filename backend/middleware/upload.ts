@@ -3,8 +3,8 @@ import multer from 'fastify-multer';
 import path from 'path';
 import { message } from '../utils';
 
-type DestinationCallback = (error: Error | null, destination: string) => void;
-type FileNameCallback = (error: Error | null, filename: string) => void;
+type DestinationCallback = (_error: Error | null, _destination: string) => void;
+type FileNameCallback = (_error: Error | null, _filename: string) => void;
 
 const errorMessage = (type: string) => {
 	if (type === 'logo') {
