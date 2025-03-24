@@ -35,6 +35,22 @@
     overflow: hidden;
 }
 
+@media (min-width: 0px) {
+    .floating-sidebar-drawe {
+        display: block;
+    }
+}
+
+@media (min-width: 1200px) {
+    .floating-sidebar-drawer.show {
+        display: block;
+    }
+
+    .floating-sidebar-drawer {
+        display: none;
+    }
+}
+
 .floating-sidebar-drawer>.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0 {
     padding-right: 4px;
     width: 240px;
@@ -79,12 +95,6 @@
 @media (min-width: 0px) {
     .static-sidebar-drawer {
         display: none;
-    }
-}
-
-@media (min-width: 600px) {
-    .static-sidebar-drawer {
-        display: block;
     }
 }
 

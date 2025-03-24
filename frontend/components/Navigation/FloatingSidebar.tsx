@@ -24,7 +24,7 @@ const FloatingSidebar = () => {
 			open={floating}
 			onClose={onClose}
 			elevation={0}
-			className={`floating-sidebar-drawer${!floatingOnly ? ' dn' : ''}`}
+			className={`floating-sidebar-drawer${floatingOnly ? ' show' : ''}`}
 		>
 			<Stack
 				maxWidth={236}
