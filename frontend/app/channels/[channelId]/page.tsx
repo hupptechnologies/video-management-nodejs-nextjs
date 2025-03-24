@@ -12,6 +12,7 @@ import {
 import CircularProgressLoader from '@/components/CircularProgressLoader';
 import VideoList from '@/components/Videos/VideoList';
 import UpdateChannel from '@/components/Channels/UpdateChannel';
+import UploadVideo from '@/components/Channels/UploadVideo';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getChannelById } from '@/store/feature/channel/action';
 import { getChannelVideos } from '@/store/feature/video/action';
@@ -81,6 +82,9 @@ const page = ({ params }: { params: { channelId: number } }) => {
 				<CircularProgressLoader />
 			) : (
 				<VideoList videos={videos} isChannnel />
+			)}
+			{channel.userId === user?.id && (
+				<UploadVideo channelId={params.channelId} />
 			)}
 		</Container>
 	);

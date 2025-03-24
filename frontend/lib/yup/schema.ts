@@ -25,3 +25,18 @@ export const signUpSchema = Yup.object({
 export const loginSchema = Yup.object({
 	email: emailValidation,
 });
+
+export const uploadVideoSchema = Yup.object().shape({
+	name: Yup.string()
+		.required('Video name is required')
+		.min(3, 'Video name must be at least 3 characters'),
+	file: Yup.mixed()
+		.required('A video file is required')
+		.test('fileType', 'Unsupported file format', (value: any) => {
+			if (!value) {
+				return false;
+			}
+			const allowedTypes = ['video/mp4', 'video/mov', 'video/avi', 'video/mkv'];
+			return allowedTypes.includes(value.type);
+		}),
+});
