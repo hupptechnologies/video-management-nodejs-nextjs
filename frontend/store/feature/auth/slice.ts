@@ -18,6 +18,7 @@ export const authSlice = createAppSlice({
 	reducers: {
 		logout(state) {
 			state.isLoggedIn = false;
+			state.isAdmin = false;
 			localStorage.removeItem('token');
 			localStorage.removeItem('refreshToken');
 			localStorage.removeItem('isAdmin');

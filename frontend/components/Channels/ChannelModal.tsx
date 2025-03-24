@@ -26,7 +26,7 @@ const ChannelModal: React.FC<ChannelProps> = ({
 			aria-labelledby="modal-title"
 			aria-describedby="modal-description"
 		>
-			<Box className="channel-modal-box">
+			<Box className="modal-box channel-modal-box">
 				<Typography id="modal-title" variant="h5">
 					{title}
 				</Typography>

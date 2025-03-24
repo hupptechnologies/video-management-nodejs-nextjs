@@ -273,7 +273,7 @@ const page = () => {
 			)}
 			{openVideoModal && (
 				<Modal open={!!openVideoModal} onClose={() => setOpenVideoModal(null)}>
-					<Box className="video-modal-box">
+					<Box className="modal-box video-modal-box">
 						<video controls autoPlay className="video-modal-video">
 							<source src={openVideoModal} type="video/mp4" />
 							Your browser does not support the video tag.
