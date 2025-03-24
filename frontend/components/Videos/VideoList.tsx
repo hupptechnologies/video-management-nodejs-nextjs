@@ -10,6 +10,7 @@ import {
 	Theme,
 	Stack,
 	Avatar,
+	Chip,
 } from '@mui/material';
 import Link from 'next/link';
 import CircularProgressLoader from '../CircularProgressLoader';
@@ -24,9 +25,29 @@ import '../../styles/pages/Channel.css';
 interface VideoListProps {
 	videos: Video[];
 	isChannnel?: boolean;
+	isUser?: boolean;
 }
 
-const VideoList: React.FC<VideoListProps> = ({ videos, isChannnel }) => {
+const chipOptions = {
+	pending: {
+		label: 'Pending',
+		color: 'info' as const,
+	},
+	approved: {
+		label: 'Approved',
+		color: 'primary' as const,
+	},
+	rejected: {
+		label: 'Rejected',
+		color: 'error' as const,
+	},
+};
+
+const VideoList: React.FC<VideoListProps> = ({
+	videos,
+	isChannnel,
+	isUser,
+}) => {
 	const { isFetchingVideo } = useAppSelector((state) => state.video);
 	const smallScreen = useMediaQuery((theme: Theme) =>
 		theme.breakpoints.down('lg'),
@@ -81,29 +102,41 @@ const VideoList: React.FC<VideoListProps> = ({ videos, isChannnel }) => {
 											</Typography>
 										</Stack>
 									) : (
-										<Stack gap={0.5} direction="row">
-											<Avatar
-												alt={video.channels?.name}
-												src={DefaultChannelAvatar.src}
-												className="wh-px-50 br-50"
-											/>
-											<Stack gap={0.5}>
-												<Typography variant="h6" component="div">
-													{video.name}
-												</Typography>
-												<Stack>
-													<Typography
-														variant="subtitle1"
-														component="div"
-														lineHeight={1}
-													>
-														{video.channels?.name}
+										<Stack
+											direction="row"
+											justifyContent={'space-between'}
+											alignItems={'center'}
+										>
+											<Stack gap={0.5} direction="row">
+												<Avatar
+													alt={video.channels?.name}
+													src={DefaultChannelAvatar.src}
+													className="wh-px-50 br-50"
+												/>
+												<Stack gap={0.5}>
+													<Typography variant="h6" component="div">
+														{video.name}
 													</Typography>
-													<Typography variant="body2" color="text.secondary">
-														{timeAgo(video.createdAt)}
-													</Typography>
+													<Stack>
+														<Typography
+															variant="subtitle1"
+															component="div"
+															lineHeight={1}
+														>
+															{video.channels?.name}
+														</Typography>
+														<Typography variant="body2" color="text.secondary">
+															{timeAgo(video.createdAt)}
+														</Typography>
+													</Stack>
 												</Stack>
 											</Stack>
+											{isUser && video?.approval && (
+												<Chip
+													label={chipOptions[video.approval].label}
+													color={chipOptions[video.approval].color}
+												/>
+											)}
 										</Stack>
 									)}
 								</CardContent>

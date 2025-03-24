@@ -95,6 +95,7 @@ const page = () => {
 		try {
 			await videoService.updateVideoApproval({ id, approval: 'approved' });
 			const updatedVideos = videos.filter((video) => video.id !== id);
+			setTotalCount((prev) => prev - 1);
 			setVideos(updatedVideos);
 		} catch {
 			dispatch(
@@ -107,6 +108,7 @@ const page = () => {
 		try {
 			await videoService.updateVideoApproval({ id, approval: 'rejected' });
 			const updatedVideos = videos.filter((video) => video.id !== id);
+			setTotalCount((prev) => prev - 1);
 			setVideos(updatedVideos);
 		} catch {
 			dispatch(

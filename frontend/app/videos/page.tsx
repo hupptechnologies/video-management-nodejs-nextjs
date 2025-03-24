@@ -10,12 +10,10 @@ function UserVideoList() {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		if (userVideos.length === 0) {
-			dispatch(getUserVideos());
-		}
+		dispatch(getUserVideos());
 	}, []);
 
-	return <VideoList videos={userVideos} />;
+	return <VideoList videos={userVideos} isUser />;
 }
 
 export default withAuth(UserVideoList);

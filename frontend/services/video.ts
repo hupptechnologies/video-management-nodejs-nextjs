@@ -61,6 +61,12 @@ class VideoService {
 			body: data,
 		});
 	}
+	uploadVideo(channelId: number, data: FormData) {
+		return HTTP.Post<LikeVideoResponse>({
+			route: `users/videos/${channelId}/create`,
+			body: data,
+		});
+	}
 }
 
 export const videoService = new VideoService();

@@ -9,7 +9,7 @@ export type Video = {
 	isLike: boolean | null;
 	channels: Channel;
 	createdAt: string;
-	approval?: string;
+	approval?: 'pending' | 'approved' | 'rejected';
 };
 
 export type VideoResponse = {
