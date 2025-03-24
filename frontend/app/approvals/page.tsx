@@ -28,6 +28,7 @@ import { useAppDispatch } from '@/store/hooks';
 import { getAdminVideos } from '@/store/feature/video/action';
 import { showToast } from '@/store/feature/toast/slice';
 import { videoService } from '@/services/video';
+import withAdminAuth from '@/config/withAdminAuth';
 import { getThumbnailUrl } from '@/utils/helper';
 import { Video } from '@/types/video';
 import '@/styles/pages/Approvals.css';
@@ -285,4 +286,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default withAdminAuth(page);
