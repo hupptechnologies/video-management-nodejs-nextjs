@@ -33,9 +33,9 @@ const imageFilter = (req: FastifyRequest, file: any, cb: any) => {
 };
 
 const pathKey: any = {
-	logo: path.resolve('src/public/image/'),
+	logo: path.resolve('backend/public/image/'),
 	song: './public/song',
-	video: path.resolve('src/public/video/'),
+	video: path.resolve('backend/public/video/'),
 };
 
 const storage = multer.diskStorage({

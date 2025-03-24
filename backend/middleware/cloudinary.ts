@@ -14,7 +14,7 @@ class Cloudinary {
 				});
 
 				const cloudinaryData = await cloudinary.uploader.unsigned_upload(
-					`${path.resolve(`src/public/video/${req.file.filename}`)}`,
+					`${path.resolve(`backend/public/video/${req.file.filename}`)}`,
 					`${process.env.CLOUDINARY_UPLOAD_PRESET}`,
 					{
 						resource_type: 'video',
