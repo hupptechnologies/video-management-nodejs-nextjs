@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { literal } from 'sequelize';
+import { literal, Op } from 'sequelize';
 import { models } from '../models';
 import cloudinary from '../middleware/cloudinary';
 import { message, statusCodes, Response } from '../utils';
@@ -481,14 +481,25 @@ class VideoController {
 
 	async list(req: FastifyRequest, res: FastifyReply) {
 		try {
-			const { limit = 10, offset = 0 } = req.query as TQuery;
+			const { limit = 10, offset = 0, search } = req.query as TQuery;
 			const userId = req?.user?.id || '';
 
+			const where: any = {
+				approval: 'approved',
+				isDeleted: false,
+			};
+			if (search) {
+				where[Op.or] = [
+					{
+						name: {
+							[Op.iLike]: `%${search}%`,
+						},
+					},
+				];
+			}
+
 			const { count, rows } = await Videos.findAndCountAll({
-				where: {
-					approval: 'approved',
-					isDeleted: false,
-				},
+				where,
 				attributes: {
 					exclude: ['isDeleted', 'approval', 'channelId'],
 					include: [

@@ -13,9 +13,14 @@ type AxiosResponse = {
 };
 
 class VideoService {
-	fetchGlobalList() {
+	fetchGlobalList(data: DefaultParams) {
 		return HTTP.Get<AxiosResponse>({
 			route: 'videos',
+			params: {
+				...(data?.search && {
+					search: data.search || '',
+				}),
+			},
 		});
 	}
 

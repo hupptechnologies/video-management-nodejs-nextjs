@@ -7,9 +7,9 @@ import { AdminVideosRequest } from '@/types/video';
 
 export const getGlobalVideos = createAsyncThunk(
 	'video/getGlobalVideos',
-	async (_, { rejectWithValue, dispatch }) => {
+	async (data: DefaultParams, { rejectWithValue, dispatch }) => {
 		try {
-			const response = await videoService.fetchGlobalList();
+			const response = await videoService.fetchGlobalList(data);
 			return response.data;
 		} catch (error: any) {
 			const err = error?.response?.data;

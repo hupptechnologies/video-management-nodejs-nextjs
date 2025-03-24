@@ -13,7 +13,7 @@ import {
 	Avatar,
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logout } from '@/store/feature/auth/slice';
@@ -24,12 +24,14 @@ const settings = ['Profile', 'My Videos', 'My Channels', 'Logout'];
 
 const Navbar = () => {
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-	const [searchTerm, setSearchTerm] = useState('');
 	const [isSearchInputFocus, setIsSearchInputFocus] = useState(false);
 	const { isLoggedIn, user } = useAppSelector((state) => state.auth);
 	const router = useRouter();
 	const dispatch = useAppDispatch();
 	const pathname = usePathname();
+	const searchParams = useSearchParams();
+	const searchParam = searchParams.get('query');
+	const [searchTerm, setSearchTerm] = useState(searchParam ?? '');
 	const hideComponentRoutes = ['/login', '/signup'];
 	const isComponentHidden = hideComponentRoutes.includes(pathname);
 
@@ -61,7 +63,7 @@ const Navbar = () => {
 	const handleSearchSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 		if (searchTerm.trim()) {
-			// router.push(`/search?query=${searchTerm}`);
+			router.push(`/search?query=${searchTerm}`);
 		}
 	};
 
