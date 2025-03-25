@@ -236,6 +236,7 @@ class ChannelController {
 				where: {
 					channelId,
 					approval: 'approved',
+					isDeleted: false,
 				},
 				attributes: {
 					exclude: ['isDeleted', 'approval'],
