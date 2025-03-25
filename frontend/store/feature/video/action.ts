@@ -3,7 +3,7 @@ import { showToast } from '../toast/slice';
 import { videoService } from '@/services/video';
 import { channelService } from '@/services/channel';
 import { DefaultParams, FindByIdRequest } from '@/types/common';
-import { AdminVideosRequest } from '@/types/video';
+import { AdminVideosRequest, UpdateVideo } from '@/types/video';
 
 export const getGlobalVideos = createAsyncThunk(
 	'video/getGlobalVideos',
@@ -77,6 +77,56 @@ export const getAdminVideos = createAsyncThunk(
 			return response.data;
 		} catch (error: any) {
 			const err = error?.response?.data;
+			return rejectWithValue(err);
+		}
+	},
+);
+
+export const updateVideo = createAsyncThunk(
+	'video/updateVideo',
+	async (data: UpdateVideo, { rejectWithValue, dispatch }) => {
+		try {
+			await videoService.update(data);
+			dispatch(
+				showToast({
+					message: 'Video updated successfully',
+					severity: 'success',
+				}),
+			);
+			return data;
+		} catch (error: any) {
+			const err = error?.response?.data;
+			dispatch(
+				showToast({
+					message: 'Failed to update video',
+					severity: 'error',
+				}),
+			);
+			return rejectWithValue(err);
+		}
+	},
+);
+
+export const deleteVideo = createAsyncThunk(
+	'video/deleteVideo',
+	async (data: FindByIdRequest, { rejectWithValue, dispatch }) => {
+		try {
+			await videoService.delete(data);
+			dispatch(
+				showToast({
+					message: 'Video deleted successfully',
+					severity: 'success',
+				}),
+			);
+			return data;
+		} catch (error: any) {
+			const err = error?.response?.data;
+			dispatch(
+				showToast({
+					message: 'Failed to delete video',
+					severity: 'error',
+				}),
+			);
 			return rejectWithValue(err);
 		}
 	},

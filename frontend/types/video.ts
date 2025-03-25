@@ -37,6 +37,17 @@ export interface VideoState {
 	isFetchingVideo: boolean;
 }
 
+type VideoBase = {
+	name: string;
+	id?: number;
+};
+
+export type UpdateVideo = Omit<VideoBase, 'id'> & { id: number };
+
+export type UpdateVideoResponse = {
+	success: number;
+};
+
 export interface AdminVideosRequest {
 	approval: string;
 }

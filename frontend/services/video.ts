@@ -1,5 +1,7 @@
 import { HTTP } from './http';
 import {
+	UpdateVideo,
+	UpdateVideoResponse,
 	AdminVideosRequest,
 	LikeVideoRequest,
 	LikeVideoResponse,
@@ -70,6 +72,17 @@ class VideoService {
 		return HTTP.Post<LikeVideoResponse>({
 			route: `users/videos/${channelId}/create`,
 			body: data,
+		});
+	}
+	update(data: UpdateVideo) {
+		return HTTP.Put<UpdateVideoResponse>({
+			route: `users/videos/${data.id}`,
+			body: data,
+		});
+	}
+	delete(data: FindByIdRequest) {
+		return HTTP.Delete<UpdateVideoResponse>({
+			route: `users/videos/${data.id}`,
 		});
 	}
 }
