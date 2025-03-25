@@ -19,6 +19,7 @@ const handleLikeDislikeDebounce = debounce((video, isLike) => {
 
 const VideoDetails = () => {
 	const { video } = useAppSelector((state) => state.video);
+	const { isLoggedIn } = useAppSelector((state) => state.auth);
 	const [likeCount, setLikeCount] = useState(parseInt(video?.likeCount) || 0);
 	const [dislikeCount, setDislikeCount] = useState(
 		parseInt(video?.dislikeCount) || 0,
@@ -87,6 +88,7 @@ const VideoDetails = () => {
 								variant="text"
 								startIcon={<ThumbUpAltOutlined />}
 								onClick={handleLike}
+								disabled={!isLoggedIn}
 							>
 								<Typography>{likeCount}</Typography>
 							</Button>
@@ -95,6 +97,7 @@ const VideoDetails = () => {
 								variant="text"
 								startIcon={<ThumbDownAltOutlined />}
 								onClick={handleDislike}
+								disabled={!isLoggedIn}
 							>
 								<Typography>{dislikeCount}</Typography>
 							</Button>

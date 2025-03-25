@@ -144,3 +144,11 @@
 .video-list-item-card-media {
     height: 240px;
 }
+
+.video-list-card-details-menu .MuiPaper-root {
+    min-width: 120px
+}
+
+.video-list-card-details-menu .MuiList-root .MuiMenuItem-root {
+    gap: 8px
+}

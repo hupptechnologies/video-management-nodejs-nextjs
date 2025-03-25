@@ -97,3 +97,11 @@ body {
 .w-100 {
 	width: 100%;
 }
+
+.secondary-main-color {
+	color: var(--secondary-main);
+}
+
+.delete-color {
+	color: var(--error-main);
+}

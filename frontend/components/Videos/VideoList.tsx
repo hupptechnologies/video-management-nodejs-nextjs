@@ -15,6 +15,7 @@ import {
 import Link from 'next/link';
 import CircularProgressLoader from '../CircularProgressLoader';
 import EmptyList from '../EmptyList';
+import ChannelVideoListCardDetails from './ChannelVideoListCardDetails';
 import { useAppSelector } from '@/store/hooks';
 import { getThumbnailUrl, timeAgo } from '@/utils/helper';
 import { Video } from '@/types/video';
@@ -49,10 +50,10 @@ const VideoList: React.FC<VideoListProps> = ({
 	isUser,
 }) => {
 	const { isFetchingVideo } = useAppSelector((state) => state.video);
+	const { collapsed } = useAppSelector((state) => state.navigation);
 	const smallScreen = useMediaQuery((theme: Theme) =>
 		theme.breakpoints.down('lg'),
 	);
-	const { collapsed } = useAppSelector((state) => state.navigation);
 
 	if (isFetchingVideo) {
 		return <CircularProgressLoader />;
@@ -93,14 +94,7 @@ const VideoList: React.FC<VideoListProps> = ({
 								</Link>
 								<CardContent className="video-list-item-card-content">
 									{isChannnel ? (
-										<Stack gap={0.5}>
-											<Typography variant="h6" component="div">
-												{video.name}
-											</Typography>
-											<Typography variant="body2" color="text.secondary">
-												{timeAgo(video.createdAt)}
-											</Typography>
-										</Stack>
+										<ChannelVideoListCardDetails video={video} />
 									) : (
 										<Stack
 											direction="row"
