@@ -152,3 +152,7 @@
 .video-list-card-details-menu .MuiList-root .MuiMenuItem-root {
     gap: 8px
 }
+
+.post-comment-btn {
+    height: 40px;
+}

@@ -1,7 +1,8 @@
+import { AuthResponse } from './auth';
 import { Channel } from './channel';
+import { IdType } from './common';
 
-export type Video = {
-	id: number;
+type BaseVideo = IdType & {
 	name: string;
 	url: string;
 	likeCount: string;
@@ -9,7 +10,12 @@ export type Video = {
 	isLike: boolean | null;
 	channels: Channel;
 	createdAt: string;
-	approval?: 'pending' | 'approved' | 'rejected';
+};
+
+export type VideoApprovalStatus = 'pending' | 'approved' | 'rejected';
+
+export type Video = BaseVideo & {
+	approval?: VideoApprovalStatus;
 };
 
 export type VideoResponse = {
@@ -21,13 +27,39 @@ export type VideoByIdResponse = {
 	data: Video;
 };
 
-export type LikeVideoRequest = {
-	videoId: number;
-	isLike: boolean | null;
-};
-
 export type LikeVideoResponse = {
 	data: LikeVideoRequest;
+};
+
+export type AddVideoCommentResponse = {
+	data: IdType & {
+		createdAt: string;
+	};
+};
+
+export type VideoIdRequest = {
+	videoId: number;
+};
+
+export type LikeVideoRequest = {
+	isLike: boolean | null;
+} & VideoIdRequest;
+
+export type AddVideoCommentRequest = {
+	comment: string;
+} & VideoIdRequest;
+
+export type VideoComment = IdType & {
+	comment: string;
+	createdAt: string;
+	users: AuthResponse;
+};
+
+export type VideoCommentResponse = {
+	data: {
+		results: VideoComment[];
+		totalCount: number;
+	};
 };
 
 export interface VideoState {
@@ -37,17 +69,12 @@ export interface VideoState {
 	isFetchingVideo: boolean;
 }
 
-type VideoBase = {
-	name: string;
-	id?: number;
-};
-
-export type UpdateVideo = Omit<VideoBase, 'id'> & { id: number };
+export type UpdateVideo = Readonly<Pick<Video, 'id' | 'name'>>;
 
 export type UpdateVideoResponse = {
 	success: number;
 };
 
 export interface AdminVideosRequest {
-	approval: string;
+	approval: VideoApprovalStatus;
 }
