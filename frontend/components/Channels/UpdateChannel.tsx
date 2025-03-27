@@ -1,16 +1,14 @@
 'use client';
 import React, { useState } from 'react';
-import { IconButton, Menu, MenuItem, TextField } from '@mui/material';
-import { MoreVert } from '@mui/icons-material';
+import { TextField } from '@mui/material';
 import ChannelModal from './ChannelModal';
+import IconMenu from '../IconMenu';
 import { useAppDispatch } from '@/store/hooks';
 import { updateChannel } from '@/store/feature/channel/action';
 import { validateChannelName } from '@/utils/validation';
 import { Channel } from '@/types/channel';
 
 const UpdateChannel = ({ channel }: { channel: Channel }) => {
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-	const menuOpen = Boolean(anchorEl);
 	const [open, setOpen] = useState(false);
 	const [error, setError] = useState('');
 	const [channelName, setChannelName] = useState(channel?.name);
@@ -32,14 +30,6 @@ const UpdateChannel = ({ channel }: { channel: Channel }) => {
 		}
 	};
 
-	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const handleMenuClose = () => {
-		setAnchorEl(null);
-	};
-
 	const handleUpdate = () => {
 		const validationError = validateChannelName(channelName);
 
@@ -54,30 +44,18 @@ const UpdateChannel = ({ channel }: { channel: Channel }) => {
 			}),
 		);
 		handleClose();
-		handleMenuClose();
 	};
+
+	const menuItems = [
+		{
+			label: 'Update',
+			action: handleOpen,
+		},
+	];
 
 	return (
 		<>
-			<IconButton
-				aria-label="more"
-				aria-controls={open ? 'menu' : undefined}
-				aria-haspopup="true"
-				onClick={handleClick}
-			>
-				<MoreVert />
-			</IconButton>
-			<Menu
-				id="menu"
-				anchorEl={anchorEl}
-				open={menuOpen}
-				onClose={handleMenuClose}
-				MenuListProps={{
-					'aria-labelledby': 'basic-button',
-				}}
-			>
-				<MenuItem onClick={handleOpen}>Update</MenuItem>
-			</Menu>
+			<IconMenu menuItems={menuItems} />
 			<ChannelModal
 				open={open}
 				handleClose={handleClose}

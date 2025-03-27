@@ -16,6 +16,7 @@ export type VideoApprovalStatus = 'pending' | 'approved' | 'rejected';
 
 export type Video = BaseVideo & {
 	approval?: VideoApprovalStatus;
+	userId?: number;
 };
 
 export type VideoResponse = {

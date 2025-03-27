@@ -1,41 +1,26 @@
 'use client';
 import { useState } from 'react';
-import {
-	Typography,
-	Stack,
-	IconButton,
-	Menu,
-	MenuItem,
-	TextField,
-} from '@mui/material';
-import { Delete, Edit, MoreVert } from '@mui/icons-material';
+import { Typography, Stack, TextField } from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
 import ChannelModal from '../Channels/ChannelModal';
-import { useAppDispatch } from '@/store/hooks';
+import DeleteModal from '../DeleteModal';
+import IconMenu from '../IconMenu';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { deleteVideo, updateVideo } from '@/store/feature/video/action';
 import { timeAgo } from '@/utils/helper';
 import { validateChannelName } from '@/utils/validation';
 import { Video } from '@/types/video';
-import DeleteModal from '../DeleteModal';
-import { deleteVideo, updateVideo } from '@/store/feature/video/action';
 
 const ChannelVideoListCardDetails: React.FC<{ video: Video }> = ({ video }) => {
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-	const menuOpen = Boolean(anchorEl);
 	const [open, setOpen] = useState('');
 	const [error, setError] = useState('');
 	const [videoName, setVideoName] = useState(video.name);
+	const { user } = useAppSelector((state) => state.auth);
 	const dispatch = useAppDispatch();
 
 	const handleClose = () => {
 		setError('');
 		setOpen('');
-	};
-
-	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const handleMenuClose = () => {
-		setAnchorEl(null);
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +48,6 @@ const ChannelVideoListCardDetails: React.FC<{ video: Video }> = ({ video }) => {
 			);
 		}
 		handleClose();
-		handleMenuClose();
 	};
 	const handleDelete = () => {
 		dispatch(
@@ -72,8 +56,30 @@ const ChannelVideoListCardDetails: React.FC<{ video: Video }> = ({ video }) => {
 			}),
 		);
 		handleClose();
-		handleMenuClose();
 	};
+
+	const menuItems = [
+		{
+			label: (
+				<>
+					<Edit />
+					Edit
+				</>
+			),
+			className: 'secondary-main-color',
+			action: () => setOpen('edit'),
+		},
+		{
+			label: (
+				<>
+					<Delete />
+					Delete
+				</>
+			),
+			className: 'delete-color',
+			action: () => setOpen('delete'),
+		},
+	];
 
 	return (
 		<>
@@ -86,41 +92,12 @@ const ChannelVideoListCardDetails: React.FC<{ video: Video }> = ({ video }) => {
 						{timeAgo(video.createdAt)}
 					</Typography>
 				</Stack>
-				<IconButton
-					aria-label="more"
-					aria-controls={open ? 'video-list-card-menu' : undefined}
-					aria-haspopup="true"
-					onClick={handleClick}
-				>
-					<MoreVert />
-				</IconButton>
-				<Menu
-					id="video-list-card-menu"
-					anchorEl={anchorEl}
-					open={menuOpen}
-					onClose={handleMenuClose}
-					MenuListProps={{
-						'aria-labelledby': 'basic-button',
-					}}
-					className="video-list-card-details-menu"
-				>
-					<MenuItem
-						className="secondary-main-color"
-						onClick={() => setOpen('edit')}
-						disableRipple
-					>
-						<Edit />
-						Edit
-					</MenuItem>
-					<MenuItem
-						className="delete-color"
-						onClick={() => setOpen('delete')}
-						disableRipple
-					>
-						<Delete />
-						Delete
-					</MenuItem>
-				</Menu>
+				{video.userId === user?.id && (
+					<IconMenu
+						menuClassName="video-list-card-details-menu"
+						menuItems={menuItems}
+					/>
+				)}
 			</Stack>
 			<ChannelModal
 				open={open === 'edit'}
