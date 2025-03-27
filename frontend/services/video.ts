@@ -11,6 +11,8 @@ import {
 	AddVideoCommentRequest,
 	VideoCommentResponse,
 	AddVideoCommentResponse,
+	UpdateVideoCommentRequest,
+	CommentIdRequest,
 } from '@/types/video';
 import { DefaultParams, FindByIdRequest } from '@/types/common';
 
@@ -98,6 +100,17 @@ class VideoService {
 		return HTTP.Post<AddVideoCommentResponse>({
 			route: `videos/comment/${data.videoId}`,
 			body: data,
+		});
+	}
+	updateVideoComment(data: UpdateVideoCommentRequest) {
+		return HTTP.Put<AddVideoCommentResponse>({
+			route: `videos/comment/${data.commentId}`,
+			body: data,
+		});
+	}
+	deleteVideoComment(data: CommentIdRequest) {
+		return HTTP.Delete<AddVideoCommentResponse>({
+			route: `videos/comment/${data.commentId}`,
 		});
 	}
 }

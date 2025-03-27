@@ -41,6 +41,10 @@ export type VideoIdRequest = {
 	videoId: number;
 };
 
+export type CommentIdRequest = {
+	commentId: number;
+};
+
 export type LikeVideoRequest = {
 	isLike: boolean | null;
 } & VideoIdRequest;
@@ -48,6 +52,10 @@ export type LikeVideoRequest = {
 export type AddVideoCommentRequest = {
 	comment: string;
 } & VideoIdRequest;
+
+export type UpdateVideoCommentRequest = {
+	comment: string;
+} & CommentIdRequest;
 
 export type VideoComment = IdType & {
 	comment: string;
