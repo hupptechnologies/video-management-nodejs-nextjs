@@ -91,9 +91,17 @@ class VideoService {
 			route: `users/videos/${data.id}`,
 		});
 	}
-	getVideoComment(data: VideoIdRequest) {
+	getVideoComment(data: VideoIdRequest & DefaultParams) {
 		return HTTP.Get<VideoCommentResponse>({
 			route: `videos/comment/${data.videoId}`,
+			params: {
+				...(data?.limit && {
+					limit: data.limit || 10,
+				}),
+				...(data?.offset && {
+					offset: data.offset || 0,
+				}),
+			},
 		});
 	}
 	addVideoComment(data: AddVideoCommentRequest) {

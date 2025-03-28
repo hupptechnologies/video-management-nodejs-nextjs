@@ -1,7 +1,6 @@
 .video-id-page-main-box {
     width: 100%;
     display: flex;
-    align-items: center;
     padding: 16px;
     flex-direction: row;
     gap: 16px

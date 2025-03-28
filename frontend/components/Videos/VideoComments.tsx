@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, {
+	useEffect,
+	useState,
+	useCallback,
+	useRef,
+	useMemo,
+} from 'react';
 import { Avatar, Button, Stack, TextField, Typography } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import CircularProgressLoader from '../CircularProgressLoader';
@@ -13,28 +19,71 @@ const VideoComments = () => {
 	const [postComment, setPostComment] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [updateMode, setUpdateMode] = useState<number | null>(null);
-	// const [totalCount, setTotalCount] = useState(0);
+	const [totalCount, setTotalCount] = useState(0);
+	const [page, setPage] = useState(1);
+	const [hasMore, setHasMore] = useState(true);
+	const observerRef = useRef<IntersectionObserver | null>(null);
+	const lastCommentRef = useRef<HTMLDivElement | null>(null);
+	const didFetchRef = useRef(false);
 	const { video } = useAppSelector((state) => state.video);
 	const { isLoggedIn, user } = useAppSelector((state) => state.auth);
 	const dispatch = useAppDispatch();
 
 	const getComments = useCallback(async () => {
+		if (!hasMore) {
+			return;
+		}
+
+		setLoading(true);
 		try {
-			setLoading(true);
 			const response = await videoService.getVideoComment({
 				videoId: video.id,
+				offset: (page - 1) * 10,
+				limit: 10,
 			});
-			setComments(response.data.data.results);
+
+			setComments((prev) => [...prev, ...response.data.data.results]);
+			if (comments.length === 0) {
+				setTotalCount(response.data.data.totalCount);
+			}
+
+			if (response.data.data.results.length < 10) {
+				setHasMore(false);
+			}
 		} finally {
 			setLoading(false);
 		}
-	}, [video.id, dispatch]);
+	}, [video.id, page, hasMore]);
 
 	useEffect(() => {
-		if (video.id) {
+		if (video.id && !didFetchRef.current) {
+			didFetchRef.current = true;
 			getComments();
 		}
 	}, [video.id, getComments]);
+
+	useEffect(() => {
+		if (!lastCommentRef.current || !hasMore) {
+			return;
+		}
+
+		observerRef.current = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting) {
+					setPage((prev) => prev + 1);
+					if (page === 1) {
+						setComments([]);
+					}
+					getComments();
+				}
+			},
+			{ threshold: 1.0 },
+		);
+
+		observerRef.current.observe(lastCommentRef.current);
+
+		return () => observerRef.current?.disconnect();
+	}, [comments, hasMore]);
 
 	const handlePostComment = async () => {
 		try {
@@ -59,7 +108,7 @@ const VideoComments = () => {
 				setComments((prev) => [...prev, comment]);
 			}
 			setPostComment('');
-			// setTotalCount((prev) => prev + 1);
+			setTotalCount((prev) => prev + 1);
 		} catch {
 			dispatch(
 				showToast({ message: 'Failed to post comment', severity: 'error' }),
@@ -102,7 +151,7 @@ const VideoComments = () => {
 				commentId,
 			});
 			setComments((prev) => prev.filter((comment) => comment.id !== commentId));
-			// setTotalCount((prev) => prev + 1);
+			setTotalCount((prev) => prev - 1);
 		} catch {
 			dispatch(
 				showToast({ message: 'Failed to delete comment', severity: 'error' }),
@@ -110,7 +159,7 @@ const VideoComments = () => {
 		}
 	};
 
-	const renderComment = (comment: VideoComment) => {
+	const renderComment = (comment: VideoComment, index: number) => {
 		const menuItems = [
 			{
 				label: (
@@ -135,7 +184,13 @@ const VideoComments = () => {
 		];
 
 		return (
-			<Stack key={comment.id} direction="row" alignItems="center" gap={2}>
+			<Stack
+				key={comment.id}
+				ref={index === comments.length - 1 ? lastCommentRef : null}
+				direction="row"
+				alignItems="center"
+				gap={2}
+			>
 				<Stack direction="row" alignItems="center" gap={2} flex={1}>
 					<Avatar alt={comment.users.name} src="/" />
 					<Stack>
@@ -155,6 +210,13 @@ const VideoComments = () => {
 		);
 	};
 
+	const memoizedComments = useMemo(() => {
+		return [...comments].sort(
+			(a, b) =>
+				new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+		);
+	}, [comments]);
+
 	if (loading) {
 		return <CircularProgressLoader />;
 	}
@@ -162,7 +224,7 @@ const VideoComments = () => {
 	return (
 		<Stack gap={4}>
 			<Stack gap={1}>
-				<Typography variant="h5">{comments.length} Comments</Typography>
+				<Typography variant="h5">{totalCount} Comments</Typography>
 				<Stack direction="row" gap={2} alignItems="center">
 					<Avatar alt={user?.name} src="/" />
 					<Stack direction="row" flex="1" gap={2} alignItems="center">
@@ -204,15 +266,7 @@ const VideoComments = () => {
 					</Stack>
 				</Stack>
 			</Stack>
-			<Stack gap={1.5}>
-				{comments
-					.slice()
-					.sort(
-						(a, b) =>
-							new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-					)
-					.map(renderComment)}
-			</Stack>
+			<Stack gap={1.5}>{memoizedComments.map(renderComment)}</Stack>
 		</Stack>
 	);
 };

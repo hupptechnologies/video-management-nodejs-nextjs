@@ -111,7 +111,7 @@ const VideoDetails = () => {
 					</Stack>
 				</Stack>
 				<Divider />
-				<VideoComments />
+				<VideoComments key={video.id} />
 			</Stack>
 		</Box>
 	);
