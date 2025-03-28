@@ -13,12 +13,14 @@
     "lint-frontend": "cd frontend && npx eslint .",
     "lint-backend": "cd backend && npx eslint .",
     "lint:fix-frontend": "cd frontend && npx eslint . --fix",
-    "lint:fix-backend": "cd backend && npx eslint . --fix"
+    "lint:fix-backend": "cd backend && npx eslint . --fix",
+    "lint-staged:fix-frontend": "cd frontend && npx eslint --fix",
+    "lint-staged:fix-backend": "cd backend && npx eslint --fix"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-      "npm run lint:fix-frontend",
-      "npm run lint:fix-backend"
+    "{ts,tsx,js,jsx}": [
+      "npm run lint-staged:fix-frontend",
+      "npm run lint-staged:fix-backend"
     ]
   },
   "dependencies": {
