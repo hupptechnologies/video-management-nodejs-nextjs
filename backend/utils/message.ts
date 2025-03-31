@@ -1,5 +1,4 @@
 export const message = {
-	// eslint-disable-next-line max-len
 	PASSWORD_VALIDATION:
 		'Password must meet complexity requirements: at least one lowercase, one uppercase, one digit, one special character, and min length of 8 characters.',
 	REGISTER_SUCCESS: 'User created successfully',
