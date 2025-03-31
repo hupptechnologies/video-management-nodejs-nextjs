@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-require('dotenv').config({
-	path: '.env',
-});
-
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.js')[env];
+import 'dotenv/config';
+import configFile from '../config/config.js';
 import { Sequelize } from 'sequelize-typescript';
 import VideoLikes from './videoLikes.model';
 import Users from './users.model';
 import Videos from './videos.model';
 import Channels from './channel.model';
 import VideoComments from './videoComments.model';
+
+const env = process.env.NODE_ENV || 'development';
+const config = configFile[env as keyof typeof configFile];
 
 export interface Models {
 	VideoLikes: typeof VideoLikes;
@@ -33,7 +31,7 @@ const sequelize = new Sequelize({
 sequelize
 	.authenticate()
 	.then(() => {
-		console.log('Connection has been established successfully.');
+		console.log('Database connection has been established successfully.');
 	})
 	.catch((err) => {
 		console.error('Unable to connect to the database:', err);

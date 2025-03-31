@@ -38,9 +38,11 @@ export const updateChannelSchema: FastifySchema = {
 		},
 	],
 	params: {
-		id: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			channelId: { type: 'string' },
 		},
+		required: ['channelId'],
 	},
 	body: {
 		type: 'object',
@@ -61,9 +63,11 @@ export const channelByIdSchema: FastifySchema = {
 		},
 	],
 	params: {
-		id: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			channelId: { type: 'string' },
 		},
+		required: ['channelId'],
 	},
 };
 
@@ -76,9 +80,11 @@ export const deleteChannelSchema: FastifySchema = {
 		},
 	],
 	params: {
-		id: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			channelId: { type: 'string' },
 		},
+		required: ['channelId'],
 	},
 };
 

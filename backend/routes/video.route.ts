@@ -24,7 +24,6 @@ export const videos = async (
 	fastify.route({
 		method: 'GET',
 		url: '',
-		schema: videoListSchema,
 		preHandler: fastify.auth([requestUser]),
 		handler: VideosController.list,
 	});

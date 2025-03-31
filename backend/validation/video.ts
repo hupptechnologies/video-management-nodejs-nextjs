@@ -29,9 +29,11 @@ export const videoListForAdminSchema: FastifySchema = {
 		},
 	],
 	querystring: {
-		approval: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			approval: { type: 'number' },
 		},
+		required: ['approval'],
 	},
 };
 
@@ -54,9 +56,11 @@ export const videoApprovalSchema: FastifySchema = {
 		required: ['approval'],
 	},
 	params: {
-		videoId: {
-			type: 'number',
+		type: 'object',
+		properties: {
+			videoId: { type: 'number' },
 		},
+		required: ['videoId'],
 	},
 };
 
@@ -69,9 +73,11 @@ export const videoListSchema: FastifySchema = {
 		},
 	],
 	params: {
-		userId: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			userId: { type: 'string' },
 		},
+		required: ['userId'],
 	},
 };
 
@@ -84,9 +90,11 @@ export const videoByIdSchema: FastifySchema = {
 		},
 	],
 	params: {
-		videoId: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			videoId: { type: 'string' },
 		},
+		required: ['videoId'],
 	},
 };
 
@@ -99,14 +107,18 @@ export const updateVideoSchema: FastifySchema = {
 		},
 	],
 	body: {
-		name: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			name: { type: 'string' },
 		},
+		required: ['name'],
 	},
 	params: {
-		videoId: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			videoId: { type: 'string' },
 		},
+		required: ['videoId'],
 	},
 };
 
@@ -129,9 +141,11 @@ export const addVideoCommentSchema: FastifySchema = {
 		required: ['comment'],
 	},
 	params: {
-		videoId: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			videoId: { type: 'string' },
 		},
+		required: ['videoId'],
 	},
 };
 
@@ -144,9 +158,11 @@ export const getVideoCommentSchema: FastifySchema = {
 		},
 	],
 	params: {
-		videoId: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			videoId: { type: 'string' },
 		},
+		required: ['videoId'],
 	},
 };
 
@@ -169,9 +185,11 @@ export const updateVideoCommentSchema: FastifySchema = {
 		required: ['comment'],
 	},
 	params: {
-		commentId: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			commentId: { type: 'string' },
 		},
+		required: ['commentId'],
 	},
 };
 
@@ -184,9 +202,11 @@ export const deleteVideoCommentSchema: FastifySchema = {
 		},
 	],
 	params: {
-		commentId: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			commentId: { type: 'string' },
 		},
+		required: ['commentId'],
 	},
 };
 
@@ -204,9 +224,11 @@ export const likeVideoSchema: FastifySchema = {
 		},
 	},
 	params: {
-		videoId: {
-			type: 'string',
+		type: 'object',
+		properties: {
+			videoId: { type: 'string' },
 		},
+		required: ['videoId'],
 	},
 };
 

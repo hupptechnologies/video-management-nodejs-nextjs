@@ -1,8 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-require('dotenv').config({
-	path: '../../.env',
-});
-
+import 'dotenv/config';
 import { S3 } from '@aws-sdk/client-s3';
 
 const awsS3 = new S3({
