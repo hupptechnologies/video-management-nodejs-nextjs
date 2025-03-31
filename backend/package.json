@@ -1,5 +1,5 @@
 {
-  "name": "clicbeat-nodejs",
+  "name": "video-management-backend",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts ",
@@ -17,10 +17,6 @@
   "pre-commit": [
     "lint"
   ],
-  "repository": {
-    "type": "git",
-    "url": "http://192.168.1.11:8007/niravp/clicbeat-nodejs.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
