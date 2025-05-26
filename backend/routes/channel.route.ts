@@ -9,8 +9,8 @@ import {
 	deleteChannelSchema,
 	updateChannelSchema,
 } from '../validation/channel';
+import { userByIdSchema } from '../validation/auth';
 import { verifyToken } from '../utils';
-// import upload from "../middleware/upload";
 
 const channels = async (
 	fastify: FastifyInstance<Server, IncomingMessage, ServerResponse>,
@@ -42,7 +42,7 @@ const channels = async (
 	fastify.route({
 		method: 'GET',
 		url: '/user/:userId',
-		schema: channelByIdSchema,
+		schema: userByIdSchema,
 		preHandler: fastify.auth([verifyToken]),
 		handler: ChannelController.findByUserId,
 	});

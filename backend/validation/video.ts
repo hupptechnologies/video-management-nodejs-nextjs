@@ -31,7 +31,7 @@ export const videoListForAdminSchema: FastifySchema = {
 	querystring: {
 		type: 'object',
 		properties: {
-			approval: { type: 'number' },
+			approval: { type: 'string' },
 		},
 		required: ['approval'],
 	},

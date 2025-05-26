@@ -10,7 +10,6 @@ import {
 	updateUserSchema,
 } from '../validation/auth';
 import { verifyAdminToken, verifyToken } from '../utils';
-// import upload from "../middleware/upload";
 
 const users = async (
 	fastify: FastifyInstance<Server, IncomingMessage, ServerResponse>,
@@ -26,7 +25,6 @@ const users = async (
 		method: 'POST',
 		url: '/admin/register',
 		schema: adminRegisterSchema,
-		// preHandler: upload.single('logo'),
 		handler: UserController.register,
 	});
 

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
 	Table,
 	TableBody,
@@ -9,7 +10,12 @@ import {
 	TablePagination,
 	Paper,
 	Box,
+	IconButton,
+	Menu,
+	MenuItem,
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { MoreVert } from '@mui/icons-material';
 import CircularProgressLoader from '../CircularProgressLoader';
 import { useAppDispatch } from '@/store/hooks';
 import { getUsersList } from '@/store/feature/auth/action';
@@ -18,78 +24,56 @@ import { AuthResponse } from '@/types/auth';
 const UsersTable = () => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
-	const [users, setUsers] = useState([] as AuthResponse[]);
+	const [users, setUsers] = useState<AuthResponse[]>([]);
 	const [totalCount, setTotalCount] = useState(0);
-	const [isFetchingUsers, setIsFetchingUsers] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [anchorElMap, setAnchorElMap] = useState<
+		Record<number, HTMLElement | null>
+	>({});
 	const dispatch = useAppDispatch();
+	const router = useRouter();
+
+	const fetchUsers = async (offset = 0, limit = rowsPerPage) => {
+		setIsLoading(true);
+		try {
+			const data = await dispatch(getUsersList({ offset, limit })).unwrap();
+			setUsers(data.data.results);
+			setTotalCount(data.data.totalCount);
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
 	useEffect(() => {
-		setIsFetchingUsers(true);
-		dispatch(
-			getUsersList({
-				limit: rowsPerPage,
-			}),
-		)
-			.unwrap()
-			.then((data) => {
-				setUsers(data.data.results);
-				setTotalCount(data.data.totalCount);
-			})
-			.finally(() => setIsFetchingUsers(false));
-	}, []);
+		fetchUsers();
+	}, [rowsPerPage]);
 
 	const handleChangePage = (_event: unknown, newPage: number) => {
 		setPage(newPage);
-
-		const startIndex = newPage * rowsPerPage;
-		const endIndex = startIndex + rowsPerPage;
-
-		if (users.length < endIndex) {
-			setIsFetchingUsers(true);
-			dispatch(
-				getUsersList({
-					limit: rowsPerPage,
-					offset: startIndex,
-				}),
-			)
-				.unwrap()
-				.then((data) => {
-					const newUsers = data.data.results.filter(
-						(newUser) =>
-							!users.some((existingUser) => existingUser.id === newUser.id),
-					);
-					setUsers([...users, ...newUsers]);
-					setTotalCount(data.data.totalCount);
-				})
-				.finally(() => setIsFetchingUsers(false));
-		}
+		const offset = newPage * rowsPerPage;
+		fetchUsers(offset);
 	};
 
 	const handleChangeRowsPerPage = (
 		event: React.ChangeEvent<HTMLInputElement>,
 	) => {
-		const newRowsPerPage = parseInt(event.target.value, 10);
-		setRowsPerPage(newRowsPerPage);
+		setRowsPerPage(parseInt(event.target.value, 10));
 		setPage(0);
-
-		if (users.length < newRowsPerPage) {
-			setIsFetchingUsers(true);
-			dispatch(
-				getUsersList({
-					limit: newRowsPerPage,
-					offset: 0,
-				}),
-			)
-				.unwrap()
-				.then((data) => {
-					setUsers(data.data.results);
-					setTotalCount(data.data.totalCount);
-				})
-				.finally(() => setIsFetchingUsers(false));
-		}
 	};
 
-	if (isFetchingUsers && users.length === 0) {
+	const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, id: number) => {
+		setAnchorElMap((prev) => ({ ...prev, [id]: event.currentTarget }));
+	};
+
+	const handleMenuClose = (id: number) => {
+		setAnchorElMap((prev) => ({ ...prev, [id]: null }));
+	};
+
+	const slicedUsers = useMemo(() => {
+		return users.slice(0, rowsPerPage);
+	}, [users, rowsPerPage]);
+
+	if (isLoading && users.length === 0) {
 		return <CircularProgressLoader marginLeft="0px" width="100%" />;
 	}
 
@@ -107,18 +91,42 @@ const UsersTable = () => {
 								<TableCell className="user-list-thead-row-cell">
 									Email
 								</TableCell>
+								<TableCell className="user-list-thead-row-cell"></TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{users
-								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map((row, index) => (
-									<TableRow key={index}>
-										<TableCell>{index + page * rowsPerPage + 1}</TableCell>
-										<TableCell>{row.name}</TableCell>
-										<TableCell>{row.email}</TableCell>
-									</TableRow>
-								))}
+							{slicedUsers.map((row, index) => (
+								<TableRow key={row.id}>
+									<TableCell>{index + 1 + page * rowsPerPage}</TableCell>
+									<TableCell>{row.name}</TableCell>
+									<TableCell>{row.id}</TableCell>
+									<TableCell>
+										<IconButton
+											aria-label="more"
+											aria-controls={`menu-${row.id}`}
+											aria-haspopup="true"
+											onClick={(event) => handleMenuOpen(event, row.id)}
+										>
+											<MoreVert />
+										</IconButton>
+										<Menu
+											id={`menu-${row.id}`}
+											anchorEl={anchorElMap[row.id]}
+											open={Boolean(anchorElMap[row.id])}
+											onClose={() => handleMenuClose(row.id)}
+										>
+											<MenuItem
+												onClick={() => {
+													handleMenuClose(row.id);
+													router.push(`/channels?user=${row.id}`);
+												}}
+											>
+												View Channels
+											</MenuItem>
+										</Menu>
+									</TableCell>
+								</TableRow>
+							))}
 						</TableBody>
 					</Table>
 				</TableContainer>
