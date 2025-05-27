@@ -9,6 +9,7 @@ import {
 	addVideoSchema,
 	deleteVideoCommentSchema,
 	getVideoCommentSchema,
+	likeVideoSchema,
 	updateVideoCommentSchema,
 	updateVideoSchema,
 	videoApprovalSchema,
@@ -31,7 +32,7 @@ export const videos = async (
 	fastify.route({
 		method: 'PUT',
 		url: '/like/:videoId',
-		schema: updateVideoSchema,
+		schema: likeVideoSchema,
 		preHandler: fastify.auth([verifyToken]),
 		handler: VideoLikesController.likeVideo,
 	});

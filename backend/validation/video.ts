@@ -219,9 +219,13 @@ export const likeVideoSchema: FastifySchema = {
 		},
 	],
 	body: {
-		isLike: {
-			type: 'boolean',
+		type: 'object',
+		properties: {
+			isLike: {
+				type: 'boolean',
+			},
 		},
+		required: ['isLike'],
 	},
 	params: {
 		type: 'object',
